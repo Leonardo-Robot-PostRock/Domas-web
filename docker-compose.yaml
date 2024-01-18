@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  dumas_app:
+    image: kartoza/postgis:15-3.3
+    restart: always
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: root
+      POSTGRES_PASS: ex4mpl3
+      ALLOW_IP_RANGE: 0.0.0.0/0
+    ports: 
+      - '5433:5432'
+
+    volumes: 
+      - './order_app:/data/db'  
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports: 
+      - '27018:27017'
+
+    volumes: 
+      - './order_app_mongo:/data/db'
+
+# Port: The syntax is [port we want on our machine]:[port we want to retrieve in the container]
