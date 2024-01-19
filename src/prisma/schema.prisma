@@ -1,0 +1,227 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("POSTGRES_URI")
+  extensions = [hstore, postgis]
+}
+
+model User {
+  id                    Int                     @id @default(autoincrement())
+  username              String                  @unique
+  password              String
+  name                  String
+  mesa_username         String?
+  status                String
+  createdAt             DateTime                @default(now()) @db.Timestamptz(6)
+  api_key               String?
+  Cluster               Cluster[]
+  Dashboard             Dashboard[]
+  Supervisor_Has_Worker Supervisor_Has_Worker[] @relation("Supervisor_Has_Worker")
+  Worker_Has_Supervisor Supervisor_Has_Worker[] @relation("Worker_Has_Supervisor")
+  Team_Has_Supervisor   Team[]
+  Team_Has_User         Team_Has_User[]
+  Ticket_history        Ticket_history[]
+  User_Has_Role         User_Has_Role[]
+  Work_order            Work_order[]
+}
+
+model Role {
+  id                       Int                        @id @default(autoincrement())
+  name                     String
+  slug                     String                     @unique
+  deletedAt                DateTime?
+  Role_Has_Access_To_Route Role_Has_Access_To_Route[]
+  User_Has_Role            User_Has_Role[]
+}
+
+model User_Has_Role {
+  user_id Int
+  role_id Int
+  Role    Role @relation(fields: [role_id], references: [id], map: "User_Has_Role_rol_id_fkey")
+  User    User @relation(fields: [user_id], references: [id])
+
+  @@id([user_id, role_id])
+}
+
+model Supervisor_Has_Worker {
+  supervisor_id Int
+  worker_id     Int
+  Supervisor    User @relation("Supervisor_Has_Worker", fields: [supervisor_id], references: [id])
+  Worker        User @relation("Worker_Has_Supervisor", fields: [worker_id], references: [id])
+
+  @@id([supervisor_id, worker_id])
+}
+
+model Work_order {
+  id                    Int                     @id @default(autoincrement())
+  worker_id             Int
+  createdAt             DateTime                @default(now()) @db.Timestamptz(6)
+  updatedAt             DateTime                @default(now()) @db.Timestamptz(6)
+  Ticket_history        Ticket_history[]
+  User                  User                    @relation(fields: [worker_id], references: [id])
+  Work_order_Has_Ticket Work_order_Has_Ticket[]
+}
+
+model Ticket_history {
+  id            Int        @id @default(autoincrement())
+  work_order_id Int
+  ticket_id     Int
+  worker_id     Int
+  ticket_status String
+  description   String
+  createdAt     DateTime   @default(now()) @db.Timestamptz(6)
+  updatedAt     DateTime   @default(now()) @db.Timestamptz(6)
+  Ticket        Ticket     @relation(fields: [ticket_id], references: [id])
+  Work_order    Work_order @relation(fields: [work_order_id], references: [id])
+  User          User       @relation(fields: [worker_id], references: [id])
+}
+
+model Team {
+  id                 Int             @id @default(autoincrement())
+  name               String          @unique
+  google_calendar_id String
+  mesa_username      String
+  supervisor_id      Int
+  traccar_device_id  Int?
+  deleted_at         DateTime?       @db.Date
+  Cluster            Cluster[]
+  User               User            @relation(fields: [supervisor_id], references: [id])
+  Team_Days_Off      Team_Days_Off[]
+  Team_Has_User      Team_Has_User[]
+  Ticket             Ticket[]
+}
+
+model Team_Has_User {
+  user_id Int
+  team_id Int
+  Team    Team @relation(fields: [team_id], references: [id])
+  User    User @relation(fields: [user_id], references: [id])
+
+  @@id([user_id, team_id])
+}
+
+model Cluster {
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
+  supervisor_id Int
+  customers     Int[]
+  team_id       Int
+  User          User      @relation(fields: [supervisor_id], references: [id])
+  Team          Team      @relation(fields: [team_id], references: [id])
+  Geojson       Geojson[]
+}
+
+model Geojson {
+  id         Int                     @id @default(autoincrement())
+  name       String                  @unique
+  geometry   Unsupported("geometry")
+  properties Json
+  cluster_id Int
+  Cluster    Cluster                 @relation(fields: [cluster_id], references: [id])
+}
+
+model Customer {
+  code      Int    @id
+  latitude  String
+  longitude String
+}
+
+model spatial_ref_sys {
+  srid      Int     @id
+  auth_name String? @db.VarChar(256)
+  auth_srid Int?
+  srtext    String? @db.VarChar(2048)
+  proj4text String? @db.VarChar(2048)
+}
+
+model Ticket {
+  id                    Int                    @id
+  team_id               Int?
+  cluster               Int?
+  ticket_status         Ticket_Status
+  ticket_category       String
+  google_event_id       String?
+  appointment_date      DateTime?              @db.Timestamptz(6)
+  visiting_hours        String?
+  customer              Json
+  traccar_geofence_id   Int?
+  roadmap_ranking       Int?
+  closedAt              DateTime?              @db.Timestamptz(6)
+  createdAt             DateTime               @default(now()) @db.Timestamptz(6)
+  updatedAt             DateTime               @default(now()) @db.Timestamptz(6)
+  priority              Boolean                @default(false)
+  ticket_created_at     String
+  Team                  Team?                  @relation(fields: [team_id], references: [id])
+  Ticket_history        Ticket_history[]
+  Work_order_Has_Ticket Work_order_Has_Ticket?
+}
+
+model Work_order_Has_Ticket {
+  work_order_id Int
+  ticket_id     Int        @unique
+  Ticket        Ticket     @relation(fields: [ticket_id], references: [id])
+  Work_order    Work_order @relation(fields: [work_order_id], references: [id])
+}
+
+model Dashboard {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?
+  url         String
+  createdAt   DateTime  @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime  @default(now()) @db.Timestamptz(6)
+  user_id     Int
+  deleted     DateTime?
+  User        User      @relation(fields: [user_id], references: [id])
+}
+
+model Role_Has_Access_To_Route {
+  system_route_id Int
+  role_id         Int
+  System_Route    System_Route @relation(fields: [system_route_id], references: [id])
+  Role            Role         @relation(fields: [role_id], references: [id], map: "User_Has_Role_rol_id_fkey")
+
+  @@id([role_id, system_route_id])
+}
+
+model System_Route {
+  id                       Int                        @id @default(autoincrement())
+  url                      String
+  method                   String                     @db.VarChar(150)
+  Role_Has_Access_To_Route Role_Has_Access_To_Route[]
+
+  @@unique([url, method])
+}
+
+model Team_Days_Off {
+  id          Int            @id @default(autoincrement())
+  team_id     Int
+  date        DateTime       @db.Timestamptz(6)
+  cause       Days_Off_Cause
+  observation String?
+  Team        Team           @relation(fields: [team_id], references: [id])
+
+  @@unique([team_id, date])
+}
+
+enum Days_Off_Cause {
+  LICENCIA
+  MANTENIMIENTO
+  DIA_LIBRE
+}
+
+enum Ticket_Status {
+  PENDIENTE
+  COORDINADO
+  NO_COORDINADO
+  NO_CONTACTADO
+  EN_CURSO
+  RESUELTO
+  RECOORDINAR
+  PROGRAMADO
+  REVISAR
+}
