@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
+
 import fetch from 'isomorphic-unfetch';
 
 export async function middleware (req, res) {
