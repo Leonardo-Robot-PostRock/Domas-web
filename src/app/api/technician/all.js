@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server';
 import axios from "axios";
 
 export default async function handler (req, res) {
