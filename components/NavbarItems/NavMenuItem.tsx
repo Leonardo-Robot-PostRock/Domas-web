@@ -3,8 +3,8 @@ import { NavMenuItemProps } from "@/types/NavMenuItemProps/navMenuItemProps";
 import { Flex, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
-const NavMenuItem: React.FC<NavMenuItemProps> = ({ children }) => (
-  <Link rounded={"md"} href={children.link} passHref>
+const NavMenuItem = ({ children }: NavMenuItemProps) => (
+  <Link href={children.link} passHref>
     <Flex
       alignItems={"center"}
       bg={children.selected ? "#2F3A44" : "white"}
