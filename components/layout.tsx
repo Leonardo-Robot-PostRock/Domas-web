@@ -30,18 +30,18 @@ export async function generateMetadata({ params, searchParams }: Props) {
 
   return {
     title:
-      process.env.APP_ENV?.toUpperCase() == 'PROD'
+      process.env.APP_ENV?.toUpperCase() === 'PROD'
         ? process.env.APP_NAME + '|' + titlePathname || 'HOME'
-        : process.env.APP_ENV?.toUpperCase() == 'DEV'
+        : process.env.APP_ENV?.toUpperCase() === 'DEV'
           ? 'LOCAL DUMAS'
           : 'TEST DUMAS',
     icons: {
-      icon: process.env.APP_ENV?.toUpperCase() == 'PROD' ? '/favicon.ico' : '/faviconLocal.ico',
+      icon: process.env.APP_ENV?.toUpperCase() === 'PROD' ? '/favicon.ico' : '/faviconLocal.ico',
     },
     description: process.env.APP_NAME,
     openGraph: {
       title: 'Do+',
-      images: process.env.APP_ENV?.toUpperCase() == 'PROD' ? '/logo.svg' : '/logoLocal.svg',
+      images: process.env.APP_ENV?.toUpperCase() === 'PROD' ? '/logo.svg' : '/logoLocal.svg',
     },
   };
 }
