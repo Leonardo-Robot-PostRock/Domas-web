@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    typedRoutes: true,
-  },
   reactStrictMode: false,
   env: {
     APP_NAME: process.env.APP_NAME,
@@ -19,36 +16,12 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "admin.nape.ar",
-        port: "",
-        pathname: "/logo/*",
+        protocol: 'https',
+        hostname: 'admin.nape.ar',
+        port: '',
+        pathname: '/logo/*',
       },
     ],
-  },
-  webpack: (config) => {
-    config.module.rules.push(
-      {
-        test: /\.(png|jpe?g|gif|jp2|webp|avif)$/i,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              outputPath: "static", // or any other path where you want to store the assets
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(node)$/i,
-        loader: "file-loader",
-        options: {
-          outputPath: "static", // or any other path where you want to store the assets
-        },
-      },
-    );
-
-    return config;
   },
 };
 

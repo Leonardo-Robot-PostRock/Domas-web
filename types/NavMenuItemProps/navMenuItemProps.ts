@@ -1,6 +1,7 @@
 export interface NavMenuItemProps {
   children: {
-    link: string;
+    rounded: string;
+    link: HTMLAnchorElement;
     selected?: boolean;
     icon?: React.ReactNode;
     title: string;

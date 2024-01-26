@@ -1,6 +1,6 @@
-import { FormData } from "./inputs";
+import { Inputs } from './inputs';
 
 export interface IOnSubmit {
-  data: FormData;
+  data: Inputs;
   setSubmitIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
