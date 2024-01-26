@@ -1,3 +1,0 @@
-interface SignInPageProps {
-    gradientOfTheDay: string;
-  }
