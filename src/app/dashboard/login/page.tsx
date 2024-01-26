@@ -29,11 +29,11 @@ import { useToast } from '@chakra-ui/react';
 import useGradientOfTheDay from '@/hooks/useGradientOfTheDay';
 
 export default function SignInPage() {
-  const [submitIsLoading, setSubmitIsLoading] = useState<boolean>(false);
-  const { gradientOfTheDay } = useGradientOfTheDay();
-
   const toast = useToast();
   const router = useRouter();
+
+  const [submitIsLoading, setSubmitIsLoading] = useState<boolean>(false);
+  const { gradientOfTheDay } = useGradientOfTheDay();
 
   const {
     register,
@@ -44,32 +44,34 @@ export default function SignInPage() {
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
     Cookies.remove('auth_service');
     setSubmitIsLoading(true);
-    try {
-      const res = await axios.post('api/login', data);
+    axios
+      .post('/api/login', data)
+      .then((res) => {
+        const { user } = res.data;
+        const { auth_service, Domain, Path } = res.data.sessionCookie;
 
-      const { user, sessionCookie } = res.data;
-      const { auth_service, Domain, Path } = sessionCookie;
+        localStorage.setItem('user', JSON.stringify(user));
 
-      localStorage.setItem('user', JSON.stringify(user));
+        Cookies.set('auth_service', auth_service, {
+          expires: 0.5,
+        });
 
-      Cookies.set('auth_service', auth_service, {
-        expires: 0.5,
-      });
+        router.push('/');
+      })
+      .catch((err) => {
+        console.error(err);
 
-      router.push('/');
-    } catch (err) {
-      console.error(err);
-
-      toast({
-        position: 'top',
-        isClosable: true,
-        status: 'error',
-        title: 'Error',
-        description: 'Las credenciales no son válidas. Por favor, inténtalo de nuevo.',
-      });
-    } finally {
-      setSubmitIsLoading(false);
-    }
+        toast({
+          position: 'top',
+          isClosable: true,
+          render: () => (
+            <Box bg={'#282828'} color={'white'} p={4} rounded={'xl'}>
+              Las credenciales no pertenecen a ningún usuario de DO+
+            </Box>
+          ),
+        });
+      })
+      .finally(() => setSubmitIsLoading(false));
   };
 
   return (
