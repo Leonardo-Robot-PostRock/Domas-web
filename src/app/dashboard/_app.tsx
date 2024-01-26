@@ -1,12 +1,12 @@
-import { ChakraProvider } from "@chakra-ui/react";
-import "mapbox-gl/dist/mapbox-gl.css";
-import "@/styles/mapbox.css";
-import "@/styles/form.css";
-import theme from "@/styles/global";
-import Layout from "@/components/layout";
-import LoadingRender from "@/components/LoadingRender";
-import { getCookie } from "cookies-next";
-import "mapbox-gl/dist/mapbox-gl.css";
+import { ChakraProvider } from '@chakra-ui/react';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import '@/styles/mapbox.css';
+import '@/styles/form.css';
+import theme from '@/styles/global';
+import LoadingRender from '@/components/LoadingRender';
+import { getCookie } from 'cookies-next';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import Layout from '@/components/layout';
 
 interface Props {
   pageProps: {
@@ -17,10 +17,8 @@ interface Props {
 }
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: Props) {
-  console.log("ver props", { ...pageProps });
-
   function checkCookieExpiration() {
-    const cookieExpiration = getCookie("auth_service");
+    const cookieExpiration = getCookie('auth_service');
     if (!cookieExpiration) {
       //TODO agregar modal avisando que debe volver a iniciar sesión
       // router.push('/login');
@@ -31,7 +29,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: Props) {
 
   return (
     <ChakraProvider theme={theme}>
-      <main fontFamily={"poppins"}>
+      <main fontFamily={'poppins'}>
         <Layout>
           <LoadingRender>
             <Component {...pageProps} />
