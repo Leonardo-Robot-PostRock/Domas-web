@@ -23,6 +23,30 @@ const nextConfig = {
       },
     ],
   },
+  webpack: (config) => {
+    config.module.rules.push(
+      {
+        test: /\.(png|jpe?g|gif|jp2|webp|avif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'static', // or any other path where you want to store the assets
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(node)$/i,
+        loader: 'file-loader',
+        options: {
+          outputPath: 'static', // or any other path where you want to store the assets
+        },
+      }
+    );
+
+    return config;
+  },
 };
 
 module.exports = nextConfig;
