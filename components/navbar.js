@@ -1,3 +1,7 @@
+'use client';
+import { useState } from 'react';
+import Link from 'next/link';
+
 import {
   Box,
   Flex,
@@ -24,14 +28,14 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react';
 
-import Link from 'next/link';
 import Image from 'next/image';
-import { cookies } from 'next/headers';
+import Cookies from 'js-cookie';
 
 import { useAuthentication } from '@/hooks/useAuthentication';
 import { useNavigationDomas } from '@/hooks/useNavigationDomas';
 
 import CustomIconButton from './IconButton/IconButton';
+import { useRouter } from 'next/navigation';
 
 // Modal para mostrar las novedades de DO+
 const ModalNews = ({ isOpen, onOpen, onClose }) => {
@@ -125,16 +129,17 @@ const NavSubmenu = ({ children }) => {
 
 export default function NavBar() {
   const { userInfo, userRoles } = useAuthentication();
+  const router = useRouter();
 
   const { Links } = useNavigationDomas();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const isDesktop = useBreakpointValue({ base: false, md: true });
+  const isDesktop = useBreakpointValue({ base: '100px', md: '300px' });
   const { isOpen: isOpenNews, onOpen: onOpenNews, onClose: onCloseNews } = useDisclosure();
 
   function signOut() {
     localStorage.clear('user');
-    cookies().delete('auth_service');
+    Cookies.remove('auth_service');
     router.push('/login');
   }
 
