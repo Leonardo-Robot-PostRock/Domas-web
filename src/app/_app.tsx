@@ -1,12 +1,12 @@
-import { ChakraProvider } from '@chakra-ui/react';
+'use client';
+import { Box } from '@chakra-ui/react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@/styles/mapbox.css';
 import '@/styles/form.css';
-import theme from '@/styles/global';
 import LoadingRender from '@/components/LoadingRender';
 import { getCookie } from 'cookies-next';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import Layout from '@/components/layout';
+import Layout from '@/app/(dashboard)/layout';
 
 interface Props {
   Component: React.ComponentType;
@@ -21,20 +21,16 @@ function MyApp({ Component }: Props) {
     }
   }
 
-  console.log({ theme });
-
   setInterval(checkCookieExpiration);
 
   return (
-    <ChakraProvider theme={theme}>
-      <main>
-        <Layout>
-          <LoadingRender>
-            <Component />
-          </LoadingRender>
-        </Layout>
-      </main>
-    </ChakraProvider>
+    <Box fontFamily={'poppins'}>
+      <Layout>
+        <LoadingRender>
+          <Component />
+        </LoadingRender>
+      </Layout>
+    </Box>
   );
 }
 
