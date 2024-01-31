@@ -1,35 +1,48 @@
 'use client';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 import { Box } from '@chakra-ui/react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@/styles/mapbox.css';
 import '@/styles/form.css';
-import LoadingRender from '@/components/LoadingRender';
 import { getCookie } from 'cookies-next';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import Layout from '@/app/(dashboard)/layout';
+import DomasLayout from './(domas)/layout';
+import ModalSesionExpirada from '@/components/ui/ModalSesionExpirada';
 
 interface Props {
   Component: React.ComponentType;
 }
 
 function MyApp({ Component }: Props) {
+  const router = useRouter();
+  const [showSessionExpiredModal, setShowSessionExpiredModal] = useState(false);
+
+  useEffect(() => {
+    const intervalId = setInterval(checkCookieExpiration, 60000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   function checkCookieExpiration() {
     const cookieExpiration = getCookie('auth_service');
     if (!cookieExpiration) {
-      //TODO agregar modal avisando que debe volver a iniciar sesión
-      // router.push('/login');
+      setShowSessionExpiredModal(true);
     }
   }
 
-  setInterval(checkCookieExpiration);
-
+  function closeModal() {
+    setShowSessionExpiredModal(false);
+    router.push('/login');
+  }
   return (
     <Box fontFamily={'poppins'}>
-      <Layout>
-        <LoadingRender>
-          <Component />
-        </LoadingRender>
-      </Layout>
+      <DomasLayout>
+        <Component />
+      </DomasLayout>
+
+      <ModalSesionExpirada isOpen={showSessionExpiredModal} onClose={closeModal} />
     </Box>
   );
 }

@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { Providers } from './providers';
+import { Suspense } from 'react';
+import { NavigationEvents } from '@/components/navigation-events';
+import Loading from '@/components/loading';
 
 export const metadata: Metadata = {
   title: 'Bienvenidos a Do+',
@@ -10,7 +13,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Suspense fallback={<Loading />}>
+            <NavigationEvents />
+          </Suspense>
+        </Providers>
       </body>
     </html>
   );
