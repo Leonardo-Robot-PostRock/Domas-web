@@ -49,7 +49,7 @@ export default function SignInPage() {
         console.log('RES', res);
 
         const { user } = res.data;
-        const { auth_service, Domain, Path } = res.data.sessionCookie;
+        const { auth_service } = res.data.sessionCookie;
 
         console.log('USE', user);
 
