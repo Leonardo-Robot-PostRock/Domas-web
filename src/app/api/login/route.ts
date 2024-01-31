@@ -17,8 +17,6 @@ export async function POST(request: Request) {
       password,
     });
 
-    console.log('axiosResponse', axiosResponse);
-
     const session_cookie = axiosResponse.headers['set-cookie'][0];
     const cookieParts = session_cookie.split(';');
 
