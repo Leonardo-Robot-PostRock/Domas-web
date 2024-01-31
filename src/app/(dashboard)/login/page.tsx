@@ -17,14 +17,12 @@ import {
   Stack,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/react';
 
 import { colord } from 'colord';
 
 import { Inputs } from '@/types/Form/inputs';
 import Cookies from 'js-cookie';
-
-import axios from 'axios';
-import { useToast } from '@chakra-ui/react';
 
 import useGradientOfTheDay from '@/hooks/useGradientOfTheDay';
 
@@ -44,34 +42,48 @@ export default function SignInPage() {
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
     Cookies.remove('auth_service');
     setSubmitIsLoading(true);
-    axios
-      .post('/api/login', data)
-      .then((res) => {
-        const { user } = res.data;
-        const { auth_service, Domain, Path } = res.data.sessionCookie;
 
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Especifica el tipo de contenido
+        },
+        body: JSON.stringify(data), // Convierte los datos a JSON antes de enviarlos
+      });
+
+      if (response.ok) {
+        // Si la respuesta es exitosa (código de estado 2xx)
+        const res = await response.json(); // Convierte la respuesta a JSON
+
+        console.log(res);
+
+        // Extrae los datos necesarios de la respuesta y realiza las acciones correspondientes
+        const { user, session_cookie } = res;
+        const { auth_service, Domain, Path } = session_cookie;
         localStorage.setItem('user', JSON.stringify(user));
-
-        Cookies.set('auth_service', auth_service, {
-          expires: 0.5,
-        });
+        Cookies.set('auth_service', auth_service, { expires: 0.5 });
 
         router.push('/');
-      })
-      .catch((err) => {
-        console.error(err);
+      } else {
+        // Si la respuesta no es exitosa, lanza un error
+        throw new Error('La solicitud no fue exitosa');
+      }
+    } catch (err) {
+      console.error(err);
 
-        toast({
-          position: 'top',
-          isClosable: true,
-          render: () => (
-            <Box bg={'#282828'} color={'white'} p={4} rounded={'xl'}>
-              Las credenciales no pertenecen a ningún usuario de DO+
-            </Box>
-          ),
-        });
-      })
-      .finally(() => setSubmitIsLoading(false));
+      toast({
+        position: 'top',
+        isClosable: true,
+        render: () => (
+          <Box bg={'#282828'} color={'white'} p={4} rounded={'xl'}>
+            Las credenciales no pertenecen a ningún usuario de DO+
+          </Box>
+        ),
+      });
+    } finally {
+      setSubmitIsLoading(false);
+    }
   };
 
   return (
