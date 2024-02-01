@@ -14,12 +14,12 @@ export async function POST(request: Request) {
   const { username, password } = body;
 
   try {
-    const axiosResponse: AxiosResponse<LoginResponse> = await axios.post(`${process.env.AUTH_BASE_URL}/auth/login`, {
+    const response: AxiosResponse<LoginResponse> = await axios.post(`${process.env.AUTH_BASE_URL}/auth/login`, {
       username,
       password,
     });
 
-    const session_cookie: string | undefined = axiosResponse.headers['set-cookie']?.[0];
+    const session_cookie: string | undefined = response.headers['set-cookie']?.[0];
     let obj: Cookie = {};
 
     if (session_cookie) {
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     }
 
     const responseBody = {
-      user: axiosResponse.data,
+      user: response.data,
       sessionCookie: obj,
     };
 
