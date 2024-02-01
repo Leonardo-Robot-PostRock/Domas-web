@@ -4,28 +4,16 @@ import { useRouter } from 'next/navigation';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import {
-  Avatar,
-  Box,
-  Button,
-  Center,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  Stack,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { Avatar, Box, Center, Flex, Stack, useColorModeValue } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
 
-import { colord } from 'colord';
 import axios from 'axios';
 
 import { Inputs } from '@/types/Form/inputs';
 import Cookies from 'js-cookie';
 
-import useGradientOfTheDay from '@/hooks/useGradientOfTheDay';
+import { useGradientOfTheDay } from '@/hooks/useGradientOfTheDay';
+import { AuthForm } from '@/components/auth/authForm';
 
 export default function SignInPage() {
   const toast = useToast();
@@ -91,41 +79,12 @@ export default function SignInPage() {
             <Center mb={5}>
               <Avatar size="xl" src={'/logo.svg'} />
             </Center>
-            <Stack spacing={4}>
-              <FormControl id="username" isInvalid={!!errors.username}>
-                <FormLabel>Usuario</FormLabel>
-                <Input
-                  type="text"
-                  {...register('username', {
-                    required: true,
-                  })}
-                />
-                {errors.username && <FormErrorMessage>El usuario es obligatorio.</FormErrorMessage>}
-              </FormControl>
-              <FormControl id="password" isInvalid={!!errors.password}>
-                <FormLabel>Contraseña</FormLabel>
-                <Input
-                  type="password"
-                  {...register('password', {
-                    required: true,
-                  })}
-                />
-                {errors.password && <FormErrorMessage>La contraseña es obligatoria.</FormErrorMessage>}
-              </FormControl>
-              <Stack spacing={10}>
-                <Button
-                  bg={gradientOfTheDay.split(',')[0]}
-                  color={'white'}
-                  _hover={{
-                    bg: colord(gradientOfTheDay.split(',')[0]).darken(0.05).toHex(),
-                  }}
-                  onClick={handleSubmit(onSubmit)}
-                  isLoading={submitIsLoading}
-                >
-                  Ingresar a DO+
-                </Button>
-              </Stack>
-            </Stack>
+            <AuthForm
+              onSubmit={handleSubmit(onSubmit)}
+              isLoading={submitIsLoading}
+              errors={errors}
+              register={register}
+            />
           </Box>
         </Stack>
       </Flex>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { datetimeFormatted, currentDatetime } from 'utils/Datetime';
 
-const useGradientOfTheDay = () => {
+export const useGradientOfTheDay = () => {
   const [gradientOfTheDay, setGradientOfTheDay] = useState<string>('null');
 
   useEffect(() => {
@@ -30,5 +30,3 @@ const useGradientOfTheDay = () => {
 
   return { gradientOfTheDay };
 };
-
-export default useGradientOfTheDay;
