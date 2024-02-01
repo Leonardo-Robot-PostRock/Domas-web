@@ -1,4 +1,6 @@
+import { LoginRequest, LoginResponse } from '@/types/api/login';
 import isAxiosError from '@/utils/AxiosError';
+import { AxiosResponse } from 'axios';
 
 const axios = require('axios').default;
 
@@ -7,25 +9,28 @@ interface Cookie {
 }
 
 export async function POST(request: Request) {
-  const body = await request.json();
+  const body: LoginRequest = await request.json();
 
   const { username, password } = body;
 
   try {
-    const axiosResponse = await axios.post(`${process.env.AUTH_BASE_URL}/auth/login`, {
+    const axiosResponse: AxiosResponse<LoginResponse> = await axios.post(`${process.env.AUTH_BASE_URL}/auth/login`, {
       username,
       password,
     });
 
-    const session_cookie = axiosResponse.headers['set-cookie'][0];
-    const cookieParts = session_cookie.split(';');
+    const session_cookie: string | undefined = axiosResponse.headers['set-cookie']?.[0];
+    let obj: Cookie = {};
 
-    const obj = cookieParts.reduce((accumulator: Cookie, currentValue: string) => {
-      let [key, value] = currentValue.split('=');
-      key = key.replaceAll(' ', '');
-      accumulator[key] = value;
-      return accumulator;
-    }, {});
+    if (session_cookie) {
+      const cookieParts: string[] | undefined = session_cookie?.split(';');
+      obj = cookieParts.reduce((accumulator: Cookie, currentValue: string) => {
+        let [key, value] = currentValue.split('=');
+        key = key.replaceAll(' ', '');
+        accumulator[key] = value;
+        return accumulator;
+      }, {});
+    }
 
     const responseBody = {
       user: axiosResponse.data,
