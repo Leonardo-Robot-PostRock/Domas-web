@@ -13,6 +13,7 @@ export const SubmitButton = ({ onSubmit, isLoading }: Props) => {
   return (
     <Button
       bg={gradientOfTheDay.split(',')[0]}
+      color={'white'}
       onClick={onSubmit}
       isLoading={isLoading}
       _hover={{
