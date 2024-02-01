@@ -2,6 +2,7 @@ import LoginForm from '@/components/LoginForm';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.API_URL as string),
   title: 'Bienvenidos a Do+',
   description: 'Página de incio de sesión',
   icons: {
@@ -9,7 +10,11 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Do+',
-    images: process.env.APP_ENV!.toUpperCase() === 'PROD' ? '/logo.svg' : '/logoLocal.svg',
+    images: {
+      url: process.env.APP_ENV!.toUpperCase() === 'PROD' ? '/logo.svg' : '/logoLocal.svg',
+      width: 800,
+      height: 600,
+    },
   },
 };
 
