@@ -7,9 +7,6 @@ import Loading from '@/components/loading';
 export const metadata: Metadata = {
   title: 'Bienvenidos a Do+',
   description: 'Página de gestión de clientes, tickets y empleados',
-  icons: {
-    icon: process.env.APP_ENV!.toUpperCase() === 'PROD' ? '/favicon.ico' : '/faviconLocal.ico',
-  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

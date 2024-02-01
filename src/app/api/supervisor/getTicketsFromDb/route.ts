@@ -6,7 +6,7 @@ const axios = require('axios').default;
 export async function GET(request: NextRequest) {
   const token = request.cookies.auth_service;
 
-  if (!token) return redirect(`${process.env.APP_URL}/login`);
+  if (!token) return redirect(`${process.env.APP_URL}`);
 
   try {
     const response = await axios.get(`${process.env.AUTH_BASE_URL}/v1/order/user`, {

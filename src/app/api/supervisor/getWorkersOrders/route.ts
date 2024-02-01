@@ -12,7 +12,7 @@ interface Order {
 export async function GET(request: NextRequest) {
   const token = request.cookies.auth_service;
 
-  if (!token) return redirect(`${process.env.APP_URL}/login`);
+  if (!token) return redirect(`${process.env.APP_URL}`);
 
   try {
     const orders = await axios.get<Order>(`${process.env.AUTH_BASE_URL}/v1/order/workers`, {
