@@ -14,7 +14,7 @@ interface Props {
 export const InputComponent = ({ register, errors, warning, title, type, id }: Props) => (
   <FormControl id={id} isInvalid={!!errors}>
     <FormLabel>{title}</FormLabel>
-    <Input type={type} {...register(id, { required: true })} />
+    <Input type={type} {...register(id, { required: true })} autoComplete="on" />
     {errors.password && <FormErrorMessage>{warning}</FormErrorMessage>}
   </FormControl>
 );
