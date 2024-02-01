@@ -102,7 +102,7 @@ const Index = () => {
 
 	useEffect(() => {
 		if (fetchOrders) {
-			mutate(`api/supervisor/getTicketsFromDb`, null, true);
+			mutate(`/api/supervisor/getTicketsFromDb`, null, true);
 			mutate(`/api/supervisor/getWorkersOrders`, null, true);
 		}
 	}, [fetchOrders]);
