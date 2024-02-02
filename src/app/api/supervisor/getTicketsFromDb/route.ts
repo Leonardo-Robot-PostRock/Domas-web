@@ -1,27 +1,30 @@
+import { GetTicketsFromDB } from '@/types/api/getTicketsFromDb';
 import isAxiosError from '@/utils/AxiosError';
+import { AxiosResponse } from 'axios';
+import { error } from 'console';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 const axios = require('axios').default;
 
-export async function GET(request: NextRequest) {
-  const token = request.cookies.auth_service;
+export async function GET() {
+  const cookiesStore = cookies();
+  const token = cookiesStore.get('auth_service');
+
+  console.log(token);
 
   if (!token) return redirect(`${process.env.APP_URL}`);
 
   try {
-    const response = await axios.get(`${process.env.AUTH_BASE_URL}/v1/order/user`, {
+    const response: AxiosResponse<GetTicketsFromDB> = await axios.get(`${process.env.AUTH_BASE_URL}/v1/order/user`, {
       headers: {
-        Cookie: `auth_service=${token}`,
+        withCredentials: true,
+        Cookie: `auth_service=${token.value}`,
       },
     });
 
-    const order = {
-      status: response.status,
-      data: response.data,
-    };
-
-    return new Response(JSON.stringify(order), {
-      status: order.status,
+    return NextResponse.json(response.data ? response.data : error.message, {
+      status: 200,
     });
   } catch (error: unknown) {
     console.error('Error:', error);

@@ -22,11 +22,12 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/components/*": ["components/*"],
+      "@/ui/*": ["components/ui/*"],
       "@/utils/*": ["utils/*"],
       "@/styles/*": ["styles/*"],
       "@/types/*": ["types/*"],
     },
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "middleware.js"],
   "exclude": ["node_modules"],
 }

@@ -43,7 +43,7 @@ export default function LoginForm() {
           expires: 0.5,
         });
 
-        router.push('/today_orders');
+        router.push('/teams');
       })
       .catch((err) => {
         console.error(err);

@@ -8,7 +8,7 @@ import '@/styles/mapbox.css';
 import '@/styles/form.css';
 import { getCookie } from 'cookies-next';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import DomasLayout from './(domas)/layout';
+import DomasLayout from './(dashboard)/layout';
 import ModalSesionExpirada from '@/components/ui/ModalSesionExpirada';
 
 interface Props {

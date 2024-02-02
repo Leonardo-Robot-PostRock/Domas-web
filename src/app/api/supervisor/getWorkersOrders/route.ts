@@ -10,20 +10,21 @@ interface Order {
 }
 
 export async function GET(request: NextRequest) {
-  const token = request.cookies.auth_service;
+  const token = request.cookies.get('auth_service');
 
   if (!token) return redirect(`${process.env.APP_URL}`);
 
   try {
-    const orders = await axios.get<Order>(`${process.env.AUTH_BASE_URL}/v1/order/workers`, {
+    const order = await axios.get<Order>(`${process.env.AUTH_BASE_URL}/v1/order/workers`, {
       headers: {
-        Authorization: `auth_service=${token}`,
+        Cookie: `auth_service=${token.value}`,
       },
     });
 
-    console.log('verrrrr', orders);
-    return Response.json(orders.data ? orders.data : orders.message, {
-      status: orders.status,
+    console.log('ORDER: ', { order });
+
+    return Response.json(order.data ? order.data : { message: 'Hubo' }, {
+      status: order.status,
     });
   } catch (error) {
     if (isAxiosError(error)) {
