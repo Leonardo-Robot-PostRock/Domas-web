@@ -1,6 +1,6 @@
 import { headers } from 'next/headers';
 
-import Navbar from '@/ui/Navbar/Navbar';
+import Navbar from '@/components/ui/Navbar/Navbar';
 import { getTitlePathname, handleRedirectAndTitle } from '@/utils/metadaUtils';
 
 interface Props {

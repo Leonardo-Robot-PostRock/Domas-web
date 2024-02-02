@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Providers } from './providers';
 import { Suspense } from 'react';
-import { NavigationEvents } from '@/components/navigation-events';
-import Loading from '@/components/loading';
+import { NavigationEvents } from '@/shared/navigation-events';
+import Loading from '@/shared/loading';
 
 export const metadata: Metadata = {
   title: 'Bienvenidos a Do+',
