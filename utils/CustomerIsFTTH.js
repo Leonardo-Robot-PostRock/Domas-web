@@ -1,6 +1,5 @@
 export const customerIsFTTH = (customer) => {
+  if (!customer.plan) return false;
 
-    if (!customer.plan) return false;
-
-    return customer.plan.toUpperCase().includes('FTTH');
+  return customer.plan.toUpperCase().includes('FTTH');
 };
