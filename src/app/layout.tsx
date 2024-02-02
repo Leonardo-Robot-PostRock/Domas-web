@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Providers } from './providers';
+import { Providers } from '@/components/provider/providers';
 import { Suspense } from 'react';
 import { NavigationEvents } from '@/shared/navigation-events';
 import Loading from '@/shared/loading';

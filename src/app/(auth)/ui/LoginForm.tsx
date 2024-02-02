@@ -13,7 +13,7 @@ import { Inputs } from '@/types/Form/inputs';
 import Cookies from 'js-cookie';
 
 import { useGradientOfTheDay } from '@/hooks/useGradientOfTheDay';
-import { AuthForm } from '@/components/auth/authForm';
+import { AuthForm } from './AuthForm';
 
 export default function LoginForm() {
   const toast = useToast();

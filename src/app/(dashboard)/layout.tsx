@@ -1,6 +1,6 @@
 import { headers } from 'next/headers';
 
-import Navbar from '@/components/ui/Navbar/Navbar';
+import Navbar from '@/components/ui/nav/LayoutSidebar';
 import { getTitlePathname, handleRedirectAndTitle } from '@/utils/metadaUtils';
 
 interface Props {
@@ -33,15 +33,14 @@ export function generateMetadata() {
   };
 }
 
-export default function DomasLayout({ children }: Props) {
+export default function Layout({ children }: Props) {
   const headersList = headers();
   const pathname = headersList.get('next-url') || null;
   const titlePathname = handleRedirectAndTitle(pathname);
 
   return (
     <>
-      <nav>{!titlePathname.includes('LOGIN') && <Navbar />}</nav>
-      <main>{children}</main>
+      <nav>{!titlePathname.includes('/') && <Navbar>{children}</Navbar>}</nav>
     </>
   );
 }

@@ -8,8 +8,8 @@ import '@/styles/mapbox.css';
 import '@/styles/form.css';
 import { getCookie } from 'cookies-next';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import DomasLayout from './(dashboard)/layout';
-import ModalSesionExpirada from '@/components/ui/ModalSesionExpirada';
+import Layout from './(dashboard)/layout';
+import SessionExpiredModal from '@/components/ui/modals/ModalSesionExpired';
 
 interface Props {
   Component: React.ComponentType;
@@ -34,15 +34,16 @@ function MyApp({ Component }: Props) {
 
   function closeModal() {
     setShowSessionExpiredModal(false);
-    router.push('/login');
+    router.push('/');
   }
+
   return (
     <Box fontFamily={'poppins'}>
-      <DomasLayout>
+      <Layout>
         <Component />
-      </DomasLayout>
+      </Layout>
 
-      <ModalSesionExpirada isOpen={showSessionExpiredModal} onClose={closeModal} />
+      <SessionExpiredModal isOpen={showSessionExpiredModal} onClose={closeModal} />
     </Box>
   );
 }

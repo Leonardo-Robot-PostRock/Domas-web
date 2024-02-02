@@ -1,8 +1,8 @@
 import { UseFormRegister } from 'react-hook-form';
 import { Stack } from '@chakra-ui/react';
 
-import { InputComponent } from '../inputs/Input';
-import { SubmitButton } from '../buttons/SubmitButton';
+import { InputComponent } from '@/components/inputs/Input';
+import { SubmitButton } from '@/components/buttons/SubmitButton';
 
 import { Inputs } from '@/types/Form/inputs';
 
