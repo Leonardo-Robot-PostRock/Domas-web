@@ -2,21 +2,14 @@ import { usePathname } from 'next/navigation';
 
 import { useAuthentication } from './useAuthentication';
 
-/**
- * Import the array of icons from the specified location.
- * @param {Object} icons - The array of icons.
- * @param {ReactElement} icons[] - Each element of the array is a React element representing an icon.
- * @param {string} icons[].type.name - The name of the icon component type.
- * @param {ReactElement} icons[].icon - The React element representing the icon.
- */
-
-import { icons } from '@/components/ui/nav/iconsComponent/icons';
+import { icons } from '@/components/ui/nav/iconsComponent/Icons';
+import { LinkItem } from '@/types/NavMenuItemProps/linksAndSublink';
 
 export const useNavItems = () => {
   const pathname = usePathname();
   const { userRoles } = useAuthentication();
 
-  const Links = [
+  const Links: LinkItem[] = [
     {
       id: 1,
       link: '',
