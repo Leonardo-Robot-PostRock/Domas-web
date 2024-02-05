@@ -4,11 +4,6 @@ import {
   Box,
   Flex,
   Icon,
-  Text,
-  Image,
-  Button,
-  Heading,
-  Stack,
   Drawer,
   DrawerContent,
   IconButton,
@@ -16,16 +11,17 @@ import {
   DrawerOverlay,
   useColorModeValue,
 } from '@chakra-ui/react';
-// Here we have used react-icons package for the icons
+
 import { FiMenu } from 'react-icons/fi';
 import { RiFlashlightFill } from 'react-icons/ri';
-import { SidebarContent } from '../sidebar/Sidebar';
+
+import { SidebarContent } from './sidebar/SidebarContent';
 
 interface Props {
   children: React.ReactNode;
 }
 
-export default function Layout({ children }: Props) {
+export default function LayoutSidebar({ children }: Props) {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
@@ -64,7 +60,7 @@ export default function Layout({ children }: Props) {
           </Flex>
         </Flex>
 
-        <Box as="main" p={14} minH="30rem" bg={useColorModeValue('auto', 'gray.800')}>
+        <Box as="main" p={14} bg={useColorModeValue('auto', 'gray.800')}>
           {children}
         </Box>
       </Box>
