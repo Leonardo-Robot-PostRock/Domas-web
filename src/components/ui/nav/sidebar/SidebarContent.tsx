@@ -1,29 +1,31 @@
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import Image from 'next/image';
 
 import {
   Avatar,
   Box,
   BoxProps,
   Button,
+  DrawerCloseButton,
   Flex,
-  Icon,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
-  Text,
   VStack,
-  useColorModeValue,
 } from '@chakra-ui/react';
-
-import { RiFlashlightFill } from 'react-icons/ri';
 
 import Cookies from 'js-cookie';
 import { useNavItems } from '@/hooks/useNavItems';
 import { NavItems } from '../navItems/NavItems';
+import { GoSidebarExpand } from 'react-icons/go';
 
-export const SidebarContent = ({ ...props }: BoxProps) => {
+interface Props {
+  onClose?: () => void;
+  props?: BoxProps;
+}
+
+export const SidebarContent = ({ onClose, ...props }: Props) => {
   const router = useRouter();
   const { Links } = useNavItems();
 
@@ -40,22 +42,21 @@ export const SidebarContent = ({ ...props }: BoxProps) => {
       top="0"
       left="0"
       zIndex="sticky"
+      px={4}
       h="full"
       overflowX="hidden"
       overflowY="auto"
-      bg={useColorModeValue('white', 'gray.800')}
-      borderColor={useColorModeValue('inherit', 'gray.700')}
       borderRightWidth="1px"
-      w="60"
+      w={{ base: '100%', md: '100%' }}
       {...props}
     >
       <VStack h="full" w="full" alignItems="flex-start" justifyContent="space-between">
         <Box w="full">
-          <Flex px="4" py="5" align="center">
-            <Icon as={RiFlashlightFill} h={8} w={8} />
-            <Text fontSize="2xl" ml="2" color={useColorModeValue('brand.500', 'white')} fontWeight="semibold">
-              POS
-            </Text>
+          <Flex py="5" justifyContent={'space-between'} alignContent={'center'} position={'relative'}>
+            <Image src="/logo.svg" width={60} height={60} alt="Do+ logo" />
+            <DrawerCloseButton top={8} color={'red.500'}>
+              <GoSidebarExpand size={25} />
+            </DrawerCloseButton>
           </Flex>
           <Flex direction="column" as="nav" fontSize="md" color="gray.600" aria-label="Main Navigation">
             <NavItems Links={Links} />
@@ -66,6 +67,7 @@ export const SidebarContent = ({ ...props }: BoxProps) => {
           <Menu>
             <MenuButton
               as={Button}
+              marginRight={5}
               size={'sm'}
               rounded={'full'}
               variant={'link'}

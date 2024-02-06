@@ -24,7 +24,7 @@ const iconsNav: IconObject[] = [
   { name: 'AiFillCar', icon: <AiFillCar /> },
   { name: 'AiFillCalendar', icon: <AiFillCalendar /> },
   { name: 'AiFillPushpin', icon: <AiFillPushpin /> },
-  { name: 'RiHistoryLine', icon: <RiHistoryLine /> },
+  { name: 'GiPapers', icon: <GiPapers /> },
   { name: 'RiTodoFill', icon: <RiTodoFill /> },
   { name: 'RiDashboardFill', icon: <RiDashboardFill /> },
   { name: 'RiRoadMapLine', icon: <RiRoadMapLine /> },
@@ -36,7 +36,7 @@ const iconsNav: IconObject[] = [
   { name: 'BsTelephoneFill', icon: <BsTelephoneFill /> },
   { name: 'BsTelephonePlusFill', icon: <BsTelephonePlusFill /> },
   { name: 'IoMapSharp', icon: <IoMapSharp /> },
-  { name: 'GiPapers', icon: <GiPapers /> },
+  { name: 'RiHistoryLine', icon: <RiHistoryLine /> },
 ];
 
 // Exporting the array of icon components

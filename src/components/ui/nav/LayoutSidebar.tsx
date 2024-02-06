@@ -1,9 +1,8 @@
 'use client';
-
+import Image from 'next/image';
 import {
   Box,
   Flex,
-  Icon,
   Drawer,
   DrawerContent,
   IconButton,
@@ -11,11 +10,11 @@ import {
   DrawerOverlay,
   useColorModeValue,
 } from '@chakra-ui/react';
-
 import { FiMenu } from 'react-icons/fi';
-import { RiFlashlightFill } from 'react-icons/ri';
+import { IoMdArrowDropright } from 'react-icons/io';
 
 import { SidebarContent } from './sidebar/SidebarContent';
+import { useRef } from 'react';
 
 interface Props {
   children: React.ReactNode;
@@ -23,17 +22,35 @@ interface Props {
 
 export default function LayoutSidebar({ children }: Props) {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const divRef = useRef<HTMLDivElement>(null);
 
   return (
     <Box as="section" bg={useColorModeValue('gray.50', 'gray.700')} minH="100vh">
-      <SidebarContent display={{ base: 'none', md: 'unset' }} />
-      <Drawer isOpen={isOpen} onClose={onClose} placement="left">
+      <Box
+        aria-label="Open Sidebar"
+        ref={divRef}
+        onClick={onOpen}
+        cursor={'pointer'}
+        h={'100vh'}
+        w={'15px'}
+        color={'white'}
+        rounded={'inherit'}
+        bg={'blue.400'}
+        _hover={{ bg: 'blue.300' }}
+        position={'absolute'}
+        justifyContent={'center'}
+        alignItems={'center'}
+        display={{ base: 'none', md: 'flex' }}
+      >
+        <IoMdArrowDropright size={30} />
+      </Box>
+      <Drawer isOpen={isOpen} onClose={onClose} placement="left" finalFocusRef={divRef} size={'xs'}>
         <DrawerOverlay />
         <DrawerContent>
-          <SidebarContent w="full" borderRight="none" />
+          <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
-      <Box ml={{ base: 0, md: 60 }} transition=".3s ease">
+      <Box ml={{ base: 0, md: 100 }} transition=".3s ease">
         <Flex
           as="header"
           align="center"
@@ -54,13 +71,9 @@ export default function LayoutSidebar({ children }: Props) {
             icon={<FiMenu />}
             size="md"
           />
-
-          <Flex align="center">
-            <Icon as={RiFlashlightFill} h={8} w={8} />
-          </Flex>
+          <Image src="/logo.svg" width={60} height={60} alt="Do+ logo" priority={true} />
         </Flex>
-
-        <Box as="main" p={14} bg={useColorModeValue('auto', 'gray.800')}>
+        <Box as="main" p={2} bg={useColorModeValue('auto', 'gray.800')}>
           {children}
         </Box>
       </Box>

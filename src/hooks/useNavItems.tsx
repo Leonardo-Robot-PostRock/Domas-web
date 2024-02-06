@@ -48,7 +48,7 @@ export const useNavItems = () => {
         pathname == '/activity',
       allow:
         (userRoles.includes('SUPERVISOR') || userRoles.includes('ADMINISTRADOR')) && !userRoles.includes('CALLCENTER'),
-      icon: icons[3], // RiHistoryLine
+      icon: icons[3], // GiPapers
       subLinks: [
         {
           id: 1,
@@ -88,7 +88,7 @@ export const useNavItems = () => {
           title: 'Actividad',
           selected: pathname == '/activity',
           allow: userRoles.includes('SUPERVISOR') || userRoles.includes('ADMINISTRADOR'),
-          icon: icons[3], // RiHistoryLine
+          icon: icons[15], // RiHistoryLine
         },
       ],
     },
@@ -110,9 +110,9 @@ export const useNavItems = () => {
     },
     {
       id: 5,
-      link: '/dashboard',
-      title: 'Dashboard',
-      selected: pathname == '/dashboard',
+      link: '/control-panel',
+      title: 'Panel de control',
+      selected: pathname == '/control-panel',
       allow: userRoles.includes('SUPERVISOR') || userRoles.includes('ADMINISTRADOR'),
       icon: icons[5], // RiDashboardFill
     },
