@@ -19,6 +19,7 @@ import Cookies from 'js-cookie';
 import { useNavItems } from '@/hooks/useNavItems';
 import { NavItems } from '../navItems/NavItems';
 import { GoSidebarExpand } from 'react-icons/go';
+import { NavIconLogo } from '@/components/IconButton/NavIconLogo';
 
 interface Props {
   onClose?: () => void;
@@ -53,7 +54,7 @@ export const SidebarContent = ({ onClose, ...props }: Props) => {
       <VStack h="full" w="full" alignItems="flex-start" justifyContent="space-between">
         <Box w="full">
           <Flex py="5" justifyContent={'space-between'} alignContent={'center'} position={'relative'}>
-            <Image src="/logo.svg" width={60} height={60} alt="Do+ logo" />
+            <NavIconLogo />
             <DrawerCloseButton top={8} color={'red.500'}>
               <GoSidebarExpand size={25} />
             </DrawerCloseButton>

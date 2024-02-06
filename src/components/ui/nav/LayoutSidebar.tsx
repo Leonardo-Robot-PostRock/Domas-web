@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 import {
   Box,
   Flex,
@@ -15,6 +14,7 @@ import { IoMdArrowDropright } from 'react-icons/io';
 
 import { SidebarContent } from './sidebar/SidebarContent';
 import { useRef } from 'react';
+import { NavIconLogo } from '@/components/IconButton/NavIconLogo';
 
 interface Props {
   children: React.ReactNode;
@@ -32,17 +32,17 @@ export default function LayoutSidebar({ children }: Props) {
         onClick={onOpen}
         cursor={'pointer'}
         h={'100vh'}
-        w={'15px'}
+        w={'8px'}
         color={'white'}
         rounded={'inherit'}
-        bg={'blue.400'}
-        _hover={{ bg: 'blue.300' }}
+        bg={'gray.400'}
+        _hover={{ bg: 'blue.700' }}
         position={'absolute'}
         justifyContent={'center'}
         alignItems={'center'}
         display={{ base: 'none', md: 'flex' }}
       >
-        <IoMdArrowDropright size={30} />
+        <Box w={'2px'} bg={'white'} h={'100px'} rounded={'lg'}></Box>
       </Box>
       <Drawer isOpen={isOpen} onClose={onClose} placement="left" finalFocusRef={divRef} size={'xs'}>
         <DrawerOverlay />
@@ -71,7 +71,7 @@ export default function LayoutSidebar({ children }: Props) {
             icon={<FiMenu />}
             size="md"
           />
-          <Image src="/logo.svg" width={60} height={60} alt="Do+ logo" priority={true} />
+          <NavIconLogo />
         </Flex>
         <Box as="main" p={2} bg={useColorModeValue('auto', 'gray.800')}>
           {children}
