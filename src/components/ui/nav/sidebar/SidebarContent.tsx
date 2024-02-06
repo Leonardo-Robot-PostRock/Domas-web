@@ -1,3 +1,6 @@
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
 import {
   Avatar,
   Box,
@@ -13,19 +16,21 @@ import {
   VStack,
   useColorModeValue,
 } from '@chakra-ui/react';
-import Link from 'next/link';
-import { AiOutlineHome, AiOutlineTeam } from 'react-icons/ai';
-import { BsCalendarCheck, BsFolder2 } from 'react-icons/bs';
+
 import { RiFlashlightFill } from 'react-icons/ri';
-import { NavItem } from '../navItems/NavItems';
+
 import Cookies from 'js-cookie';
-import { redirect } from 'next/navigation';
+import { useNavItems } from '@/hooks/useNavItems';
+import { NavItems } from '../navItems/NavItems';
 
 export const SidebarContent = ({ ...props }: BoxProps) => {
+  const router = useRouter();
+  const { Links } = useNavItems();
+
   function singOut() {
     localStorage.clear();
     Cookies.remove('auth_service');
-    redirect('/');
+    router.push('/');
   }
 
   return (
@@ -36,7 +41,6 @@ export const SidebarContent = ({ ...props }: BoxProps) => {
       left="0"
       zIndex="sticky"
       h="full"
-      // pb="10"
       overflowX="hidden"
       overflowY="auto"
       bg={useColorModeValue('white', 'gray.800')}
@@ -54,10 +58,7 @@ export const SidebarContent = ({ ...props }: BoxProps) => {
             </Text>
           </Flex>
           <Flex direction="column" as="nav" fontSize="md" color="gray.600" aria-label="Main Navigation">
-            <NavItem icon={AiOutlineHome}>Dashboard</NavItem>
-            <NavItem icon={AiOutlineTeam}>Team</NavItem>
-            <NavItem icon={BsFolder2}>Projects</NavItem>
-            <NavItem icon={BsCalendarCheck}>Calendar</NavItem>
+            {Links.map((item) => (item.allow && item.subLinks ? <NavItems key={item.id}>{item}</NavItems> : null))}
           </Flex>
         </Box>
 
@@ -74,13 +75,7 @@ export const SidebarContent = ({ ...props }: BoxProps) => {
               <Avatar size={'sm'} name="Ahmad" src="https://avatars2.githubusercontent.com/u/37842853?v=4" />
             </MenuButton>
             <MenuList fontSize={17} zIndex={5555}>
-              <MenuItem as={Link} href="#">
-                My profile
-              </MenuItem>
-              <MenuItem as={Link} href="#">
-                Change password
-              </MenuItem>
-              <MenuItem onClick={() => singOut}>Logout</MenuItem>
+              <MenuItem onClick={() => singOut()}>Logout</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

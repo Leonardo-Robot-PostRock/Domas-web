@@ -23,6 +23,7 @@
       "@/*": ["./src/*"],
       "@/components/*": ["src/components/*"],
       "@/ui/*": ["src/components/ui/*"],
+      "@/hooks/*": ["src/hooks/*"],
       "@/shared/*": ["src/components/shared/*"],
       "@/utils/*": ["utils/*"],
       "@/styles/*": ["styles/*"],
