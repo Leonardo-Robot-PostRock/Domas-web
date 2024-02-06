@@ -58,7 +58,7 @@ export const SidebarContent = ({ ...props }: BoxProps) => {
             </Text>
           </Flex>
           <Flex direction="column" as="nav" fontSize="md" color="gray.600" aria-label="Main Navigation">
-            {Links.map((item) => (item.allow && item.subLinks ? <NavItems key={item.id}>{item}</NavItems> : null))}
+            <NavItems Links={Links} />
           </Flex>
         </Box>
 

@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { Accordion, AccordionItem, AccordionButton, AccordionPanel, Box, Text, AccordionIcon } from '@chakra-ui/react';
-import { ItemLink } from '../intex';
+import { AccordionItems } from '../intex';
+import { SubLink } from '@/types/NavMenuItemProps/linksAndSublink';
 
-import { AddIcon, MinusIcon } from '@chakra-ui/icons'; // Importa los íconos de Chakra UI
+interface Props {
+  subLinks: SubLink[];
+  title: string;
+}
 
-export const Submenu = ({ children }) => {
+export const Submenu = ({ subLinks, title }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleMenuToggle = () => {
@@ -15,13 +19,12 @@ export const Submenu = ({ children }) => {
     <Box style={{ zIndex: 20 }}>
       <Accordion allowToggle>
         <AccordionItem>
-          <AccordionButton color={'black'} ml={2} display={'flex'} border={'none'} width={'100%'}>
-            {children.icon ? children.icon : null}
-            <Text flex="1">{children.title}</Text>
+          <AccordionButton color={'black'} ml={2} display={'flex'}>
+            <Text flex="1">{title}</Text>
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel>
-            {children.subLinks.map((child, index) => (child.allow ? <ItemLink key={index} child={child} /> : null))}
+            {subLinks.map((item, index) => (item.allow ? <AccordionItems key={index} {...item} /> : null))}
           </AccordionPanel>
         </AccordionItem>
       </Accordion>

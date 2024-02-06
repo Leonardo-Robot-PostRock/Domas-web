@@ -1,25 +1,24 @@
 import { Flex, useColorModeValue } from '@chakra-ui/react';
 import { Submenu } from '../submenu/SubMenu';
 
-import { SubLink } from '@/types/NavMenuItemProps/linksAndSublink';
+import { LinkItem } from '@/types/NavMenuItemProps/linksAndSublink';
+import { ItemLink } from '../intex';
 
 interface Props {
-  children: {
-    allow: boolean;
-    subLinks: SubLink[];
-  };
+  Links: LinkItem[];
 }
 
-export const NavItems = ({ children }: Props) => {
+export const NavItems = ({ Links }: Props) => {
   const color = useColorModeValue('cyan.600', 'cyan.300');
 
-  const { allow, subLinks } = children;
+  console.log('Links: ', Links);
 
   return (
     <Flex
       align="center"
       px="6"
       py="3"
+      flexDirection={'column'}
       cursor="pointer"
       role="group"
       fontWeight="semibold"
@@ -30,7 +29,13 @@ export const NavItems = ({ children }: Props) => {
         color: useColorModeValue('gray.900a', 'gray.200'),
       }}
     >
-      {allow && subLinks ? <Submenu children={children} /> : ''}
+      {Links.map((item, index) => {
+        return item.allow && item.subLinks ? (
+          <Submenu key={index} subLinks={item.subLinks} title={item.title} />
+        ) : item.allow ? (
+          <ItemLink key={index} {...item} />
+        ) : null;
+      })}
     </Flex>
   );
 };
