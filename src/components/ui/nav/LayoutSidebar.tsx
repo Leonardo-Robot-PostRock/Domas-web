@@ -10,7 +10,6 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { FiMenu } from 'react-icons/fi';
-import { IoMdArrowDropright } from 'react-icons/io';
 
 import { SidebarContent } from './sidebar/SidebarContent';
 import { useRef } from 'react';
@@ -50,7 +49,7 @@ export default function LayoutSidebar({ children }: Props) {
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
-      <Box ml={{ base: 0, md: 100 }} transition=".3s ease">
+      <Box ml={{ base: 0, md: 2 }} transition=".3s ease">
         <Flex
           as="header"
           align="center"
@@ -73,7 +72,7 @@ export default function LayoutSidebar({ children }: Props) {
           />
           <NavIconLogo />
         </Flex>
-        <Box as="main" p={2} bg={useColorModeValue('auto', 'gray.800')}>
+        <Box as="main" p={2} bg={useColorModeValue('auto', 'gray.800')} m={0}>
           {children}
         </Box>
       </Box>

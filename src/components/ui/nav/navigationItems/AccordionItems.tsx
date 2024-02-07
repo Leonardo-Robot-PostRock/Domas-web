@@ -1,6 +1,7 @@
-import { SubLink } from '@/types/NavMenuItemProps/linksAndSublink';
-import { Box, Flex, Text } from '@chakra-ui/react';
 import Link from 'next/link';
+import { Box, Flex, Text } from '@chakra-ui/react';
+
+import { SubLink } from '@/types/NavMenuItemProps/linksAndSublink';
 
 export const AccordionItems = ({ link, selected, icon, title }: SubLink) => {
   return (

@@ -1,5 +1,4 @@
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 
 import {
   Avatar,
@@ -16,10 +15,11 @@ import {
 } from '@chakra-ui/react';
 
 import Cookies from 'js-cookie';
-import { useNavItems } from '@/hooks/useNavItems';
-import { NavItems } from '../navItems/NavItems';
 import { GoSidebarExpand } from 'react-icons/go';
+
+import { NavItems } from '../navItems/NavItems';
 import { NavIconLogo } from '@/components/IconButton/NavIconLogo';
+import { useNavItems } from '@/hooks/useNavItems';
 
 interface Props {
   onClose?: () => void;
