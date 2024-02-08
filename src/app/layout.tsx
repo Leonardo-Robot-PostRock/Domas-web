@@ -1,9 +1,11 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 
-import { Providers } from '@/components/provider/providers';
+import { ChakraProviders } from '@/components/provider/ChakraProviders';
 import { NavigationEvents } from '@/shared/navigation-events';
 import Loading from '@/shared/loading';
+import { Providers } from '@/store/Providers';
+
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -16,10 +18,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es">
       <body>
         <Providers>
-          {children}
-          <Suspense fallback={<Loading />}>
-            <NavigationEvents />
-          </Suspense>
+          <ChakraProviders>
+            {children}
+            <Suspense fallback={<Loading />}>
+              <NavigationEvents />
+            </Suspense>
+          </ChakraProviders>
         </Providers>
       </body>
     </html>
