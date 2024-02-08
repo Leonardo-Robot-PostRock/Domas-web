@@ -1,6 +1,5 @@
 import { LoginRequest, LoginResponse } from '@/types/api/login';
-import isAxiosError from '@/utils/AxiosError';
-import { AxiosResponse } from 'axios';
+import { AxiosResponse, isAxiosError } from 'axios';
 
 const axios = require('axios').default;
 

@@ -1,10 +1,11 @@
-import { GetTicketsFromDB } from '@/types/api/getTicketsFromDb';
-import isAxiosError from '@/utils/AxiosError';
-import { AxiosResponse } from 'axios';
-import { error } from 'console';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
+
+import { AxiosResponse, isAxiosError } from 'axios';
 import { NextResponse } from 'next/server';
+
+import { GetTicketsFromDB } from '@/types/api/getTicketsFromDb';
+
 const axios = require('axios').default;
 
 export async function GET() {

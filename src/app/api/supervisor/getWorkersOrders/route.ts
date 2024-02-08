@@ -1,7 +1,6 @@
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 import { redirect } from 'next/navigation';
 import { type NextRequest } from 'next/server';
-import isAxiosError from '@/utils/AxiosError';
 
 interface Order {
   status: number;
