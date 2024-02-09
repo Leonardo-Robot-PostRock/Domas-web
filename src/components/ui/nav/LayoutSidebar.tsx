@@ -1,4 +1,6 @@
 'use client';
+import { useRef } from 'react';
+
 import {
   Box,
   Flex,
@@ -12,7 +14,6 @@ import {
 import { FiMenu } from 'react-icons/fi';
 
 import { SidebarContent } from './sidebar/SidebarContent';
-import { useRef } from 'react';
 import { NavIconLogo } from '@/components/IconButton/NavIconLogo';
 
 interface Props {
@@ -36,7 +37,7 @@ export default function LayoutSidebar({ children }: Props) {
         rounded={'inherit'}
         bg={'gray.400'}
         _hover={{ bg: 'blue.700' }}
-        position={'absolute'}
+        position={'fixed'}
         justifyContent={'center'}
         alignItems={'center'}
         display={{ base: 'none', md: 'flex' }}
