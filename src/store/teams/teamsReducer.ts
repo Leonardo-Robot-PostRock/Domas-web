@@ -22,13 +22,21 @@ const teamsSlice = createSlice({
     setShowSupervisorField(state, action) {
       state.showSupervisorField = action.payload;
     },
+
     setSupervisorsDataField(state, action) {
       state.supervisorsDataField = action.payload;
     },
-    // Define otras acciones aquí...
+
+    setCloustersGroup(state, action) {
+      state.clustersGroup = action.payload;
+    },
+
+    setCloustersFav(state, action) {
+      state.clustersFav = action.payload;
+    },
   },
 });
 
-export const { setShowSupervisorField, setSupervisorsDataField } = teamsSlice.actions;
+export const { setShowSupervisorField, setSupervisorsDataField, setCloustersGroup, setCloustersFav } =
+  teamsSlice.actions;
 export default teamsSlice.reducer;
-2;
