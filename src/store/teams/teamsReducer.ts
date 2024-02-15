@@ -34,9 +34,18 @@ const teamsSlice = createSlice({
     setCloustersFav(state, action) {
       state.clustersFav = action.payload;
     },
+
+    setTechnicianDataField(state, action) {
+      state.technicianDataField = action.payload;
+    },
   },
 });
 
-export const { setShowSupervisorField, setSupervisorsDataField, setCloustersGroup, setCloustersFav } =
-  teamsSlice.actions;
+export const {
+  setShowSupervisorField,
+  setSupervisorsDataField,
+  setCloustersGroup,
+  setCloustersFav,
+  setTechnicianDataField,
+} = teamsSlice.actions;
 export default teamsSlice.reducer;
