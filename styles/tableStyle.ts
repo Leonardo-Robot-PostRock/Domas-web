@@ -19,14 +19,15 @@ const customTheme = {
   `,
   Header: `
     .th {
-      color: #01497c;
+      color: white;
+      background-color: #82AAE3;
       text-align: center;
-      font-size: 11px;
+      font-size: 10px;
       white-space: normal;
     }  
   `,
   Cell: `
-    font-size: 12px;
+    font-size: 11px;
     width: 100%;
     white-space: normal;
     
@@ -38,13 +39,13 @@ const customTheme = {
 
   Row: `
     &:nth-of-type(odd) {
-      background-color: #014f86;
-      color: white;
+      background-color: #D2DAFF;
+      color: #25316D;
     }
 
     &:nth-of-type(even) {
-      background-color: #2a6f97;
-      color: white;
+      background-color: #EEF1FF;
+      color: #25316D;
     }
   `,
 };
