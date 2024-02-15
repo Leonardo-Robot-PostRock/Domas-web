@@ -3,16 +3,16 @@ import { EditedNode } from '@/types/tables/table';
 import { findNodeById, insertNode } from '@table-library/react-table-library/common';
 import { TableNode } from '@table-library/react-table-library/types/table';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { setData, setSquadDrawerId, setSquadEdited } from '@/store/squad/squadReducer';
+import { setData, setSquadDrawerId, setSquadEdited } from '@/store/squad/squadTableReducer';
 import { ChangeEvent } from 'react';
 
-/* Drawer */
+/* Handle Drawer */
 export const useHandleDrawer = () => {
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.squad.data);
+  const data = useAppSelector((state) => state.squadTable.data);
 
-  const drawerId = useAppSelector((state) => state.squad.drawerId);
-  const edited = useAppSelector((state) => state.squad.edited);
+  const drawerId = useAppSelector((state) => state.squadTable.drawerId);
+  const edited = useAppSelector((state) => state.squadTable.edited);
 
   const handleEdit = (event: ChangeEvent<HTMLInputElement>) => {
     console.log(event);
