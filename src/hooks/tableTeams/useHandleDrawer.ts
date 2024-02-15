@@ -30,7 +30,7 @@ export const useHandleDrawer = () => {
     const editedNode: EditedNode = { ...node, name: edited };
     const nodes = insertNode(data.nodes, editedNode as TableNode);
 
-    dispatch(setData({ nodes }));
+    dispatch(setData(nodes));
 
     setSquadEdited('');
     setSquadDrawerId(null);
