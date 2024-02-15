@@ -2,12 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import teamsReducer from './teams/teamsReducer';
 import formReducer from './formData/formReducer';
-import squadSlice from './squad/squadReducer';
+import squadTableReducer from './squad/squadTableReducer';
 
 export const store = configureStore({
   reducer: {
     teams: teamsReducer,
-    squad: squadSlice,
+    squadTable: squadTableReducer,
     form: formReducer,
   },
 });
