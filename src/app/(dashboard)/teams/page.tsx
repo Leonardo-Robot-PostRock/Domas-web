@@ -12,11 +12,11 @@ import { toastError } from '@/components/toast/toastError';
 import { Table } from '@/components/ui/table/Table';
 import { Team } from '@/types/api/teamById';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { setSquadNodes } from '@/store/squad/squadReducer';
+import { setSquadNodes } from '@/store/squad/squadTableReducer';
 
 export default function Teams() {
   const dispatch = useAppDispatch();
-  const nodes = useAppSelector((state) => state.squad.nodes);
+  const nodes = useAppSelector((state) => state.squadTable.nodes);
 
   const [userInfo, setUserInfo] = useState();
 
