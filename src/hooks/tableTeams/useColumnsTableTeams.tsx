@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/store';
-import { setSquadDrawerId } from '@/store/squad/squadReducer';
+import { setSquadDrawerId } from '@/store/squad/squadTableReducer';
 import { Team } from '@/types/api/teamById';
 import { IconButton } from '@chakra-ui/react';
 import { GiFountainPen } from 'react-icons/gi';
@@ -28,7 +28,7 @@ export const useColumnsTableTeams = () => {
         </div>
       ),
     },
-    { label: 'Nombre', renderCell: (item: Team) => item.name, sort: { sortKey: 'TASK' } },
+    { label: 'Nombre', renderCell: (item: Team) => item.name, sort: { sortKey: 'NAME' } },
     {
       label: 'Integrantes',
       renderCell: (item: Team) => item.technicians.map((tech) => tech.name).join(', '),
