@@ -5,50 +5,47 @@ import { Box, Text } from '@chakra-ui/react';
 
 import { useTheme } from '@table-library/react-table-library/theme';
 import { getTheme } from '@table-library/react-table-library/baseline';
-import { CompactTable } from '@table-library/react-table-library/compact';
 
-import { Message } from 'react-hook-form';
 import axios from 'axios';
 
-import { COLUMNS } from '@/components/table/columns/columns';
 import { toastError } from '@/components/toast/toastError';
+import { Table } from '@/components/ui/table/Table';
 import { Team } from '@/types/api/teamById';
-import { tableStyle } from '@/styles/tableStyle';
-
-interface Props {
-  message: Message;
-  position?: string;
-}
+import { useAppDispatch, useAppSelector } from '@/store';
+import { setSquadNodes } from '@/store/squad/squadReducer';
 
 export default function Teams() {
+  const dispatch = useAppDispatch();
+  const nodes = useAppSelector((state) => state.squad.nodes);
+
   const [userInfo, setUserInfo] = useState();
-  const [editInfo, setEditInfo] = useState();
-  const [teams, setTeams] = useState({ nodes: [] });
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user') as string);
 
-    console.log('USER', user);
     setUserInfo(user);
   }, []);
 
   const teamsAll = '/api/teams/all';
 
   const fetchData = useCallback(async () => {
-    const result: Team = await axios.get(teamsAll);
+    try {
+      const result: Team = await axios.get(teamsAll);
 
-    setTeams({ nodes: result.data });
+      dispatch(setSquadNodes(result.data));
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  if (!teams) {
-    const errorProps: Props = {
-      message: 'Ocurrió un error al intentar mostrar las cuadrillas.',
-    };
+  if (!nodes.length) {
+    const errorProps = 'Ocurrió un error al intentar mostrar las cuadrillas.';
     toastError(errorProps);
+    return null;
   }
 
   const theme = useTheme(getTheme());
@@ -59,7 +56,7 @@ export default function Teams() {
         Cuadrillas
       </Text>
       <Box display={{ base: 'none', lg: 'block' }}>
-        <CompactTable columns={COLUMNS} data={teams} theme={tableStyle} />
+        <Table />
       </Box>
     </Box>
   );
