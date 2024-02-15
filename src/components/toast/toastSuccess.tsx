@@ -1,12 +1,7 @@
 import { Message } from 'react-hook-form';
 import { ToastPosition, toast } from 'react-hot-toast';
 
-interface Props {
-  message: Message;
-  position?: string;
-}
-
-export const ToastSuccess = ({ message, position = 'top' }: Props) =>
+export const toastSuccess = (message: Message, position = 'top') =>
   toast.success(message, {
     id: message,
     duration: 5000,
