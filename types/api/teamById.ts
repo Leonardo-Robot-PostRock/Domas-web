@@ -17,6 +17,10 @@ export interface Team {
   clusters: Cluster[];
 }
 
+export interface TeamNode {
+  [key: string]: Team[];
+}
+
 export interface Area {
   id: number;
   name: Name;
@@ -37,10 +41,7 @@ export enum Model {
   C2 = 'C2',
 }
 
-export enum Supervisor {
-  FrancoPalombarini = 'Franco Palombarini',
-  SebastianIngrassia = 'Sebastian Ingrassia',
-}
+export type Supervisor = string;
 
 export interface Technician {
   id: number;
