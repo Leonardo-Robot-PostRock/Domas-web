@@ -1,13 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { TableNode } from '@table-library/react-table-library/types/table';
 
-interface squadTableState {
-  nodes: TableNode[];
-  drawerId: string | number | null;
-  edited: string;
-  data: { nodes: TableNode[] };
-  modifiedNodes: TableNode[];
-}
+import { TableNode } from '@table-library/react-table-library/types/table';
+import { squadTableState } from '@/types/store/squadTableState';
 
 const initialState: squadTableState = {
   nodes: [],
@@ -17,6 +11,7 @@ const initialState: squadTableState = {
     nodes: [],
   },
   modifiedNodes: [],
+  search: '',
 };
 
 const squadTableSlice = createSlice({
@@ -47,10 +42,21 @@ const squadTableSlice = createSlice({
     setModifiedNodes(state, action: PayloadAction<TableNode[]>) {
       state.modifiedNodes = action.payload;
     },
+
+    setSearch(state, action) {
+      state.search = action.payload;
+    },
   },
 });
 
-export const { setSquadDrawerId, setSquadEdited, clearSquadDrawerState, setSquadNodes, setData, setModifiedNodes } =
-  squadTableSlice.actions;
+export const {
+  setSquadDrawerId,
+  setSquadEdited,
+  clearSquadDrawerState,
+  setSquadNodes,
+  setData,
+  setModifiedNodes,
+  setSearch,
+} = squadTableSlice.actions;
 
 export default squadTableSlice.reducer;
