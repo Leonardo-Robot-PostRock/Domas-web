@@ -1,103 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { Box, Button, HStack, IconButton, Input, InputGroup, InputLeftElement, Modal } from '@chakra-ui/react';
-
-import { FaSearch, FaChevronRight, FaChevronDown, FaChevronUp, FaChevronLeft } from 'react-icons/fa';
-
-import { Action, State } from '@table-library/react-table-library/common';
-import { CompactTable } from '@table-library/react-table-library/compact';
-import { useCustom } from '@table-library/react-table-library/table';
-import { usePagination } from '@table-library/react-table-library/pagination';
-import { useSort } from '@table-library/react-table-library/sort';
-
-import { tableStyle } from '@/styles/tableStyle';
-import { useHandleDrawer } from '@/hooks/tableTeams/useHandleDrawer';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { setData, setModifiedNodes } from '@/store/squad/squadTableReducer';
-import { useColumnsTableTeams } from '@/hooks/tableTeams/useColumnsTableTeams';
+
+import { HStack } from '@chakra-ui/react';
+
+import { CompactTable } from '@table-library/react-table-library/compact';
+
+import { ButtonComponent } from '@/components/buttons/ButtonComponent';
+import { PaginationComponent } from './pagination/PaginationComponent';
+import { SearchInputComponent } from './searchInput/SearchInputComponent';
 import { CustomDrawer } from './modal/CustomDrawer';
 
+import { useColumnsTableTeams } from '@/hooks/tableTeams/useColumnsTableTeams';
+import { useHandleDrawer } from '@/hooks/tableTeams/useHandleDrawer';
+import { useTableFeatures } from '@/hooks/tableTeams/useTableFeatures';
+import { tableStyle } from '@/styles/tableStyle';
+
 export const Table = () => {
+  const dispatch = useAppDispatch();
   const squad = useAppSelector((state) => state.squadTable.nodes);
   const data = useAppSelector((state) => state.squadTable.data);
-  let modifiedNodes = useAppSelector((state) => state.squadTable.modifiedNodes);
-  const dispatch = useAppDispatch();
+
+  /* data object has the structure necessary for the react table to work well */
 
   useEffect(() => {
     dispatch(setData(squad));
   }, [squad]);
 
-  /* Resize */
-
-  const resize = { resizerHighlight: '#dee2e6' };
-
-  /* Pagination */
-
-  const pagination = usePagination(data, {
-    state: {
-      page: 0,
-      size: 4,
-    },
-    onChange: onPaginationChange,
-  });
-
-  function onPaginationChange(action: Action, state: State) {
-    console.log(action, state);
-  }
-
-  /* Search */
-
-  const [search, setSearch] = useState('');
-
-  useCustom('search', data, {
-    state: { search },
-    onChange: onSearchChange,
-  });
-
-  function onSearchChange(action: Action, state: State) {
-    pagination.fns.onSetPage(0);
-  }
-
-  /* Sort */
-
-  const sort = useSort(
-    data,
-    {
-      onChange: onSortChange,
-    },
-    {
-      sortIcon: {
-        iconDefault: null,
-        iconUp: <FaChevronUp />,
-        iconDown: <FaChevronDown />,
-      },
-      sortFns: {
-        NAME: (array) => array.sort((a, b) => a.name.localeCompare(b.name)),
-      },
-    }
-  );
-
-  function onSortChange(action: Action, state: State) {
-    console.log(action, state);
-  }
-
-  /* Drawer */
+  /* Handle Drawer */
 
   const { handleCancel, handleEdit, handleSave } = useHandleDrawer();
 
-  /* Modal */
+  /* Others features of the table */
 
-  const [modalOpened, setModalOpened] = useState(false);
+  const { filteredNodes, modalOpened, pagination, setModalOpened, sort } = useTableFeatures();
 
   /* Custom Modifiers */
 
   useEffect(() => {
     dispatch(setModifiedNodes(data.nodes));
   });
-
-  /* Search */
-
-  const filteredNodes = modifiedNodes.filter((node) => node.name.toLowerCase().includes(search.toLowerCase()));
 
   /* Columns */
 
@@ -108,13 +51,18 @@ export const Table = () => {
       {/* Form */}
 
       <HStack mx={5}>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none" children={<FaSearch style={{ color: '#4a5568' }} />} />
-          <Input placeholder="Buscar cuadrilla" value={search} onChange={(event) => setSearch(event.target.value)} />
-        </InputGroup>
+        <SearchInputComponent />
+        <ButtonComponent
+          backgroundColor="#82AAE3"
+          color="white"
+          _hover={{ color: '#82AAE3', backgroundColor: 'gray.100' }}
+        >
+          Nueva cuadrilla
+        </ButtonComponent>
       </HStack>
 
       {/* Table */}
+
       <CompactTable
         columns={columns}
         data={{ ...data, nodes: filteredNodes }}
@@ -123,36 +71,7 @@ export const Table = () => {
         pagination={pagination}
       />
 
-      <HStack justify="flex-end" mx={5}>
-        <IconButton
-          aria-label="previous page"
-          icon={<FaChevronLeft color="#82AAE3" />}
-          variant="ghost"
-          isDisabled={pagination.state.page === 0}
-          onClick={() => pagination.fns.onSetPage(pagination.state.page - 1)}
-        />
-
-        {pagination.state.getPages(data.nodes).map((row: any, index: number) => (
-          <Button
-            key={index}
-            variant={pagination.state.page === index ? 'solid' : 'ghost'}
-            onClick={() => pagination.fns.onSetPage(index)}
-            style={{
-              backgroundColor: pagination.state.page === index ? '#82AAE3' : 'transparent',
-              color: pagination.state.page === index ? 'white' : 'gray',
-            }}
-          >
-            {index + 1}
-          </Button>
-        ))}
-        <IconButton
-          aria-label="next page"
-          icon={<FaChevronRight color="#82AAE3" />}
-          variant="ghost"
-          isDisabled={pagination.state.page + 1 === pagination.state.getTotalPages(data.nodes)}
-          onClick={() => pagination.fns.onSetPage(pagination.state.page + 1)}
-        />
-      </HStack>
+      <PaginationComponent pagination={pagination} />
       <CustomDrawer handleCancel={handleCancel} handleEdit={handleEdit} handleSave={handleSave} />
     </>
   );
