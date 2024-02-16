@@ -1,32 +1,16 @@
+import { MenuButtonComponent } from '@/components/buttons/MenuButtonComponent';
 import { useAppDispatch } from '@/store';
-import { setSquadDrawerId } from '@/store/squad/squadTableReducer';
 import { Team } from '@/types/api/teamById';
-import { IconButton } from '@chakra-ui/react';
-import { GiFountainPen } from 'react-icons/gi';
 
 // The object represent each column of the table
 
 export const useColumnsTableTeams = () => {
-  const dispatch = useAppDispatch();
   const resize = { resizerHighlight: '#FFE5E5' };
 
   const columns = [
     {
       label: '',
-      renderCell: (item: Team) => (
-        <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
-          <IconButton
-            aria-label="edit"
-            icon={<GiFountainPen size={15} color="863A6F" />}
-            size="xs"
-            padding={2}
-            variant="ghost"
-            colorScheme="#4a5568"
-            _hover={{ backgroundColor: '#82AAE3' }}
-            onClick={() => dispatch(setSquadDrawerId(item.id))}
-          />
-        </div>
-      ),
+      renderCell: (item: Team) => <MenuButtonComponent />,
     },
     { label: 'Nombre', renderCell: (item: Team) => item.name, sort: { sortKey: 'NAME' } },
     {
