@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useAppSelector } from '@/store';
+import { useAppSelector } from '@/lib';
 
 import { usePagination } from '@table-library/react-table-library/pagination';
 import { useSort } from '@table-library/react-table-library/sort';
@@ -60,10 +59,6 @@ export const useTableFeatures = () => {
     console.log(action, state);
   }
 
-  /* Modal */
-
-  const [modalOpened, setModalOpened] = useState(false);
-
   /* Search */
 
   const filteredNodes = modifiedNodes.filter((node) => node.name.toLowerCase().includes(search.toLowerCase()));
@@ -72,7 +67,5 @@ export const useTableFeatures = () => {
     pagination,
     sort,
     filteredNodes,
-    modalOpened,
-    setModalOpened,
   };
 };
