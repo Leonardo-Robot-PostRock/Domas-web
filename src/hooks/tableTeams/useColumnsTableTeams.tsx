@@ -1,16 +1,14 @@
 import { MenuButtonComponent } from '@/components/buttons/MenuButtonComponent';
-import { useAppDispatch } from '@/store';
+import { useAppDispatch } from '@/lib';
 import { Team } from '@/types/api/teamById';
 
 // The object represent each column of the table
 
 export const useColumnsTableTeams = () => {
-  const resize = { resizerHighlight: '#FFE5E5' };
-
   const columns = [
     {
       label: '',
-      renderCell: (item: Team) => <MenuButtonComponent />,
+      renderCell: (item: Team) => <MenuButtonComponent item={item} />,
     },
     { label: 'Nombre', renderCell: (item: Team) => item.name, sort: { sortKey: 'NAME' } },
     {
