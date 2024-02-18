@@ -1,10 +1,18 @@
+import { useAppDispatch } from '@/lib';
+import { setSquadData } from '@/lib/store/teams/teamsReducer';
+
+import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
-import { IconButton, Menu, MenuButton, MenuItem, MenuList, useDisclosure } from '@chakra-ui/react';
 import { GiFountainPen } from 'react-icons/gi';
 
-export const MenuButtonComponent = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isOpen: isOpenDelete, onOpen: onOpenDelete, onClose: onCloseDelete } = useDisclosure();
+import { useModalContext } from '@/context/ModalContext';
+import { TeamEdit } from '@/types/Form/teamEdit';
+
+export const MenuButtonComponent = ({ item }: TeamEdit) => {
+  const dispatch = useAppDispatch();
+
+  const { onOpen, onOpenDelete } = useModalContext();
 
   return (
     <Menu>
@@ -17,19 +25,22 @@ export const MenuButtonComponent = () => {
         variant="ghost"
         colorScheme="#4a5568"
         _hover={{ backgroundColor: '#82AAE3' }}
-        // onClick={() => dispatch(setSquadDrawerId(item.id))}
-      >
-        <MenuList>
-          <MenuItem onClick={() => onOpen()}>
-            <EditIcon />
-            Editar
-          </MenuItem>
-          <MenuItem onClick={() => onOpenDelete()}>
-            <DeleteIcon />
-            Eliminar
-          </MenuItem>
-        </MenuList>
-      </MenuButton>
+      ></MenuButton>
+      <MenuList>
+        <MenuItem
+          onClick={() => {
+            onOpen();
+            dispatch(setSquadData(item));
+          }}
+        >
+          <EditIcon />
+          Editar
+        </MenuItem>
+        <MenuItem onClick={() => onOpenDelete()}>
+          <DeleteIcon />
+          Eliminar
+        </MenuItem>
+      </MenuList>
     </Menu>
   );
 };
