@@ -11,8 +11,9 @@ import axios from 'axios';
 import { toastError } from '@/components/toast/toastError';
 import { Table } from '@/components/ui/table/Table';
 import { Team } from '@/types/api/teamById';
-import { useAppDispatch, useAppSelector } from '@/store';
-import { setSquadNodes } from '@/store/squad/squadTableReducer';
+import { useAppDispatch, useAppSelector } from '@/lib';
+import { setSquadNodes } from '@/lib/store/squad/squadTableReducer';
+import { ModalProvider } from '@/context/ModalProvider';
 
 export default function Teams() {
   const dispatch = useAppDispatch();
@@ -55,9 +56,11 @@ export default function Teams() {
       <Text fontSize="5xl" m="20px">
         Cuadrillas
       </Text>
-      <Box display={{ base: 'none', lg: 'block' }}>
-        <Table />
-      </Box>
+      <ModalProvider>
+        <Box display={{ base: 'none', lg: 'block' }}>
+          <Table />
+        </Box>
+      </ModalProvider>
     </Box>
   );
 }
