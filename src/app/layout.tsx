@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { ChakraProviders } from '@/components/provider/ChakraProviders';
 import { NavigationEvents } from '@/shared/navigation-events';
 import Loading from '@/shared/loading';
-import { Providers } from '@/store/Providers';
+import { Providers } from '@/lib/store/Providers';
 
 import './globals.css';
 
