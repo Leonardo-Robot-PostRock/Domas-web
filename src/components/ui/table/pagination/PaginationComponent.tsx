@@ -1,12 +1,12 @@
 import { Button, HStack, IconButton } from '@chakra-ui/react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-import { useAppSelector } from '@/store';
+import { useAppSelector } from '@/lib';
 import { TableNode } from '@table-library/react-table-library/types/table';
 import { PaginationComponentProps } from '@/types/tables/pagination';
 
 export const PaginationComponent = <T extends TableNode>({ pagination }: PaginationComponentProps<T>) => {
-  const data = useAppSelector((state) => state.squadTable.data);
+  const data = useAppSelector((state) => state.teamsTable.data);
 
   return (
     <HStack justify="flex-end" mx={5}>

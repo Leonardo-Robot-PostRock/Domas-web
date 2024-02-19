@@ -1,13 +1,13 @@
-import { useAppDispatch, useAppSelector } from '@/store';
+import { useAppDispatch, useAppSelector } from '@/lib';
 
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
 
-import { setSearch } from '@/store/squad/squadTableReducer';
+import { setSearch } from '@/lib/store/teamsTable/teamsTableSlice';
 
 export const SearchInputComponent = () => {
   const dispatch = useAppDispatch();
-  const search = useAppSelector((state) => state.squadTable.search);
+  const search = useAppSelector((state) => state.teamsTable.search);
 
   return (
     <InputGroup>
