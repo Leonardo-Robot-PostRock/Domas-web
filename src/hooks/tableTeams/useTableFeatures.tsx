@@ -7,9 +7,9 @@ import { Action, State } from '@table-library/react-table-library/types/common';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 export const useTableFeatures = () => {
-  const data = useAppSelector((state) => state.squadTable.data);
-  const modifiedNodes = useAppSelector((state) => state.squadTable.modifiedNodes);
-  const search = useAppSelector((state) => state.squadTable.search);
+  const data = useAppSelector((state) => state.teamsTable.data);
+  const modifiedNodes = useAppSelector((state) => state.teamsTable.modifiedNodes);
+  const search = useAppSelector((state) => state.teamsTable.search);
 
   /* Pagination */
 
