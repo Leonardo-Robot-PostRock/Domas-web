@@ -1,4 +1,4 @@
-import { Supervisor, Technician } from '@/types/api/teamById';
+import { Supervisor, Team, Technician } from '@/types/api/teamById';
 
 export interface TeamEdit {
   id: number;
@@ -14,7 +14,11 @@ export interface TeamEdit {
 }
 
 export interface EditProps {
-  edit: TeamEdit;
+  dataToEdit: TeamEdit;
+}
+
+export interface ItemTeam {
+  item: Team;
 }
 
 export interface Params {
