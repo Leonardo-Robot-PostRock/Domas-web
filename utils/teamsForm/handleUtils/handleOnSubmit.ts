@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from '@/store';
+import { useAppDispatch, useAppSelector } from '@/lib';
 import { toastSuccess } from '@/components/toast/toastSuccess';
-import { closeModal } from '@/store/closeModal/closeModalReducer';
+import { closeModal } from '@/lib/store/closeModal/closeModalReducer';
 import { mutate } from 'swr';
 import { toastError } from '@/components/toast/toastError';
 import axios from 'axios';

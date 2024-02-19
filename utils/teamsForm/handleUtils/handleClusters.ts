@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from '@/store';
-import { setCloustersFav, setCloustersGroup } from '@/store/teams/teamsReducer';
+import { useAppDispatch, useAppSelector } from '@/lib';
+import { setCloustersFav, setCloustersGroup } from '@/lib/store/teams/teamsSlice';
 
 export const handleClusters = (e: any[]) => {
   const dispatch = useAppDispatch();
