@@ -1,40 +1,37 @@
 import { useEffect } from 'react';
-
-import { useAppDispatch, useAppSelector } from '@/store';
-import { setData, setModifiedNodes } from '@/store/squad/squadTableReducer';
+import { useAppDispatch, useAppSelector } from '@/lib';
+import { setData, setModifiedNodes } from '@/lib/store/teamsTable/teamsTableSlice';
+import { setTeamData } from '@/lib/store/teams/teamsSlice';
 
 import { HStack } from '@chakra-ui/react';
 
 import { CompactTable } from '@table-library/react-table-library/compact';
 
+import { useColumnsTableTeams } from '@/hooks/tableTeams/useColumnsTableTeams';
+import { useModalContext } from '@/hooks/tableTeams/useModalContext';
+import { useTableFeatures } from '@/hooks/tableTeams/useTableFeatures';
+
 import { ButtonComponent } from '@/components/buttons/ButtonComponent';
+import { DeleteTeamModal } from './modal/DeleteTeamModal';
 import { PaginationComponent } from './pagination/PaginationComponent';
 import { SearchInputComponent } from './searchInput/SearchInputComponent';
-import { CustomDrawer } from './modal/CustomDrawer';
-
-import { useColumnsTableTeams } from '@/hooks/tableTeams/useColumnsTableTeams';
-import { useHandleDrawer } from '@/hooks/tableTeams/useHandleDrawer';
-import { useTableFeatures } from '@/hooks/tableTeams/useTableFeatures';
+import { TeamFormModal } from './modal/TeamFormModal';
 import { tableStyle } from '@/styles/tableStyle';
 
 export const Table = () => {
   const dispatch = useAppDispatch();
-  const squad = useAppSelector((state) => state.squadTable.nodes);
-  const data = useAppSelector((state) => state.squadTable.data);
+  const teams = useAppSelector((state) => state.teamsTable.teams);
+  const data = useAppSelector((state) => state.teamsTable.data);
 
-  /* data object has the structure necessary for the react table to work well */
+  /* data object has the structure necessary for react table */
 
   useEffect(() => {
-    dispatch(setData(squad));
-  }, [squad]);
-
-  /* Handle Drawer */
-
-  const { handleCancel, handleEdit, handleSave } = useHandleDrawer();
+    dispatch(setData(teams));
+  }, [teams]);
 
   /* Others features of the table */
 
-  const { filteredNodes, modalOpened, pagination, setModalOpened, sort } = useTableFeatures();
+  const { filteredNodes, pagination, sort } = useTableFeatures();
 
   /* Custom Modifiers */
 
@@ -46,16 +43,20 @@ export const Table = () => {
 
   const columns = useColumnsTableTeams();
 
+  const { onOpen } = useModalContext();
+
   return (
     <>
-      {/* Form */}
-
       <HStack mx={5}>
         <SearchInputComponent />
         <ButtonComponent
           backgroundColor="#82AAE3"
           color="white"
           _hover={{ color: '#82AAE3', backgroundColor: 'gray.100' }}
+          onClick={() => {
+            onOpen();
+            dispatch(setTeamData(null));
+          }}
         >
           Nueva cuadrilla
         </ButtonComponent>
@@ -72,7 +73,8 @@ export const Table = () => {
       />
 
       <PaginationComponent pagination={pagination} />
-      <CustomDrawer handleCancel={handleCancel} handleEdit={handleEdit} handleSave={handleSave} />
+      <TeamFormModal />
+      <DeleteTeamModal />
     </>
   );
 };
