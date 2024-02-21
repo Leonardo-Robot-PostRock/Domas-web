@@ -1,6 +1,8 @@
 import { MenuButtonComponent } from '@/components/buttons/MenuButtonComponent';
+import { TooltipComponent } from '@/components/tooltip/TooltipComponent';
 import { useAppDispatch } from '@/lib';
-import { Team } from '@/types/api/teamById';
+import { Team } from '@/types/api/teams';
+import { Flex, Tooltip } from '@chakra-ui/react';
 
 // The object represent each column of the table
 
@@ -13,10 +15,13 @@ export const useColumnsTableTeams = () => {
     { label: 'Nombre', renderCell: (item: Team) => item.name, sort: { sortKey: 'NAME' } },
     {
       label: 'Integrantes',
-      renderCell: (item: Team) => item.technicians.map((tech) => tech.name).join(', '),
+      renderCell: (item: Team) => <TooltipComponent content={item.technicians} />,
     },
-    { label: 'Usuario de Mesa', renderCell: (item: Team) => item.mesa_username },
-    { label: 'Supervisor', renderCell: (item: Team) => item.supervisor },
+    {
+      label: 'Usuario de Mesa',
+      renderCell: (item: Team) => <TooltipComponent content={[{ name: item.mesa_username }]} />,
+    },
+    { label: 'Supervisor', renderCell: (item: Team) => <TooltipComponent content={[{ name: item.supervisor }]} /> },
     {
       label: 'Áreas',
       renderCell: (item: Team) => item.areas.map((area) => area.name).join(', '),
