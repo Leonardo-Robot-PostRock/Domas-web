@@ -1,7 +1,12 @@
 import { TeamEdit } from '../Form/teamEdit';
+import { Team, Technician } from '../api/teams';
 
 export interface TeamsData {
-  teamData?: TeamEdit | null;
-  loading: boolean;
+  primaryFile: [];
+  secondaryFile: [];
+  technicianDataField: Technician[];
   error: Error | null;
+  loading: boolean;
+  teams: Team[];
+  teamEdit?: TeamEdit | null;
 }
