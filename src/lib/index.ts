@@ -1,15 +1,25 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import formReducer from './store/formData/formReducer';
-import teamsTableSlice from './store/teamsTable/teamsTableSlice';
+
+// Slices
+import areaSlice from './store/area/areaSlice';
+import clusterSlice from './store/cluster/clusterSlice';
+import formSlice from './store/formData/formSlice';
+import supervisorSlice from './store/supervisor/supervisorSlice';
 import teamsSlice from './store/teams/teamsSlice';
+import teamsTableSlice from './store/teamsTable/teamsTableSlice';
+import techniciansSlice from './store/technicians/techniciansSlice';
 
 export const store = () => {
   return configureStore({
     reducer: {
+      area: areaSlice,
+      cluster: clusterSlice,
+      form: formSlice,
+      supervisor: supervisorSlice,
       teams: teamsSlice,
       teamsTable: teamsTableSlice,
-      form: formReducer,
+      technicians: techniciansSlice,
     },
   });
 };

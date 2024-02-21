@@ -1,64 +1,53 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { TeamsData } from '@/types/store/teamsData';
+import { Team } from '@/types/api/teams';
 
 const initialState: TeamsData = {
-  teamData: null,
-  loading: false,
+  primaryFile: [],
+  secondaryFile: [],
+  technicianDataField: [],
   error: null,
-  // showSupervisorField: false,
-  // supervisorsDataField: [],
-  // technicianDataField: [],
-  // primaryFile: [],
-  // secondaryFile: [],
-  // clusterData: [],
-  // areaData: [],
-  // clustersGroup: [],
-  // areaGroup: [],
-  // clustersFav: [],
+  loading: false,
+  teams: [],
+  teamEdit: null,
 };
 
 const teamsSlice = createSlice({
   name: 'teams',
   initialState,
   reducers: {
-    setTeamData(state, action) {
-      state.teamData = action.payload;
+    addNewTeam(state, action: PayloadAction<Team[]>) {
+      state.teams = action.payload;
     },
 
     setDeleteTeam(state, action) {
-      state.teamData = action.payload;
+      state.teamEdit = action.payload;
     },
 
-    setLoading(state, action) {
-      state.loading = action.payload;
-    },
-
-    setError(state, action) {
+    setError(state, action: PayloadAction<Error>) {
       state.error = action.payload;
     },
 
-    // setShowSupervisorField(state, action) {},
+    setLoading(state, action: PayloadAction<boolean>) {
+      state.loading = action.payload;
+    },
 
-    // setSupervisorsDataField(state, action) {},
+    setTeams(state, action: PayloadAction<Team[]>) {
+      state.teams = action.payload;
+    },
 
-    // setCloustersGroup(state, action) {},
-
-    // setCloustersFav(state, action) {},
-
-    // setTechnicianDataField(state, action) {},
+    updateTeam(state, action: PayloadAction<Team>) {
+      state.teams = state.teams.map((team) => {
+        if (team.id === action.payload.id) {
+          return action.payload;
+        }
+        return team;
+      });
+    },
   },
 });
 
-export const {
-  // setShowSupervisorField,
-  // setSupervisorsDataField,
-  // setCloustersGroup,
-  // setCloustersFav,
-  // setTechnicianDataField,
-  setTeamData,
-  setDeleteTeam,
-  setLoading,
-  setError,
-} = teamsSlice.actions;
+export const { setTeams, setDeleteTeam, setError, setLoading, addNewTeam, updateTeam } = teamsSlice.actions;
+
 export default teamsSlice.reducer;

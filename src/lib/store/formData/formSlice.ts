@@ -15,22 +15,26 @@ const initialState: FormData = {
   successMessage: null,
 };
 
-export const teamsSlice = createSlice({
+export const formSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
     setFormData: (state, action: PayloadAction<Object>) => {
       state.formData = action.payload;
     },
+
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+
     setError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     },
+
     setSuccessMessage: (state, action: PayloadAction<string | null>) => {
       state.successMessage = action.payload;
     },
+
     resetForm: (state) => {
       state.formData = {};
       state.isLoading = false;
@@ -40,7 +44,6 @@ export const teamsSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { setFormData, setLoading, setError, setSuccessMessage, resetForm } = teamsSlice.actions;
+export const { setFormData, setLoading, setError, setSuccessMessage, resetForm } = formSlice.actions;
 
-export default teamsSlice.reducer;
+export default formSlice.reducer;
