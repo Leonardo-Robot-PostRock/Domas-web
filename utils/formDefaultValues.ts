@@ -1,6 +1,10 @@
 import { Params, TeamEdit } from '@/types/Form/teamEdit';
+import { Team } from '@/types/api/teams';
+import { DefaultValues } from 'react-hook-form';
 
-export const getDefaultValues = (edit: TeamEdit) => {
+export const getDefaultValues = (teamData: Team | null): DefaultValues<TeamEdit> | undefined => {
+  if (!teamData) return {};
+
   const {
     name,
     google_calendar_id,
@@ -11,9 +15,9 @@ export const getDefaultValues = (edit: TeamEdit) => {
     supervisor,
     technicians,
     starting_point,
-  } = edit ?? {};
+  } = teamData;
 
-  const supervisorOption = supervisor_id ? { value: supervisor_id, label: supervisor } : null;
+  const supervisorOption = supervisor_id ? { value: supervisor_id, label: supervisor || '' } : undefined;
   const leaderOption = getLeaderOption({ technicians, mesa_username });
   const assistantOption = getAssistantOption({ technicians, mesa_username });
 
@@ -23,7 +27,7 @@ export const getDefaultValues = (edit: TeamEdit) => {
     google_calendar_id,
     min_tickets_to_do,
     max_tickets_to_do_only_omnichannel,
-    supervisor: supervisorOption,
+    supervisorOption: supervisorOption,
     leader: leaderOption,
     assistant: assistantOption,
     starting_point,
