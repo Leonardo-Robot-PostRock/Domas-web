@@ -1,16 +1,29 @@
-import { Cluster } from '@/types/api/clusters';
+import type { Cluster } from '@/types/api/clusters';
 import { createSlice } from '@reduxjs/toolkit';
 
 interface ClusterData {
   cluster: Cluster[];
-  clustersGroup: Cluster[];
-  favouriteCluster: Cluster[];
+  clustersGroup: { value: number | null; label: string }[];
+  favouriteCluster: {
+    isChecked: boolean;
+    cluster_id: number | null;
+  }[];
 }
 
 const initialState: ClusterData = {
   cluster: [],
-  clustersGroup: [],
-  favouriteCluster: [],
+  clustersGroup: [
+    {
+      value: null,
+      label: ''
+    }
+  ],
+  favouriteCluster: [
+    {
+      isChecked: false,
+      cluster_id: null
+    }
+  ]
 };
 
 const clusterSlice = createSlice({
@@ -21,16 +34,16 @@ const clusterSlice = createSlice({
       state.cluster = action.payload;
     },
 
-    setCloustersFav(state, action) {
+    setFavouriteClousters(state, action) {
       state.favouriteCluster = action.payload;
     },
 
     setCloustersGroup(state, action) {
       state.clustersGroup = action.payload;
-    },
-  },
+    }
+  }
 });
 
-export const { setClusterData, setCloustersFav, setCloustersGroup } = clusterSlice.actions;
+export const { setClusterData, setFavouriteClousters, setCloustersGroup } = clusterSlice.actions;
 
 export default clusterSlice.reducer;

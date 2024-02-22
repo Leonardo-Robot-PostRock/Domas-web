@@ -3,12 +3,20 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface AreaData {
   area: Area[];
-  areaGroup: Area[];
+  areaGroup: {
+    value: number | null;
+    label: string;
+  }[];
 }
 
 const initialState: AreaData = {
   area: [],
-  areaGroup: [],
+  areaGroup: [
+    {
+      value: null,
+      label: '',
+    },
+  ],
 };
 
 const areasSlice = createSlice({
