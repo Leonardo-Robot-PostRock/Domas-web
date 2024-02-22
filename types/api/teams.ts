@@ -9,7 +9,7 @@ export interface Team {
   always_active: boolean;
   min_tickets_to_do: number;
   max_tickets_to_do_only_omnichannel: number;
-  supervisor: Supervisor;
+  supervisor?: Supervisor;
   technicians: Technician[];
   starting_point: null;
   areas: Area[];
@@ -22,7 +22,7 @@ export interface Area {
 }
 
 export enum Name {
-  name = 'ST',
+  name = 'ST'
 }
 
 export interface Cluster {
@@ -33,7 +33,7 @@ export interface Cluster {
 }
 
 export enum Model {
-  C2 = 'C2',
+  C2 = 'C2'
 }
 
 export type Supervisor = string;

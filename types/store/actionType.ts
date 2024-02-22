@@ -1,5 +1,5 @@
-import { RootState } from '@/lib';
-import { UnknownAction } from 'redux';
-import { ThunkAction } from 'redux-thunk';
+import type { RootState } from '@/lib';
+import type { UnknownAction } from 'redux';
+import type { ThunkAction } from 'redux-thunk';
 
-export type AsyncThunkAction = ThunkAction<void, RootState, unknown, UnknownAction>;
+export type AsyncThunkAction = ThunkAction<Promise<void>, RootState, unknown, UnknownAction>;

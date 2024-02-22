@@ -1,23 +1,22 @@
-import { Supervisor, Team, Technician } from '../api/teams';
+import type { FieldValues } from 'react-hook-form';
+import type { Cluster } from '../api/clusters';
+import type { Supervisor, Team, Technician } from '../api/teams';
 
-export interface TeamEdit {
-  id: number;
-  name: string;
-  google_calendar_id: string;
-  mesa_username: string;
-  supervisor_id: number;
-  min_tickets_to_do: number;
-  max_tickets_to_do_only_omnichannel: number;
-  supervisorOption: SupervisorOption;
-  leader?: { value: number; label: string } | null;
-  assistant?: { value: number; label: string } | null;
-  technicians: Technician[];
-  starting_point: null;
-}
+export interface TeamEdit extends Team {}
 
-export interface SupervisorOption {
+export interface SupervisorField {
   value: number;
   label: Supervisor;
+}
+
+export interface LeaderField {
+  value: number;
+  label: string;
+}
+
+export interface AssitantField {
+  value: number;
+  label: string;
 }
 
 export interface EditProps {
@@ -31,4 +30,17 @@ export interface ItemTeam {
 export interface Params {
   technicians: Technician[];
   mesa_username: string;
+}
+
+export interface FormData extends Team, Cluster, FieldValues {
+  leader?: LeaderField;
+  assistant?: AssitantField;
+  users_id: number[];
+  supervisorField: SupervisorField;
+  primary_file?: string;
+  secondary_file?: string;
+  cluster_favourite: string[];
+  cluster_id: string[];
+  area_id: string[];
+  area?: string;
 }

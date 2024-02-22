@@ -1,6 +1,6 @@
-import { User } from "../dicebear/user";
+import type { User } from '../dicebear/user';
 
 export interface AuthenticationHookResult {
-    userInfo: User | null;
-    userRoles: string[];
+  userInfo: User | null;
+  userRoles: string[];
 }

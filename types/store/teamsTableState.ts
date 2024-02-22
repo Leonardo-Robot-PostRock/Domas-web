@@ -1,4 +1,4 @@
-import { TableNode } from '@table-library/react-table-library/types/table';
+import type { TableNode } from '@table-library/react-table-library/types/table';
 
 export interface TeamsTableState {
   data: { nodes: TableNode[] };
