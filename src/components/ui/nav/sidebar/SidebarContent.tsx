@@ -1,9 +1,10 @@
+import type { ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 
 import {
   Avatar,
   Box,
-  BoxProps,
+  type BoxProps,
   Button,
   DrawerCloseButton,
   Flex,
@@ -11,7 +12,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  VStack,
+  VStack
 } from '@chakra-ui/react';
 
 import Cookies from 'js-cookie';
@@ -26,11 +27,11 @@ interface Props {
   props?: BoxProps;
 }
 
-export const SidebarContent = ({ onClose, ...props }: Props) => {
+export const SidebarContent = ({ onClose, ...props }: Props): ReactNode => {
   const router = useRouter();
-  const { Links } = useNavItems();
+  const { links } = useNavItems();
 
-  function singOut() {
+  function singOut(): void {
     localStorage.clear();
     Cookies.remove('auth_service');
     router.push('/');
@@ -60,7 +61,7 @@ export const SidebarContent = ({ onClose, ...props }: Props) => {
             </DrawerCloseButton>
           </Flex>
           <Flex direction="column" as="nav" fontSize="md" color="gray.600" aria-label="Main Navigation">
-            <NavItems Links={Links} />
+            <NavItems links={links} />
           </Flex>
         </Box>
 
@@ -78,7 +79,13 @@ export const SidebarContent = ({ onClose, ...props }: Props) => {
               <Avatar size={'sm'} name="Ahmad" src="https://avatars2.githubusercontent.com/u/37842853?v=4" />
             </MenuButton>
             <MenuList fontSize={17} zIndex={5555}>
-              <MenuItem onClick={() => singOut()}>Logout</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  singOut();
+                }}
+              >
+                Logout
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>

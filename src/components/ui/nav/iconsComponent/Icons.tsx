@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 import { AiFillCar, AiFillCalendar, AiFillPushpin } from 'react-icons/ai';
 import { RiHistoryLine, RiTodoFill, RiDashboardFill, RiRoadMapLine } from 'react-icons/ri';
@@ -9,7 +9,7 @@ import {
   BsJournals,
   BsSearch,
   BsTelephoneFill,
-  BsTelephonePlusFill,
+  BsTelephonePlusFill
 } from 'react-icons/bs';
 import { IoMapSharp } from 'react-icons/io5';
 import { GiPapers } from 'react-icons/gi';
@@ -36,7 +36,7 @@ const iconsNav: IconObject[] = [
   { name: 'BsTelephoneFill', icon: <BsTelephoneFill /> },
   { name: 'BsTelephonePlusFill', icon: <BsTelephonePlusFill /> },
   { name: 'IoMapSharp', icon: <IoMapSharp /> },
-  { name: 'RiHistoryLine', icon: <RiHistoryLine /> },
+  { name: 'RiHistoryLine', icon: <RiHistoryLine /> }
 ];
 
 // Exporting the array of icon components

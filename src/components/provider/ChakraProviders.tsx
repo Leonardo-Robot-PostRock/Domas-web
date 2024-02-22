@@ -3,6 +3,8 @@ import theme from '@/styles/global';
 
 import { ChakraProvider } from '@chakra-ui/react';
 
-export function ChakraProviders({ children }: { children: React.ReactNode }) {
+import type { ReactNode } from 'react';
+
+export function ChakraProviders({ children }: { children: React.ReactNode }): ReactNode {
   return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
 }

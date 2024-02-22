@@ -1,9 +1,10 @@
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { Box, Flex, Text } from '@chakra-ui/react';
 
-import { LinkItem } from '@/types/NavMenuItemProps/linksAndSublink';
+import type { LinkItem } from '@/types/NavMenuItemProps/linksAndSublink';
 
-export const ItemLink = ({ link, selected, icon, title }: LinkItem) => {
+export const ItemLink = ({ link, selected, icon, title }: LinkItem): ReactNode => {
   return (
     <Box w={'100%'}>
       <Link href={link} passHref>
@@ -17,10 +18,10 @@ export const ItemLink = ({ link, selected, icon, title }: LinkItem) => {
           px={4}
           _hover={{
             bg: 'cyan.100',
-            color: 'black',
+            color: 'black'
           }}
         >
-          {icon ? icon : null}
+          {icon ?? null}
           <Text>{title}</Text>
         </Flex>
       </Link>

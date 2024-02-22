@@ -1,9 +1,10 @@
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { Box, Flex, Text } from '@chakra-ui/react';
 
-import { SubLink } from '@/types/NavMenuItemProps/linksAndSublink';
+import type { SubLink } from '@/types/NavMenuItemProps/linksAndSublink';
 
-export const AccordionItems = ({ link, selected, icon, title }: SubLink) => {
+export const AccordionItems = ({ link, selected, icon, title }: SubLink): ReactNode => {
   return (
     <Box w={'100%'}>
       <Link href={link} passHref>
@@ -16,10 +17,10 @@ export const AccordionItems = ({ link, selected, icon, title }: SubLink) => {
           p={2}
           _hover={{
             bg: 'cyan.100',
-            color: 'black',
+            color: 'black'
           }}
         >
-          {icon ? icon : null}
+          {icon ?? null}
           <Text>{title}</Text>
         </Flex>
       </Link>

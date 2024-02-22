@@ -1,5 +1,5 @@
 'use client';
-import { useRef } from 'react';
+import { type ReactNode, useRef } from 'react';
 
 import {
   Box,
@@ -9,7 +9,7 @@ import {
   IconButton,
   useDisclosure,
   DrawerOverlay,
-  useColorModeValue,
+  useColorModeValue
 } from '@chakra-ui/react';
 import { FiMenu } from 'react-icons/fi';
 
@@ -20,7 +20,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function LayoutSidebar({ children }: Props) {
+export default function LayoutSidebar({ children }: Props): ReactNode {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const divRef = useRef<HTMLDivElement>(null);
 

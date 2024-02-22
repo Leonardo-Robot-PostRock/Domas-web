@@ -1,12 +1,12 @@
-import React from 'react';
-import { Box, Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react';
+import React, { type ReactNode } from 'react';
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const SessionExpiredModal = ({ isOpen, onClose }: Props) => {
+const SessionExpiredModal = ({ isOpen, onClose }: Props): ReactNode => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />

@@ -8,13 +8,14 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Text,
+  Text
 } from '@chakra-ui/react';
 
 import { useModalContext } from '@/hooks/tableTeams/useModalContext';
-import { ModalFormProps } from '@/types/modals/modalForm';
+import type { ModalFormProps } from '@/types/modals/modalForm';
+import type { ReactNode } from 'react';
 
-export const ModalForm = ({ title, icon, description, bodyContent }: ModalFormProps) => {
+export const ModalForm = ({ title, icon, description, bodyContent }: ModalFormProps): ReactNode => {
   const { isOpen, onClose } = useModalContext();
 
   return (

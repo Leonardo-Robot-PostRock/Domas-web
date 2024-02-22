@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/lib';
-import { setTeamData } from '@/lib/store/teams/teamsSlice';
+import { setTeamEdit } from '@/lib/store/teams/teamsSlice';
 
 import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 
@@ -8,9 +8,10 @@ import { GiFountainPen } from 'react-icons/gi';
 
 import { useModalContext } from '@/hooks/tableTeams/useModalContext';
 
-import { ItemTeam } from '@/types/Form/teamEdit';
+import type { ItemTeam } from '@/types/Form/teamEdit';
+import type { ReactNode } from 'react';
 
-export const MenuButtonComponent = ({ item }: ItemTeam) => {
+export const MenuButtonComponent = ({ item }: ItemTeam): ReactNode => {
   const dispatch = useAppDispatch();
 
   const { onOpen, onOpenDelete } = useModalContext();
@@ -29,25 +30,26 @@ export const MenuButtonComponent = ({ item }: ItemTeam) => {
       ></MenuButton>
       <MenuList fontSize={12} p={2}>
         <MenuItem
+          key={`edit-${item.id}`}
           _hover={{ backgroundColor: 'blue.500', color: 'white' }}
           gap={2}
           h={10}
           alignItems="center"
           onClick={() => {
             onOpen();
-            dispatch(setTeamData(item));
+            dispatch(setTeamEdit(item));
           }}
         >
           <EditIcon />
           Editar
         </MenuItem>
         <MenuItem
+          key={`delete-${item.id}`}
           _hover={{ backgroundColor: 'red', color: 'white' }}
           gap={2}
           h={10}
           onClick={() => {
             onOpenDelete();
-            dispatch(setTeamData(item));
           }}
         >
           <DeleteIcon />

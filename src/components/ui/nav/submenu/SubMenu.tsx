@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react';
 import { Accordion, AccordionItem, AccordionButton, AccordionPanel, Box, Text, AccordionIcon } from '@chakra-ui/react';
 import { AccordionItems } from '../intex';
-import { IconObject, SubLink } from '@/types/NavMenuItemProps/linksAndSublink';
+
+import type { IconObject, SubLink } from '@/types/NavMenuItemProps/linksAndSublink';
 
 interface Props {
   subLinks: SubLink[];
@@ -8,7 +10,7 @@ interface Props {
   icon: IconObject;
 }
 
-export const Submenu = ({ subLinks, title, icon }: Props) => {
+export const Submenu = ({ subLinks, title, icon }: Props): ReactNode => {
   return (
     <Box style={{ zIndex: 20 }} w={'100%'} justifyContent={'space-around'}>
       <Accordion allowToggle>
@@ -19,11 +21,11 @@ export const Submenu = ({ subLinks, title, icon }: Props) => {
             justifyContent={'space-between'}
             _hover={{
               bg: 'cyan.100',
-              color: 'black',
+              color: 'black'
             }}
           >
             <Box display={'flex'} alignItems={'center'} gap={2}>
-              {icon ? icon : null}
+              {icon ?? null}
               <Text>{title}</Text>
             </Box>
             <AccordionIcon />

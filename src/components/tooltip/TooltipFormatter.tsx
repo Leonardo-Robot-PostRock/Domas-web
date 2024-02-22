@@ -1,6 +1,8 @@
-import { TooltipProps } from '@/types/tooltip/tooltipContent';
+import type { ReactNode } from 'react';
 
-export const TooltipFormatter = ({ content }: TooltipProps) => {
+import type { TooltipProps } from '@/types/tooltip/tooltipContent';
+
+export const TooltipFormatter = ({ content }: TooltipProps): ReactNode => {
   const comma = ', ';
   return (
     <>

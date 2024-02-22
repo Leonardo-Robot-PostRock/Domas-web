@@ -1,9 +1,12 @@
+import type { ReactNode } from 'react';
+
 import { Tooltip } from '@chakra-ui/react';
 
-import { TooltipProps } from '@/types/tooltip/tooltipContent';
 import { TooltipFormatter } from './TooltipFormatter';
 
-export const TooltipComponent = ({ content }: TooltipProps) => {
+import type { TooltipProps } from '@/types/tooltip/tooltipContent';
+
+export const TooltipComponent = ({ content }: TooltipProps): ReactNode => {
   return (
     <Tooltip
       bg="blue.300"

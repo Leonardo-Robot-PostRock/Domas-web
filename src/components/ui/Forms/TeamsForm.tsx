@@ -1,64 +1,42 @@
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '@/store';
+import { useAppSelector } from '@/lib';
 
-import { useForm } from 'react-hook-form';
+import { FilepondComponent } from '../../FilepondComponent/FilepondComponent';
 
-import { getDefaultValues } from '@/utils/formDefaultValues';
+import { useDataInitialization } from '@/hooks/useDataInitialization';
+import { useFormData } from '@/hooks/useFormData';
+import { useFormSubmit } from '@/hooks/useFormSubmit';
+import { Text } from '@chakra-ui/react';
+import type { ReactNode } from 'react';
 
-import { EditProps } from '@/types/Form/teamEdit';
-import { setShowSupervisorField, setSupervisorsDataField, setTechnicianDataField } from '@/store/teams/teamsReducer';
-import { handleCheckbox, handleClusters, handleOnSubmit } from '@/utils/teamsForm';
-import { toastError } from '@/components/toast/toastError';
-import axios from 'axios';
-
-export const TeamsForm = ({ edit }: EditProps) => {
-  const dispatch = useAppDispatch();
-  const showSupervisorField = useAppSelector((state) => state.teams.showSupervisorField);
-
-  const submitUrl = edit ? `/api/teams/${edit.id}` : `/api/teams/new`;
-  const submitMethod = edit ? `patch` : 'post';
+export const TeamsForm = (): ReactNode => {
+  const teamEdit = useDataInitialization();
+  const primaryFile = useAppSelector((state) => state.teams.primaryFile);
+  const secondaryFile = useAppSelector((state) => state.teams.secondaryFile);
 
   const {
-    register,
     handleSubmit,
-    control,
     formState: { errors },
-  } = useForm({
-    defaultValues: getDefaultValues(edit),
-  });
+    control
+  } = useFormData(teamEdit);
 
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem('user') as string);
-
-    dispatch(setShowSupervisorField(userInfo.roles.some((item) => item.name.toUpperCase() === 'ADMINISTRADOR')));
-  });
-
-  useEffect(() => {
-    if (showSupervisorField) {
-      axios
-        .get('/api/supervisor/all')
-        .then((res) => {
-          const supervisors = res.data.users;
-
-          setSupervisorsDataField(supervisors.map((item) => ({ value: item.id, label: item.name })));
-        })
-        .catch(() => toastError('Ocurrió un error al obtener los supervisores'));
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>): void => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
     }
+  };
 
-    axios
-      .get('/api/technician/all')
-      .then((res) => {
-        const technicians = res.data.users;
+  const onSubmit = useFormSubmit();
 
-        const updateTechnicianData = technicians.map((item) => {
-          let team = dataTeams.find((team) => team.technicians.some((tech) => tech.id == item.id));
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      style={{ display: 'flex', flexDirection: 'column', gap: '2.5vh', marginTop: '2vh' }}
+      onKeyDown={handleKeyDown}
+    >
+      <Text>Datos de la cuadrilla</Text>
 
-          return { value: item.id, label: `${item.name} - ${team?.name || 'libre'}` };
-        });
-        dispatch(setTechnicianDataField(updateTechnicianData));
-      })
-      .catch((err) => toastError('Ocurrió un error al obtener los técnicos'));
-  }, [showSupervisorField]);
-
-  return <div>TeamsForm</div>;
+      <FilepondComponent file={primaryFile} title="Foto del Lider" />
+      <FilepondComponent file={secondaryFile} title="Foto del Técnico asistente" />
+    </form>
+  );
 };
