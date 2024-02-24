@@ -1,21 +1,21 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 'use client';
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 
-import { Avatar, Box, Center, Flex, Stack, useColorModeValue } from '@chakra-ui/react';
-import { useToast } from '@chakra-ui/react';
+import { Avatar, Box, Center, Flex, Stack, useColorModeValue, useToast } from '@chakra-ui/react';
 
 import axios from 'axios';
 
-import { Inputs } from '@/types/Form/inputs';
+import type { Inputs } from '@/types/Form/inputs';
 import Cookies from 'js-cookie';
 
 import { useGradientOfTheDay } from '@/hooks/useGradientOfTheDay';
 import { AuthForm } from './AuthForm';
 
-export default function LoginForm() {
+export default function LoginForm(): ReactNode {
   const toast = useToast();
   const router = useRouter();
 
@@ -25,40 +25,39 @@ export default function LoginForm() {
   const {
     register,
     formState: { errors },
-    handleSubmit,
+    handleSubmit
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data: Inputs): Promise<void> => {
     Cookies.remove('auth_service');
     setSubmitIsLoading(true);
-    axios
-      .post('/api/login', data)
-      .then((res) => {
-        const { user } = res.data;
-        const { auth_service } = res.data.sessionCookie;
+    try {
+      const response = await axios.post('/api/login', data);
+      const { user } = response.data;
+      const { auth_service } = response.data.sessionCookie;
 
-        localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
 
-        Cookies.set('auth_service', auth_service, {
-          expires: 0.5,
-        });
+      Cookies.set('auth_service', auth_service as string, {
+        expires: 0.5
+      });
 
-        router.push('/teams');
-      })
-      .catch((err) => {
-        console.error(err);
+      router.push('/teams');
+    } catch (error) {
+      console.error(error);
 
-        toast({
-          position: 'top',
-          isClosable: true,
-          render: () => (
-            <Box bg={'#282828'} color={'white'} p={4} rounded={'xl'}>
-              Las credenciales no pertenecen a ningún usuario de DO+
-            </Box>
-          ),
-        });
-      })
-      .finally(() => setSubmitIsLoading(false));
+      toast({
+        position: 'top',
+        isClosable: true,
+        render: () => (
+          <Box bg={'#282828'} color={'white'} p={4} rounded={'xl'}>
+            Las credenciales no pertenecen a ningún usuario de DO+
+          </Box>
+        )
+      });
+    } finally {
+      setSubmitIsLoading(false);
+    }
   };
 
   return (

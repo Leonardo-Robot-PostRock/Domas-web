@@ -1,13 +1,12 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Box } from '@chakra-ui/react';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import '@/styles/mapbox.css';
+
 import '@/styles/form.css';
+
 import { getCookie } from 'cookies-next';
-import 'mapbox-gl/dist/mapbox-gl.css';
 import Layout from './(dashboard)/layout';
 import SessionExpiredModal from '@/components/ui/modals/ModalSesionExpired';
 
@@ -15,30 +14,32 @@ interface Props {
   Component: React.ComponentType;
 }
 
-function MyApp({ Component }: Props) {
+function MyApp({ Component }: Props): ReactNode {
   const router = useRouter();
   const [showSessionExpiredModal, setShowSessionExpiredModal] = useState(false);
 
   useEffect(() => {
     const intervalId = setInterval(checkCookieExpiration, 60000);
 
-    return () => clearInterval(intervalId);
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
-  function checkCookieExpiration() {
+  function checkCookieExpiration(): void {
     const cookieExpiration = getCookie('auth_service');
     if (!cookieExpiration) {
       setShowSessionExpiredModal(true);
     }
   }
 
-  function closeModal() {
+  function closeModal(): void {
     setShowSessionExpiredModal(false);
     router.push('/');
   }
 
   return (
-    <Box fontFamily={'poppins'}>
+    <Box fontFamily="poppins">
       <Layout>
         <Component />
       </Layout>
