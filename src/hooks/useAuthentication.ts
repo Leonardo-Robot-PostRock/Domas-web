@@ -1,14 +1,13 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-//Dicebear imports
+// Dicebear imports
 import { thumbs } from '@dicebear/collection';
 import { createAvatar } from '@dicebear/core';
 
-//Types
-import { User } from '@/types/dicebear/user';
-import { Role } from '@/types/dicebear/role';
-import { AuthenticationHookResult } from '@/types/authTypes/authHookResult';
+import type { User } from '@/types/dicebear/user';
+import type { Role } from '@/types/dicebear/role';
+import type { AuthenticationHookResult } from '@/types/authTypes/authHookResult';
 
 export const useAuthentication = (): AuthenticationHookResult => {
   const [userInfo, setUserInfo] = useState<User | null>(null);
@@ -22,7 +21,7 @@ export const useAuthentication = (): AuthenticationHookResult => {
 
       const avatar = createAvatar(thumbs, {
         size: 64,
-        seed: user.name || '',
+        seed: user.name ?? ''
       }).toDataUriSync();
 
       user.profile_pic = avatar;
@@ -38,6 +37,6 @@ export const useAuthentication = (): AuthenticationHookResult => {
 
   return {
     userInfo,
-    userRoles,
+    userRoles
   };
 };

@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 
 import { datetimeFormatted, currentDatetime } from 'utils/Datetime';
 
-export const useGradientOfTheDay = () => {
+export const useGradientOfTheDay = (): { gradientOfTheDay: string } => {
   const [gradientOfTheDay, setGradientOfTheDay] = useState<string>('null');
 
   useEffect(() => {
-    const fetchGradientOfTheDay = async () => {
+    const fetchGradientOfTheDay = (): void => {
       try {
         const gradients: string[] = [
           `#418CB7,#FBDA61`,
@@ -15,7 +15,7 @@ export const useGradientOfTheDay = () => {
           `#0093E9, #80D0C7`,
           `#C34F82, #2D294A`,
           `#418CB7,#FF8570`,
-          `#4766f4,#b6f3c9`,
+          `#4766f4,#b6f3c9`
         ];
 
         const gradientIdx = parseInt(datetimeFormatted(currentDatetime(), 'd'));

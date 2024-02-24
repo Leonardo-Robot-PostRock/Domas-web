@@ -1,46 +1,56 @@
+import type { ReactNode } from 'react';
 import { MenuButtonComponent } from '@/components/buttons/MenuButtonComponent';
-import { TooltipComponent } from '@/components/tooltip/TooltipComponent';
-import { useAppDispatch } from '@/lib';
-import { Team } from '@/types/api/teams';
-import { Flex, Tooltip } from '@chakra-ui/react';
+import { TooltipComponent } from '@/components/tooltips/TooltipComponent';
+import type { Team } from '@/types/api/teams';
 
 // The object represent each column of the table
 
-export const useColumnsTableTeams = () => {
+interface TableColumn {
+  label: string;
+  renderCell: (item: Team) => ReactNode;
+  sort?: {
+    sortKey: string;
+  };
+}
+
+export const useColumnsTableTeams = (): TableColumn[] => {
   const columns = [
     {
       label: '',
-      renderCell: (item: Team) => <MenuButtonComponent item={item} />,
+      renderCell: (item: Team) => <MenuButtonComponent item={item} />
     },
     { label: 'Nombre', renderCell: (item: Team) => item.name, sort: { sortKey: 'NAME' } },
     {
       label: 'Integrantes',
-      renderCell: (item: Team) => <TooltipComponent content={item.technicians} />,
+      renderCell: (item: Team) => <TooltipComponent content={item.technicians} />
     },
     {
       label: 'Usuario de Mesa',
-      renderCell: (item: Team) => <TooltipComponent content={[{ name: item.mesa_username }]} />,
+      renderCell: (item: Team) => <TooltipComponent content={[{ name: item.mesa_username }]} />
     },
-    { label: 'Supervisor', renderCell: (item: Team) => <TooltipComponent content={[{ name: item.supervisor }]} /> },
+    {
+      label: 'Supervisor',
+      renderCell: (item: Team) => <TooltipComponent content={[{ name: item.supervisor ?? '' }]} />
+    },
     {
       label: 'Áreas',
-      renderCell: (item: Team) => item.areas.map((area) => area.name).join(', '),
+      renderCell: (item: Team) => item.areas.map((area) => area.name).join(', ')
     },
     { label: 'Cluster', renderCell: (item: Team) => item.clusters.map((cluster) => cluster?.name).join(', ') },
     {
       label: 'Ppal Cluster',
-      renderCell: (item: Team) => item.clusters.find((cluster) => cluster.favourite_group)?.name || '-',
+      renderCell: (item: Team) => item.clusters.find((cluster) => cluster.favourite_group)?.name ?? '-'
     },
     { label: 'Tickets diarios mínimo', renderCell: (item: Team) => item.min_tickets_to_do },
     {
       label: 'Tickets máximos para Omnicanalidad',
-      renderCell: (item: Team) => item.max_tickets_to_do_only_omnichannel,
+      renderCell: (item: Team) => item.max_tickets_to_do_only_omnichannel
     },
     {
       label: 'Punto de partida',
-      renderCell: (item: Team) => item.starting_point || '-',
+      renderCell: (item: Team) => item.starting_point ?? '-'
     },
-    { label: 'ID de Traccar', renderCell: (item: Team) => item.traccar_device_id || '-' },
+    { label: 'ID de Traccar', renderCell: (item: Team) => item.traccar_device_id ?? '-' }
   ];
 
   return columns;
