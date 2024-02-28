@@ -4,7 +4,7 @@ import { useAppSelector } from '@/lib';
 import { AiOutlineCar } from 'react-icons/ai';
 
 import { ModalForm } from '../../modals/ModalForm';
-import { TeamsForm } from '../../Forms/TeamsForm';
+import { TeamsForm } from '../../forms/TeamsForm';
 
 // This dynamic form modal is used to edit and to add a Team
 
@@ -14,8 +14,7 @@ export const DynamicFormModal = (): ReactNode => {
   return (
     <ModalForm
       icon={<AiOutlineCar />}
-      title={teamEdit ? `Editar cuadrilla ${teamEdit.name}` : 'Nueva cuadrilla'}
-      description={'Los campos marcados con asteriscos (*) son obligatorios.'}
+      title={teamEdit ? `Editar cuadrilla ${teamEdit.name}` : 'Crear una cuadrilla'}
       bodyContent={<TeamsForm />}
     />
   );

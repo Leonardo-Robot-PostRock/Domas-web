@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { type ReactNode, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { setData, setModifiedNodes } from '@/lib/store/teamsTable/teamsTableSlice';
+import { setTeamEdit } from '@/lib/store/teams/teamsSlice';
 
 import { Box, HStack } from '@chakra-ui/react';
 import { CompactTable } from '@table-library/react-table-library/compact';
@@ -11,13 +12,12 @@ import { useTableFeatures } from '@/hooks/tableTeams/useTableFeatures';
 
 import { ButtonComponent } from '@/components/buttons/ButtonComponent';
 import { DeleteTeamModal } from '../modals/DeleteTeamModal';
+import { DynamicFormModal } from './DynamicModal/DynamicFormModal';
 import { PaginationComponent } from './pagination/PaginationComponent';
 import { SearchInputComponent } from './searchInput/SearchInputComponent';
-import { DynamicFormModal } from './DynamicModal/DynamicFormModal';
 import { tableStyle } from '@/styles/tableStyle';
-import { setTeamEdit } from '@/lib/store/teams/teamsSlice';
 
-export const Table = () => {
+export const Table = (): ReactNode => {
   const dispatch = useAppDispatch();
   const teams = useAppSelector((state) => state.teams.teams);
   const data = useAppSelector((state) => state.teamsTable.data);
