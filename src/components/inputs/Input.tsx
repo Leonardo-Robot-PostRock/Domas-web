@@ -15,7 +15,7 @@ interface Props {
 export const InputComponent = ({ register, errors, warning, title, type, id }: Props): ReactNode => (
   <FormControl id={id} isInvalid={!!errors}>
     <FormLabel>{title}</FormLabel>
-    <Input type={type} {...register(id, { required: true })} autoComplete="on" />
+    <Input type={type} {...register(id, { required: true })} autoComplete="on" variant="flushed" px={2} />
     {errors.password && <FormErrorMessage>{warning}</FormErrorMessage>}
   </FormControl>
 );
