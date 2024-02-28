@@ -1,15 +1,14 @@
+import type { ReactNode } from 'react';
 import { useAppDispatch } from '@/lib';
 import { setTeamEdit } from '@/lib/store/teams/teamsSlice';
 
 import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
-
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { GiFountainPen } from 'react-icons/gi';
 
 import { useModalContext } from '@/hooks/tableTeams/useModalContext';
 
 import type { ItemTeam } from '@/types/Form/teamEdit';
-import type { ReactNode } from 'react';
 
 export const MenuButtonComponent = ({ item }: ItemTeam): ReactNode => {
   const dispatch = useAppDispatch();
@@ -50,6 +49,7 @@ export const MenuButtonComponent = ({ item }: ItemTeam): ReactNode => {
           h={10}
           onClick={() => {
             onOpenDelete();
+            dispatch(setTeamEdit(item));
           }}
         >
           <DeleteIcon />
