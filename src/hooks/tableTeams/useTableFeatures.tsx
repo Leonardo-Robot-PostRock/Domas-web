@@ -1,12 +1,18 @@
 import { useAppSelector } from '@/lib';
-
-import { usePagination } from '@table-library/react-table-library/pagination';
-import { useSort } from '@table-library/react-table-library/sort';
-import { useCustom } from '@table-library/react-table-library/table';
-import { Action, State } from '@table-library/react-table-library/types/common';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
-export const useTableFeatures = () => {
+import { type Pagination, usePagination } from '@table-library/react-table-library/pagination';
+import { type Sort, useSort } from '@table-library/react-table-library/sort';
+import { type TableNode, useCustom } from '@table-library/react-table-library/table';
+import { type Action, type State } from '@table-library/react-table-library/types/common';
+
+interface UseTableFeaturesReturnType {
+  pagination: Pagination<TableNode>;
+  sort: Sort<TableNode>;
+  filteredNodes: TableNode[];
+}
+
+export const useTableFeatures = (): UseTableFeaturesReturnType => {
   const data = useAppSelector((state) => state.teamsTable.data);
   const modifiedNodes = useAppSelector((state) => state.teamsTable.modifiedNodes);
   const search = useAppSelector((state) => state.teamsTable.search);
@@ -16,23 +22,21 @@ export const useTableFeatures = () => {
   const pagination = usePagination(data, {
     state: {
       page: 0,
-      size: 4,
+      size: 4
     },
-    onChange: onPaginationChange,
+    onChange: onPaginationChange
   });
 
-  function onPaginationChange(action: Action, state: State) {
-    console.log(action, state);
-  }
+  function onPaginationChange(action: Action, state: State): void {}
 
   /* Search */
 
   useCustom('search', data, {
     state: { search },
-    onChange: onSearchChange,
+    onChange: onSearchChange
   });
 
-  function onSearchChange(action: Action, state: State) {
+  function onSearchChange(action: Action, state: State): void {
     pagination.fns.onSetPage(0);
   }
 
@@ -41,23 +45,21 @@ export const useTableFeatures = () => {
   const sort = useSort(
     data,
     {
-      onChange: onSortChange,
+      onChange: onSortChange
     },
     {
       sortIcon: {
         iconDefault: null,
         iconUp: <FaChevronUp />,
-        iconDown: <FaChevronDown />,
+        iconDown: <FaChevronDown />
       },
       sortFns: {
-        NAME: (array) => array.sort((a, b) => a.name.localeCompare(b.name)),
-      },
+        NAME: (array) => array.sort((a, b) => a.name.localeCompare(b.name))
+      }
     }
   );
 
-  function onSortChange(action: Action, state: State) {
-    console.log(action, state);
-  }
+  function onSortChange(action: Action, state: State): void {}
 
   /* Search */
 
@@ -66,6 +68,6 @@ export const useTableFeatures = () => {
   return {
     pagination,
     sort,
-    filteredNodes,
+    filteredNodes
   };
 };
