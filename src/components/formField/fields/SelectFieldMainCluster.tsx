@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import type { ChangeEvent, ReactNode } from 'react';
 import { Controller } from 'react-hook-form';
-import type { Props } from '@/types/Form/FormFieldProps';
-import { ErrorDisplay } from '@/components/error/ErrorDisplay';
 import { Checkbox, Flex, Text } from '@chakra-ui/react';
 import { useAppDispatch, useAppSelector } from '@/lib';
+
 import { setFavouriteClousters } from '@/lib/store/cluster/clusterSlice';
+import { ErrorDisplay } from '@/components/error/ErrorDisplay';
 import { FormValidations } from '@/utils/TeamsFormUtils';
+
+import type { Props } from '@/types/Form/FormFieldProps';
 
 export const SelectFieldMainCluster = ({ control, errors }: Props): ReactNode => {
   const dispatch = useAppDispatch();
@@ -20,8 +22,6 @@ export const SelectFieldMainCluster = ({ control, errors }: Props): ReactNode =>
     );
     dispatch(setFavouriteClousters(clusters));
   };
-
-  console.log('clustersGroup', clustersGroup);
 
   return (
     <>
@@ -43,7 +43,7 @@ export const SelectFieldMainCluster = ({ control, errors }: Props): ReactNode =>
                       handleCheckbox(event, cluster.value);
                     }}
                   >
-                    <Text>{cluster ? cluster.label : 'Una mierda vacía'}</Text>
+                    <Text>{cluster.label}</Text>
                   </Checkbox>
                 );
               })}
