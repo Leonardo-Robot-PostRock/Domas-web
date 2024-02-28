@@ -1,8 +1,8 @@
-import { Params, TeamEdit } from '@/types/Form/teamEdit';
-import { Team } from '@/types/api/teams';
-import { DefaultValues } from 'react-hook-form';
+/* eslint-disable @typescript-eslint/naming-convention */
+import type { AssitantField, FormData, LeaderField, Params, TeamEdit } from '@/types/Form/teamEdit';
+import type { DefaultValues } from 'react-hook-form';
 
-export const getDefaultValues = (teamData: Team | null): DefaultValues<TeamEdit> | undefined => {
+export const getDefaultValues = (teamData: TeamEdit): DefaultValues<FormData> | undefined => {
   if (!teamData) return {};
 
   const {
@@ -14,10 +14,10 @@ export const getDefaultValues = (teamData: Team | null): DefaultValues<TeamEdit>
     max_tickets_to_do_only_omnichannel,
     supervisor,
     technicians,
-    starting_point,
+    starting_point
   } = teamData;
 
-  const supervisorOption = supervisor_id ? { value: supervisor_id, label: supervisor || '' } : undefined;
+  const supervisorOption = supervisor_id ? { value: supervisor_id, label: supervisor ?? '' } : undefined;
   const leaderOption = getLeaderOption({ technicians, mesa_username });
   const assistantOption = getAssistantOption({ technicians, mesa_username });
 
@@ -27,19 +27,19 @@ export const getDefaultValues = (teamData: Team | null): DefaultValues<TeamEdit>
     google_calendar_id,
     min_tickets_to_do,
     max_tickets_to_do_only_omnichannel,
-    supervisorOption: supervisorOption,
+    supervisorOption,
     leader: leaderOption,
     assistant: assistantOption,
-    starting_point,
+    starting_point
   };
 };
 
-const getLeaderOption = ({ technicians, mesa_username }: Params) => {
+const getLeaderOption = ({ technicians, mesa_username }: Params): LeaderField | undefined => {
   const leader = technicians?.find((item) => item.mesa_username === mesa_username);
-  return leader ? { value: leader.id, label: leader.name } : null;
+  return leader ? { value: leader.id, label: leader.name } : undefined;
 };
 
-const getAssistantOption = ({ technicians, mesa_username }: Params) => {
+const getAssistantOption = ({ technicians, mesa_username }: Params): AssitantField | undefined => {
   const assistant = technicians?.find((item) => item.mesa_username !== mesa_username);
-  return assistant ? { value: assistant.id, label: assistant.name } : null;
+  return assistant ? { value: assistant.id, label: assistant.name } : undefined;
 };
