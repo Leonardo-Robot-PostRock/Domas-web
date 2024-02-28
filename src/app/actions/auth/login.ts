@@ -5,7 +5,6 @@ import axios from 'axios';
 export async function loginUser(data: Inputs): Promise<LoginResponse> {
   try {
     const response = await axios.post<LoginResponse>('/api/login', data);
-    console.log('Login User', response);
     return response.data;
   } catch (error) {
     throw new Error('Error al iniciar sesión');

@@ -15,7 +15,7 @@ export default function Teams(): ReactNode {
   const teams = useAppSelector((state) => state.teams.teams);
 
   useEffect(() => {
-    dispatch(fetchTeams());
+    void dispatch(fetchTeams());
   }, [dispatch]);
 
   if (!teams.length) {
