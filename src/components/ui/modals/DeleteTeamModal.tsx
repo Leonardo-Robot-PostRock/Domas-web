@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib';
 import {
   Alert,
@@ -10,26 +11,31 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Text,
+  Text
 } from '@chakra-ui/react';
 
 import { useModalContext } from '@/hooks/tableTeams/useModalContext';
 
 import { ButtonComponent } from '@/components/buttons/ButtonComponent';
 import { toastSuccess } from '@/components/toast';
-import { Technician } from '@/types/api/teams';
+import type { Technician } from '@/types/api/teams';
 import { deleteTeam } from '@/lib/store/teams/thunks';
 
-export const DeleteTeamModal = () => {
+export const DeleteTeamModal = (): ReactNode => {
   const dispatch = useAppDispatch();
   const teamEdit = useAppSelector((state) => state.teams.teamEdit);
 
   const { isOpenDelete, onCloseDelete } = useModalContext();
 
-  const handleDeleteTeam = () => {
+  const handleDeleteTeam = async (): Promise<void> => {
     if (teamEdit) {
-      dispatch(deleteTeam(teamEdit.id));
-      toastSuccess(`La cuadrilla ${teamEdit?.name} ha sido eliminada`);
+      try {
+        await dispatch(deleteTeam(teamEdit.id));
+        void toastSuccess(`La cuadrilla ${teamEdit?.name} ha sido eliminada`);
+      } catch (error) {
+        // Manejar cualquier error que ocurra durante el dispatch
+        console.error('Error al eliminar el equipo:', error);
+      }
     }
 
     onCloseDelete();
@@ -41,9 +47,9 @@ export const DeleteTeamModal = () => {
       <ModalContent>
         <ModalHeader textAlign="center">{`¿Eliminar cuadrilla ${teamEdit?.name}?`}</ModalHeader>
         <ModalBody textAlign="center">
-          <Text>{`¿Estás seguro de que queres eliminar a la cuadrilla ${teamEdit?.name}?`}</Text>
-          <Text fontWeight={'bold'}>Esta acción no se puede deshacer.</Text>
-          <Alert status="error" mt={'20px'} mb="10px" textAlign="start" rounded="lg">
+          <Text>{`¿Estás seguro que quieres eliminar a la cuadrilla ${teamEdit?.name}?`}</Text>
+          <Text fontWeight="bold">Esta acción no se puede deshacer.</Text>
+          <Alert status="error" mt="20px" mb="10px" textAlign="start" rounded="lg">
             <AlertIcon />
             <AlertDescription fontWeight="bold">{`Esta acción provocara que ${teamEdit?.technicians
               .map((item: Technician) => item.name)
@@ -57,7 +63,7 @@ export const DeleteTeamModal = () => {
             <ButtonComponent variant="ghost" onClick={onCloseDelete} w="150px">
               Cancelar
             </ButtonComponent>
-            <ButtonComponent colorScheme="red" onClick={handleDeleteTeam} w="150px">
+            <ButtonComponent colorScheme="red" onClick={() => handleDeleteTeam} w="150px">
               Eliminar
             </ButtonComponent>
           </Flex>
