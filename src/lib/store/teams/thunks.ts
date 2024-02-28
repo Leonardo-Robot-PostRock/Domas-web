@@ -5,23 +5,28 @@ import { setDeleteTeam, setLoading, setTeams } from './teamsSlice';
 
 import { handleAxiosError } from '@/utils/errorHandling';
 
-import type { AsyncThunkAction } from '@/types/store/actionType';
-import type { TeamById } from '@/types/api/teamById';
-import type { Team } from '@/types/api/teams';
+import { toastSuccess } from '@/components/toast';
 
-export const deleteTeam = (teamId: number): AsyncThunkAction => {
+import type { AsyncThunkAction } from '@/types/store/actionType';
+import type { FormData } from '@/types/Form/teamEdit';
+import type { Team } from '@/types/api/teams';
+import type { TeamById } from '@/types/api/teamById';
+
+export const deleteTeam = (teamId: number | null): AsyncThunkAction => {
   return async (dispatch) => {
     dispatch(setLoading(true));
 
-    try {
-      await axios.delete<TeamById>(`/api/teams/${teamId}`);
-      dispatch(setDeleteTeam(teamId));
+    if (teamId) {
+      try {
+        await axios.delete<TeamById>(`/api/teams/${teamId}`);
+        dispatch(setDeleteTeam(teamId));
 
-      await mutate('/api/teams/all');
-    } catch (error: unknown) {
-      handleAxiosError(dispatch, error);
-    } finally {
-      dispatch(setLoading(false));
+        await mutate('/api/teams/all');
+      } catch (error) {
+        handleAxiosError(dispatch, error);
+      } finally {
+        dispatch(setLoading(false));
+      }
     }
   };
 };
@@ -32,10 +37,23 @@ export const fetchTeams = (): AsyncThunkAction => {
       const response = await axios.get('/api/teams/all');
       const teams: Team[] = response.data;
 
-      console.log('teams', teams);
-
       dispatch(setTeams(teams));
-    } catch (error: unknown) {
+    } catch (error) {
+      handleAxiosError(dispatch, error);
+    }
+  };
+};
+
+export const submitTeamData = (data: FormData): AsyncThunkAction => {
+  return async (dispatch) => {
+    try {
+      const submitUrl = data ? `/api/teams/${data.id}` : `/api/teams/new`;
+      const submitMethod = data.id ? `patch` : 'post';
+
+      await axios[submitMethod](submitUrl, data);
+      await mutate('/api/teams/all');
+      void toastSuccess(data ? 'Cuadrilla modificada exitosamente' : 'Cuadrilla creada exitosamente');
+    } catch (error) {
       handleAxiosError(dispatch, error);
     }
   };

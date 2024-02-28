@@ -1,11 +1,11 @@
 import axios from 'axios';
 
+import { setTechnicianDataField } from './techniciansSlice';
 import { handleAxiosError } from '@/utils/errorHandling';
 
-import { AsyncThunkAction } from '@/types/store/actionType';
-import { setTechnicianDataField } from './techniciansSlice';
-import { Technician, User } from '@/types/api/technician';
-import { Team } from '@/types/api/teams';
+import type { AsyncThunkAction } from '@/types/store/actionType';
+import type { Technician, User } from '@/types/api/technician';
+import type { Team } from '@/types/api/teams';
 
 export const fetchTechnician = (): AsyncThunkAction => async (dispatch, getState) => {
   const dataTeams = getState().teams.teams;
@@ -24,7 +24,7 @@ export const fetchTechnician = (): AsyncThunkAction => async (dispatch, getState
       });
 
       dispatch(setTechnicianDataField(updateTechnicianData));
-    } catch (error: unknown) {
+    } catch (error) {
       handleAxiosError(dispatch, error);
     }
   }

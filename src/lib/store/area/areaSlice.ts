@@ -1,22 +1,17 @@
-import { Area } from '@/types/api/area';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { Area } from '@/types/api/area';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface AreaData {
   area: Area[];
-  areaGroup: {
+  areaGroup: Array<{
     value: number | null;
     label: string;
-  }[];
+  }>;
 }
 
 const initialState: AreaData = {
   area: [],
-  areaGroup: [
-    {
-      value: null,
-      label: '',
-    },
-  ],
+  areaGroup: []
 };
 
 const areasSlice = createSlice({
@@ -29,8 +24,8 @@ const areasSlice = createSlice({
 
     setAreaGroup(state, action) {
       state.areaGroup = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { setAreaData, setAreaGroup } = areasSlice.actions;

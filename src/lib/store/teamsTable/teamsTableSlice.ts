@@ -1,14 +1,14 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { TableNode } from '@table-library/react-table-library/types/table';
-import { TeamsTableState } from '@/types/store/teamsTableState';
+import type { TableNode } from '@table-library/react-table-library/types/table';
+import type { TeamsTableState } from '@/types/store/teamsTableState';
 
 const initialState: TeamsTableState = {
   data: {
-    nodes: [],
+    nodes: []
   },
   modifiedNodes: [],
-  search: '',
+  search: ''
 };
 
 const teamsTableSlice = createSlice({
@@ -25,8 +25,8 @@ const teamsTableSlice = createSlice({
 
     setSearch(state, action: PayloadAction<string>) {
       state.search = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { setData, setModifiedNodes, setSearch } = teamsTableSlice.actions;

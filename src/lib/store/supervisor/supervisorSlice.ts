@@ -1,14 +1,14 @@
-import { Supervisor } from '@/types/api/teams';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { SupervisorField } from '@/types/Form/teamEdit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface SupervisorData {
   showSupervisorField: boolean;
-  supervisorsDataField: Supervisor[];
+  supervisorsDataField: SupervisorField[];
 }
 
 const initialState: SupervisorData = {
   showSupervisorField: false,
-  supervisorsDataField: [],
+  supervisorsDataField: []
 };
 
 const supervisorSlice = createSlice({
@@ -19,10 +19,10 @@ const supervisorSlice = createSlice({
       state.showSupervisorField = action.payload;
     },
 
-    setSupervisorsDataField(state, action: PayloadAction<Supervisor[]>) {
+    setSupervisorsDataField(state, action: PayloadAction<SupervisorField[]>) {
       state.supervisorsDataField = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { setShowSupervisorField, setSupervisorsDataField } = supervisorSlice.actions;
