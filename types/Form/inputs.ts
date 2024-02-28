@@ -1,4 +1,4 @@
-export type Inputs = {
+export interface Inputs {
   username: string;
   password: string;
-};
+}
