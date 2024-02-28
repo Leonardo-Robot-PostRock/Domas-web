@@ -45,7 +45,7 @@ export const FilepondComponent = ({ file, title }: FilepondComponentProps): Reac
         allowMultiple={false}
         maxFiles={1}
         name="files"
-        labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+        labelIdle='Arrastra y suelta tus archivos o <span class="filepond--label-action">Examinar</span>'
         credits={false}
       />
     </FormControl>
