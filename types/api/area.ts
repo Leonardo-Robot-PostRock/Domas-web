@@ -1,3 +1,7 @@
+export interface AreaData {
+  data: Area[];
+}
+
 export interface Area {
   id: number;
   name: string;

@@ -1,12 +1,12 @@
 import type { FieldValues } from 'react-hook-form';
 import type { Cluster } from '../api/clusters';
-import type { Supervisor, Team, Technician } from '../api/teams';
+import type { SupervisorDetails, Team, TechnicianDetails } from '../api/teams';
 
 export interface TeamEdit extends Team {}
 
 export interface SupervisorField {
   value: number;
-  label: Supervisor;
+  label: SupervisorDetails;
 }
 
 export interface LeaderField {
@@ -28,7 +28,7 @@ export interface ItemTeam {
 }
 
 export interface Params {
-  technicians: Technician[];
+  technicians: TechnicianDetails[];
   mesa_username: string;
 }
 

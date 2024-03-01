@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 import { redirect } from 'next/navigation';
-import isAxiosError from '@/utils/AxiosError';
+import type { RequestObject } from '@/types/api/request';
 
-export async function GET(request: Request) {
-  const token = request.cookies.auth_service;
+export async function GET(request: RequestObject): Promise<Response | undefined> {
+  const token = request.cookies.get('auth_service');
 
   if (!token) {
     return redirect(`${process.env.APP_URL}/login`);
@@ -14,12 +14,12 @@ export async function GET(request: Request) {
   try {
     const response = await axios.get(`${process.env.AUTH_BASE_URL}/v1/order/of/the/day?categories=${categories}`, {
       headers: {
-        Authorization: `auth_service=${token}`,
-      },
+        Cookie: `auth_service=${token.value}`
+      }
     });
 
     return new Response(JSON.stringify(response.data), {
-      status: response.status,
+      status: response.status
     });
   } catch (error) {
     if (isAxiosError(error)) {
@@ -29,8 +29,8 @@ export async function GET(request: Request) {
         return new Response(JSON.stringify(error.response.data), {
           status: error.response.status,
           headers: {
-            'Content-Type': 'application/json',
-          },
+            'Content-Type': 'application/json'
+          }
         });
       } else if (error.request) {
         // The request was made but no response was received
@@ -43,8 +43,8 @@ export async function GET(request: Request) {
       return new Response(JSON.stringify({ message: 'Hubo un error al realizar la petición.' }), {
         status: 400,
         headers: {
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json'
+        }
       });
     }
   }

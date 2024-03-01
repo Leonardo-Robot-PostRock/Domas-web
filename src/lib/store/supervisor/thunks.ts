@@ -5,7 +5,7 @@ import { handleAxiosError } from '@/utils/errorHandling';
 
 import type { AsyncThunkAction } from '@/types/store/actionType';
 import type { Role } from '@/types/api/login';
-import type { User } from '@/types/api/supervisor';
+import type { Supervisor, User } from '@/types/api/supervisor';
 import type { SupervisorField } from '@/types/Form/teamEdit';
 
 export const fetchSupervisors = (): AsyncThunkAction => async (dispatch) => {
@@ -15,8 +15,9 @@ export const fetchSupervisors = (): AsyncThunkAction => async (dispatch) => {
     dispatch(setShowSupervisorField(isAdmin));
 
     if (isAdmin) {
-      const response = await axios.get('/api/supervisor/all');
+      const response = await axios.get<Supervisor>('/api/supervisor/all');
       const supervisors = response.data.users;
+
       const supervisorDataField: SupervisorField[] = supervisors.map((item: User) => ({
         value: item.id,
         label: item.name
