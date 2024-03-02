@@ -3,3 +3,7 @@ export interface Cluster {
   cluster: string;
   customers: number[];
 }
+
+export interface ClusterResponse {
+  data: Cluster;
+}

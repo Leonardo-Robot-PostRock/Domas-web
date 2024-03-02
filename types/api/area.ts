@@ -15,6 +15,6 @@ export interface Area {
   group_id: null;
 }
 
-export interface AreaData {
-  data: Area;
+export interface AreaResponse {
+  data: Area[];
 }

@@ -9,7 +9,7 @@ export interface SelectCluster {
 }
 
 export interface ClusterData {
-  cluster: readonly ClusterOption[];
+  cluster: ClusterOption[];
   clustersGroup: readonly ClusterOption[];
   favouriteCluster: readonly SelectCluster[];
 }
