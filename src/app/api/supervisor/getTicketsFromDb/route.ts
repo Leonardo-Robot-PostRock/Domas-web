@@ -1,18 +1,12 @@
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
 
-import { AxiosResponse, isAxiosError } from 'axios';
-import { NextResponse } from 'next/server';
+import axios, { type AxiosResponse, isAxiosError } from 'axios';
 
-import { GetTicketsFromDB } from '@/types/api/getTicketsFromDb';
+import type { GetTicketsFromDB } from '@/types/api/getTicketsFromDb';
+import type { RequestObject } from '@/types/api/request';
 
-const axios = require('axios').default;
-
-export async function GET() {
-  const cookiesStore = cookies();
-  const token = cookiesStore.get('auth_service');
-
-  console.log(token);
+export async function GET(request: RequestObject): Promise<Response | undefined> {
+  const token = request.cookies.get('auth_service');
 
   if (!token) return redirect(`${process.env.APP_URL}`);
 
@@ -20,12 +14,13 @@ export async function GET() {
     const response: AxiosResponse<GetTicketsFromDB> = await axios.get(`${process.env.AUTH_BASE_URL}/v1/order/user`, {
       headers: {
         withCredentials: true,
-        Cookie: `auth_service=${token.value}`,
-      },
+        Cookie: `auth_service=${token.value}`
+      }
     });
 
-    return NextResponse.json(response.data ? response.data : error.message, {
+    return new Response(JSON.stringify(response.data), {
       status: 200,
+      headers: { 'Content-Type': 'application/json' }
     });
   } catch (error: unknown) {
     console.error('Error:', error);

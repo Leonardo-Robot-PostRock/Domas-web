@@ -1,7 +1,8 @@
 import axios, { isAxiosError } from 'axios';
 import { redirect } from 'next/navigation';
+import type { RequestObject } from '@/types/api/request';
 
-export async function GET(request: { cookies: { get: (arg0: string) => any } }): Promise<Response | undefined> {
+export async function GET(request: RequestObject): Promise<Response | undefined> {
   const token = request.cookies.get('auth_service');
 
   if (!token) return redirect(`${process.env.APP_URL}/login`);
@@ -21,7 +22,7 @@ export async function GET(request: { cookies: { get: (arg0: string) => any } }):
     });
   } catch (error) {
     if (isAxiosError(error)) {
-      return new Response(JSON.stringify({ error: true, message: error }), {
+      return new Response(JSON.stringify({ error: true, message: error.message }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
       });

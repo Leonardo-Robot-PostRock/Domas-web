@@ -1,9 +1,16 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { redirect } from 'next/navigation';
 import axios, { isAxiosError } from 'axios';
-import sharp from 'sharp';
 
-export async function POST(request: { body: any; cookies: { get: (arg0: string) => any } }) {
+import { processImage } from '@/utils/processImages';
+
+import type { ImageFile, RequestObject } from '@/types/api/request';
+
+export async function POST(request: RequestObject): Promise<Response | undefined> {
   const token = request.cookies.get('auth_service');
+
+  const body: ImageFile = request.body;
+  const { primary_file, secondary_file } = body;
 
   console.log(request.body.primary_file);
   console.log(request.body.secondary_file);
@@ -11,19 +18,11 @@ export async function POST(request: { body: any; cookies: { get: (arg0: string) 
   if (!token) return redirect(`${process.env.APP_URL}/login`);
 
   if (request.body.primary_file) {
-    const file = request.body.primary_file;
-    var img = Buffer.from(file, 'base64');
-    const data = await sharp(img).resize({ width: 200, height: 200 }).toFormat('jpeg').toBuffer();
-
-    request.body.primary_file = data.toString('base64');
+    request.body.primary_file = processImage(primary_file);
   }
 
   if (request.body.secondary_file) {
-    const file = request.body.secondary_file;
-    var img = Buffer.from(file, 'base64');
-    const data = await sharp(img).resize({ width: 200, height: 200 }).toFormat('jpeg').toBuffer();
-
-    request.body.secondary_file = data.toString('base64');
+    request.body.secondary_file = await processImage(secondary_file);
   }
 
   const teamsUrl = `${process.env.AUTH_BASE_URL}/v1/team`;
@@ -31,20 +30,20 @@ export async function POST(request: { body: any; cookies: { get: (arg0: string) 
   try {
     const teamsResponse = await axios.post(teamsUrl, request.body, {
       headers: {
-        Cookie: `auth_service=${token.value}`,
-      },
+        Cookie: `auth_service=${token.value}`
+      }
     });
 
     return new Response(JSON.stringify(teamsResponse.data), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' }
     });
   } catch (error: unknown) {
     if (isAxiosError(error)) {
       if (error.response) {
-        return new Response(JSON.stringify({ error: true, message: error.toString() }), {
+        return new Response(JSON.stringify({ error: true, message: error.message }), {
           status: 400,
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' }
         });
       }
     }

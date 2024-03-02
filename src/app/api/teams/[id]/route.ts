@@ -10,10 +10,6 @@ export async function GET(request: RequestObject, { params }: { params: GetParam
 
   const id = params.id;
 
-  console.log(id);
-
-  console.log(request.method);
-
   const url = `${process.env.AUTH_BASE_URL}/v1/team/${id}`;
   try {
     const teamsResponse = await axios.get(url, {
@@ -21,8 +17,6 @@ export async function GET(request: RequestObject, { params }: { params: GetParam
         Cookie: `auth_service=${token.value}`
       }
     });
-
-    console.log(teamsResponse.data);
 
     return new Response(JSON.stringify(teamsResponse?.data), {
       status: 200,
