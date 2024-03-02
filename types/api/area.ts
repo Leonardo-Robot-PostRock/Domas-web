@@ -14,3 +14,7 @@ export interface Area {
   starting_point: null;
   group_id: null;
 }
+
+export interface AreaData {
+  data: Area;
+}
