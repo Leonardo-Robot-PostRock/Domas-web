@@ -8,18 +8,16 @@ import type { ClusterOption } from '@/types/store/cluster';
 
 export const fetchCluster = (): AsyncThunkAction => {
   return async (dispatch) => {
-    const response = await axios.get<Cluster>('/api/cluster');
-    const data: Cluster = response.data;
+    const response = await axios.get<Cluster[]>('/api/cluster');
+    const data = response.data;
 
     try {
-      if (Array.isArray(data)) {
-        const cluster: ClusterOption[] = data.map((item) => ({
-          value: item.id,
-          label: item.cluster
-        }));
+      const cluster: ClusterOption[] = data.map((item: Cluster) => ({
+        value: item.id,
+        label: item.cluster
+      }));
 
-        dispatch(setCluster(cluster));
-      }
+      dispatch(setCluster(cluster));
     } catch (error) {
       handleAxiosError(dispatch, error);
     }

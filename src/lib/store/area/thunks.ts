@@ -5,22 +5,21 @@ import { setAreaData } from './areaSlice';
 
 import type { AsyncThunkAction } from '@/types/store/actionType';
 import type { Area } from '@/types/api/area';
+import type { AreaField } from '@/types/store/area';
 
 export const fetchArea = (): AsyncThunkAction => {
   return async (dispatch) => {
-    const response = await axios.get<Area>('/api/area');
+    const response = await axios.get<Area[]>('/api/area');
 
     const data = response.data;
 
     try {
-      if (Array.isArray(data)) {
-        const area = data.map((item: Area) => ({
-          value: item.id,
-          label: item.name
-        }));
+      const area: AreaField[] = data.map((item: Area) => ({
+        value: item.id,
+        label: item.name
+      }));
 
-        dispatch(setAreaData(area));
-      }
+      dispatch(setAreaData(area));
     } catch (error: unknown) {
       handleAxiosError(dispatch, error);
     }
