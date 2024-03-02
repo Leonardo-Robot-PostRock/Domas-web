@@ -35,7 +35,6 @@ export const SelectFieldMainCluster = ({ control, errors }: Props): ReactNode =>
               clustersGroup.map((cluster, index) => {
                 return (
                   <Checkbox
-                    w="max-content"
                     key={index}
                     {...field}
                     value={cluster.value?.toString()}

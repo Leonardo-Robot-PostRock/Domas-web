@@ -1,4 +1,3 @@
-'use client';
 import { type ToastPosition, toast } from 'react-hot-toast';
 
 export const toastError = (message: string, position = 'top'): void => {

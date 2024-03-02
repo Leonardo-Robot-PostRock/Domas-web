@@ -2,7 +2,8 @@ import { type ReactNode, Suspense } from 'react';
 import type { Metadata } from 'next';
 
 import { ChakraProviders } from '@/components/provider/ChakraProviders';
-import { Providers } from '@/lib/Providers';
+import { NavigationEvents } from '@/shared/navigation-events';
+import { Providers } from '@/lib/store/Providers';
 
 import './globals.css';
 import Loading from './loading';
@@ -18,7 +19,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
       <body>
         <Providers>
           <ChakraProviders>
-            <Suspense fallback={<Loading />}>{children}</Suspense>
+            {children}
+            <Suspense fallback={<Loading />}>
+              <NavigationEvents />
+            </Suspense>
           </ChakraProviders>
         </Providers>
       </body>

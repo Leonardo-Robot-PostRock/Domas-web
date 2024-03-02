@@ -2,7 +2,6 @@ import type { RequestCookies } from 'next/dist/compiled/@edge-runtime/cookies';
 
 // Definir una interfaz para el objeto de solicitud
 export interface RequestObject {
-  query: { categories: any };
   body: any;
   method: string;
   cookies: RequestCookies;

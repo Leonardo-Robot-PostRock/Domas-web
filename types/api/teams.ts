@@ -9,14 +9,14 @@ export interface Team {
   always_active: boolean;
   min_tickets_to_do: number;
   max_tickets_to_do_only_omnichannel: number;
-  supervisor?: SupervisorDetails;
-  technicians: TechnicianDetails[];
+  supervisor?: Supervisor;
+  technicians: Technician[];
   starting_point: null;
-  areas: AreaDetails[];
-  clusters: ClusterDetails[];
+  areas: Area[];
+  clusters: Cluster[];
 }
 
-export interface AreaDetails {
+export interface Area {
   id: number;
   name: Name;
 }
@@ -25,7 +25,7 @@ export enum Name {
   name = 'ST'
 }
 
-export interface ClusterDetails {
+export interface Cluster {
   id: number;
   name: string;
   model: Model;
@@ -36,9 +36,9 @@ export enum Model {
   C2 = 'C2'
 }
 
-export type SupervisorDetails = string;
+export type Supervisor = string;
 
-export interface TechnicianDetails {
+export interface Technician {
   id: number;
   name: string;
   photo: null;

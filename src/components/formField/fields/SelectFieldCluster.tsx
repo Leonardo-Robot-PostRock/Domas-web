@@ -15,6 +15,8 @@ export const SelectFieldCluster = ({ control, errors }: Props): ReactNode => {
   const { cluster, clustersGroup, favouriteCluster } = useAppSelector((state) => state.cluster);
 
   const handleClusters = (option: readonly ClusterOption[]): void => {
+    console.log('from handle Clusters', option);
+
     dispatch(setCloustersGroup(option));
     const clusters: SelectCluster[] = [...favouriteCluster];
 

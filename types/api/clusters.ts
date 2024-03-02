@@ -1,9 +1,5 @@
 export interface Cluster {
   id: number;
-  cluster?: string;
+  cluster: string;
   customers: number[];
-}
-
-export interface ClusterData {
-  data: Cluster[];
 }
