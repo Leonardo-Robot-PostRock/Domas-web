@@ -2,11 +2,10 @@ import { type ReactNode, Suspense } from 'react';
 import type { Metadata } from 'next';
 
 import { ChakraProviders } from '@/components/provider/ChakraProviders';
-import { NavigationEvents } from '@/shared/navigation-events';
-import { Providers } from '@/lib/store/Providers';
 
 import './globals.css';
 import Loading from './loading';
+import { Providers } from '@/lib/Providers';
 
 export const metadata: Metadata = {
   title: 'Bienvenidos a Do+',
@@ -19,10 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
       <body>
         <Providers>
           <ChakraProviders>
-            {children}
-            <Suspense fallback={<Loading />}>
-              <NavigationEvents />
-            </Suspense>
+            <Suspense fallback={<Loading />}>{children}</Suspense>
           </ChakraProviders>
         </Providers>
       </body>
