@@ -1,4 +1,4 @@
-import type { AreaData } from '@/types/api/area';
+import type { AreaResponse } from '@/types/api/area';
 import type { RequestObject } from '@/types/api/request';
 import axios, { isAxiosError } from 'axios';
 import { redirect } from 'next/navigation';
@@ -11,7 +11,7 @@ export async function GET(request: RequestObject): Promise<Response | undefined>
   const areaUrl = `${process.env.AUTH_BASE_URL}/v1/areas`;
 
   try {
-    const areaResponse = await axios.get<AreaData>(areaUrl, {
+    const areaResponse = await axios.get<AreaResponse>(areaUrl, {
       headers: {
         Cookie: `auth_service=${token.value}`
       }

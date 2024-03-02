@@ -1,6 +1,7 @@
 import axios, { isAxiosError } from 'axios';
 import { redirect } from 'next/navigation';
 import type { RequestObject } from '@/types/api/request';
+import type { ClusterResponse } from '@/types/api/clusters';
 
 export async function GET(request: RequestObject): Promise<Response | undefined> {
   const token = request.cookies.get('auth_service');
@@ -10,7 +11,7 @@ export async function GET(request: RequestObject): Promise<Response | undefined>
   const clusterUrl = `${process.env.AUTH_BASE_URL}/v1/clusters`;
 
   try {
-    const clusterResponse = await axios.get(clusterUrl, {
+    const clusterResponse = await axios.get<ClusterResponse>(clusterUrl, {
       headers: {
         Cookie: `auth_service=${token.value}`
       }
