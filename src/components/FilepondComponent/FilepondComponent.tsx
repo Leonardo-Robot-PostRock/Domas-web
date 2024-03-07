@@ -1,7 +1,4 @@
-import { useAppDispatch } from '@/lib';
-import { setPrimaryFile } from '@/lib/store/teams/teamsSlice';
-
-import { FormControl, FormLabel } from '@chakra-ui/react';
+import { FormControl, Text } from '@chakra-ui/react';
 
 // css filepond library
 import 'filepond/dist/filepond.min.css';
@@ -18,30 +15,28 @@ import type { FilePondFile, FilePondInitialFile } from 'filepond';
 
 interface FilepondComponentProps {
   file: FilePondFile[];
+  setFile: (files: FilePondFile[]) => void;
   title: string;
 }
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginFileEncode);
 
-export const FilepondComponent = ({ file, title }: FilepondComponentProps): ReactNode => {
-  const dispatch = useAppDispatch();
-
+export const FilepondComponent = ({ file, title, setFile }: FilepondComponentProps): ReactNode => {
   const initialFiles: FilePondInitialFile[] = file.map((file: FilePondFile) => ({
     source: file.file.name, // file name selected
     options: {
-      type: 'local' // locally avalaible file
+      type: 'local',
+      file: file.file
     }
   }));
 
-  const handleUpdateFiles = (files: FilePondFile[]): void => {
-    dispatch(setPrimaryFile(files));
-  };
   return (
     <FormControl>
-      <FormLabel>{title}</FormLabel>
+      <Text my="10px">{title}</Text>
       <FilePond
+        key={title}
         files={initialFiles}
-        onupdatefiles={handleUpdateFiles}
+        onupdatefiles={setFile}
         allowMultiple={false}
         maxFiles={1}
         name="files"
