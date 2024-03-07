@@ -1,13 +1,9 @@
 import type { FieldValues } from 'react-hook-form';
 import type { Cluster } from '../api/clusters';
-import type { Supervisor, Team, Technician } from '../api/teams';
+import type { Team, Technician } from '../api/teams';
+import type { FieldData } from './FormFieldProps';
 
 export interface TeamEdit extends Team {}
-
-export interface SupervisorField {
-  value: number;
-  label: Supervisor;
-}
 
 export interface LeaderField {
   value: number;
@@ -36,11 +32,11 @@ export interface FormData extends Team, Cluster, FieldValues {
   leader?: LeaderField;
   assistant?: AssitantField;
   users_id: number[];
-  supervisorField: SupervisorField;
+  supervisorField: FieldData;
   primary_file?: string;
   secondary_file?: string;
   cluster_favourite: string[];
-  cluster_id: string[];
-  area_id: string[];
+  cluster_id: number[];
+  area_id: number[];
   area?: string;
 }

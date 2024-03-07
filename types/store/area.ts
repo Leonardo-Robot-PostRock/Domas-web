@@ -1,9 +1,6 @@
-export interface AreaField {
-  value: number | null;
-  label: string;
-}
+import type { FieldData } from '../Form/FormFieldProps';
 
 export interface AreaData {
-  area: AreaField[];
-  areaGroup: AreaField[];
+  area: FieldData[];
+  areaGroup: FieldData[];
 }

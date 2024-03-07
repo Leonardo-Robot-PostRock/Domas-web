@@ -21,9 +21,7 @@ export interface Area {
   name: Name;
 }
 
-export enum Name {
-  name = 'ST'
-}
+export type Name = string;
 
 export interface Cluster {
   id: number;

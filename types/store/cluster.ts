@@ -1,7 +1,4 @@
-export interface ClusterOption {
-  readonly value: number | null;
-  readonly label: string;
-}
+import type { FieldData } from '../Form/FormFieldProps';
 
 export interface SelectCluster {
   isChecked: boolean;
@@ -9,7 +6,7 @@ export interface SelectCluster {
 }
 
 export interface ClusterData {
-  cluster: ClusterOption[];
-  clustersGroup: readonly ClusterOption[];
+  cluster: FieldData[];
+  clustersGroup: readonly FieldData[];
   favouriteCluster: readonly SelectCluster[];
 }

@@ -1,8 +1,5 @@
-export interface TechnicianField {
-  value: number | null;
-  label: string;
-}
+import type { FieldData } from '../Form/FormFieldProps';
 
 export interface TechniciansData {
-  technicianDataField: TechnicianField[];
+  technicianDataField: FieldData[];
 }

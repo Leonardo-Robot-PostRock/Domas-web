@@ -2,6 +2,7 @@ import type { Control, FieldError, Message, UseFormRegister, ValidationRule } fr
 import type { FormData } from './teamEdit';
 
 export interface FormFieldProps {
+  id: string;
   [key: string]: any;
   errors: Record<string, FieldError>;
   label: string;
@@ -24,4 +25,9 @@ export interface DynamicHelperText {
 export interface Props {
   control: Control<FormData>;
   errors: Record<string, FieldError> | undefined;
+}
+
+export interface FieldData {
+  value: number;
+  label: string;
 }
