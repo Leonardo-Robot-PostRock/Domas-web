@@ -30,7 +30,7 @@ export const TeamsForm = (): ReactNode => {
   const [primaryFile, setPrimaryFile] = useState<FilePondFile[]>([]);
   const [secondaryFile, setSecondaryFile] = useState<FilePondFile[]>([]);
   // Array for files field
-  const formFileField = generateFormFileField(primaryFile, setPrimaryFile, secondaryFile, setSecondaryFile);
+  const formFileField = generateFormFileField({ primaryFile, setPrimaryFile, secondaryFile, setSecondaryFile });
   // Custom hooks to manage method onSubmit, todo fetch to the api/teams, initialize data and to handle the modal form.
   const teamEdit = useDataInitialization();
   const { fetchData } = useFetchFormData();

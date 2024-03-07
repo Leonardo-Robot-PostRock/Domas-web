@@ -10,7 +10,7 @@ export interface FormDataItem {
 
 export interface GenerateFormDataFunction {
   primaryFile: FilePondFile[];
-  setPrimaryFile: React.Dispatch<React.SetStateAction<FilePondFile[]>>;
+  setPrimaryFile: (files: FilePondFile[]) => void;
   secondaryFile: FilePondFile[];
-  setSecondaryFile: React.Dispatch<React.SetStateAction<FilePondFile[]>>;
+  setSecondaryFile: (files: FilePondFile[]) => void;
 }
