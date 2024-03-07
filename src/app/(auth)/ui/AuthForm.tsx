@@ -4,7 +4,7 @@ import type { UseFormRegister } from 'react-hook-form';
 import { Stack } from '@chakra-ui/react';
 
 import { InputComponent } from '@/components/inputs/Input';
-import { SubmitButton } from '@/components/buttons/SubmitButton';
+import { LoginButton } from '@/components/buttons/LoginButton';
 
 import type { Inputs } from '@/types/Form/inputs';
 
@@ -34,7 +34,7 @@ export const AuthForm = ({ onSubmit, isLoading, errors, register }: Props): Reac
         type="password"
         id="password"
       />
-      <SubmitButton onSubmit={onSubmit} isLoading={isLoading} />
+      <LoginButton onSubmit={onSubmit} isLoading={isLoading} />
     </Stack>
   );
 };
