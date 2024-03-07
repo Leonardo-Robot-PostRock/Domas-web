@@ -2,11 +2,8 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 import type { Team } from '@/types/api/teams';
 import type { TeamsState } from '@/types/store/teamsState';
-import type { FilePondFile } from 'filepond';
 
 const initialState: TeamsState = {
-  primaryFile: [],
-  secondaryFile: [],
   technicianDataField: [],
   error: null,
   loading: false,
@@ -35,14 +32,6 @@ const teamsSlice = createSlice({
       state.loading = action.payload;
     },
 
-    setPrimaryFile(state, action: PayloadAction<FilePondFile[]>) {
-      state.primaryFile = action.payload;
-    },
-
-    setSecondaryFile(state, action: PayloadAction<FilePondFile[]>) {
-      state.primaryFile = action.payload;
-    },
-
     setTeamEdit(state, action: PayloadAction<Team | null>) {
       state.teamEdit = action.payload;
     },
@@ -62,16 +51,7 @@ const teamsSlice = createSlice({
   }
 });
 
-export const {
-  addNewTeam,
-  setDeleteTeam,
-  setError,
-  setLoading,
-  setPrimaryFile,
-  setSecondaryFile,
-  setTeamEdit,
-  setTeams,
-  updateTeam
-} = teamsSlice.actions;
+export const { addNewTeam, setDeleteTeam, setError, setLoading, setTeamEdit, setTeams, updateTeam } =
+  teamsSlice.actions;
 
 export default teamsSlice.reducer;

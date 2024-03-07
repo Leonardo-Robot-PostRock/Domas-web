@@ -45,10 +45,12 @@ export const fetchTeams = (): AsyncThunkAction => {
 };
 
 export const submitTeamData = (data: FormData): AsyncThunkAction => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const teamEdit = getState().teams.teamEdit;
+
     try {
-      const submitUrl = data ? `/api/teams/${data.id}` : `/api/teams/new`;
-      const submitMethod = data.id ? `patch` : 'post';
+      const submitUrl = teamEdit ? `/api/teams/update/${teamEdit.id}` : `/api/teams/new`;
+      const submitMethod = teamEdit ? `patch` : 'post';
 
       await axios[submitMethod](submitUrl, data);
       await mutate('/api/teams/all');

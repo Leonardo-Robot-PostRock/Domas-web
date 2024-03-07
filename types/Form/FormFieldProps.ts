@@ -28,6 +28,6 @@ export interface Props {
 }
 
 export interface FieldData {
-  value: number | null;
-  label: string;
+  value: number | null | string;
+  label: string | undefined;
 }

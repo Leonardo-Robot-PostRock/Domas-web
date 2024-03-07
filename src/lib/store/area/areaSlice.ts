@@ -1,13 +1,6 @@
-import type { Area } from '@/types/api/area';
+import type { AreaData } from '@/types/store/area';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-
-interface AreaData {
-  area: Area[];
-  areaGroup: Array<{
-    value: number | null;
-    label: string;
-  }>;
-}
+import type { FieldData } from '@/types/Form/FormFieldProps';
 
 const initialState: AreaData = {
   area: [],
@@ -18,15 +11,15 @@ const areasSlice = createSlice({
   name: 'areas',
   initialState,
   reducers: {
-    setAreaData(state, action) {
+    setArea(state, action: PayloadAction<FieldData[]>) {
       state.area = action.payload;
     },
 
-    setAreaGroup(state, action) {
+    setAreaGroup(state, action: PayloadAction<FieldData[]>) {
       state.areaGroup = action.payload;
     }
   }
 });
 
-export const { setAreaData, setAreaGroup } = areasSlice.actions;
+export const { setArea, setAreaGroup } = areasSlice.actions;
 export default areasSlice.reducer;

@@ -1,14 +1,10 @@
-import type { SupervisorField } from '@/types/Form/teamEdit';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-
-interface SupervisorData {
-  showSupervisorField: boolean;
-  supervisorsDataField: SupervisorField[];
-}
+import type { SupervisorData } from '@/types/store/supervisor';
+import type { FieldData } from '@/types/Form/FormFieldProps';
 
 const initialState: SupervisorData = {
   showSupervisorField: false,
-  supervisorsDataField: []
+  supervisorsDataField: { value: '', label: 'Seleccionar...' }
 };
 
 const supervisorSlice = createSlice({
@@ -19,7 +15,7 @@ const supervisorSlice = createSlice({
       state.showSupervisorField = action.payload;
     },
 
-    setSupervisorsDataField(state, action: PayloadAction<SupervisorField[]>) {
+    setSupervisorsDataField(state, action: PayloadAction<FieldData>) {
       state.supervisorsDataField = action.payload;
     }
   }

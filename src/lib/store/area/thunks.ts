@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 import { handleAxiosError } from '@/utils/errorHandling';
-import { setAreaData } from './areaSlice';
+import { setArea } from './areaSlice';
 
 import type { AsyncThunkAction } from '@/types/store/actionType';
 import type { Area } from '@/types/api/area';
-import type { AreaField } from '@/types/store/area';
+import type { FieldData } from '@/types/Form/FormFieldProps';
 
 export const fetchArea = (): AsyncThunkAction => {
   return async (dispatch) => {
@@ -14,12 +14,12 @@ export const fetchArea = (): AsyncThunkAction => {
     const data = response.data;
 
     try {
-      const area: AreaField[] = data.map((item: Area) => ({
+      const area: FieldData[] = data.map((item: Area) => ({
         value: item.id,
         label: item.name
       }));
 
-      dispatch(setAreaData(area));
+      dispatch(setArea(area));
     } catch (error: unknown) {
       handleAxiosError(dispatch, error);
     }

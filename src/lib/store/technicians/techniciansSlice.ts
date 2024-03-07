@@ -1,22 +1,19 @@
-import { Technician } from '@/types/api/technician';
-import { createSlice } from '@reduxjs/toolkit';
-
-interface TechniciansData {
-  technicianDataField: Technician | null;
-}
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { TechniciansData } from '@/types/store/technician';
+import type { FieldData } from '@/types/Form/FormFieldProps';
 
 const initialState: TechniciansData = {
-  technicianDataField: null,
+  technicianDataField: []
 };
 
 const techniciansSlice = createSlice({
   name: 'technicians',
   initialState,
   reducers: {
-    setTechnicianDataField(state, action) {
+    setTechnicianDataField(state, action: PayloadAction<FieldData[]>) {
       state.technicianDataField = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { setTechnicianDataField } = techniciansSlice.actions;
