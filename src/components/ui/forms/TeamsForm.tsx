@@ -37,16 +37,16 @@ export const TeamsForm = (): ReactNode => {
   const { onClose } = useModalContext();
   const onSubmit = useFormSubmit(primaryFile, secondaryFile);
 
-  useEffect(() => {
-    void fetchData();
-  }, [fetchData]);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     control
   } = useFormData(teamEdit);
+
+  useEffect(() => {
+    void fetchData();
+  }, [fetchData]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>): void => {
     if (event.key === 'Enter') {
