@@ -1,5 +1,5 @@
 import type { TeamEdit } from '@/types/Form/teamEdit';
-import { getDefaultValues } from '@/utils/formDefaultValues';
+import { getDefaultValues } from '@/utils/formTeams/formDefaultValues';
 import type { FieldValues } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 
