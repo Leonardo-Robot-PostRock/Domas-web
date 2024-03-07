@@ -1,11 +1,12 @@
 import { useEffect, type ReactNode, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { setAreaGroup } from '@/lib/store/area/areaSlice';
+import { Flex, Text } from '@chakra-ui/react';
 
 import { useDataInitialization, useFetchFormData, useFormData, useFormSubmit } from '@/hooks/form/';
 import { useModalContext } from '@/hooks/tableTeams/useModalContext';
 
-import { FilepondComponent } from '../../FilepondComponent/FilepondComponent';
+import { FilepondComponent } from '@/components/FilepondComponent/FilepondComponent';
 import {
   FormField,
   FormFieldTickets,
@@ -15,11 +16,10 @@ import {
   FormFieldStartingPoint,
   FormFieldLayout
 } from '@/components/formField/';
-import { Flex, Text } from '@chakra-ui/react';
-import type { FilePondFile } from 'filepond';
 import { SubmitButton } from '@/components/buttons/SubmitButton';
 import { BackButton } from '@/components/buttons/BackButton';
 import { generateFormFileField, genericFormFields, ticketFormFields } from '@/utils/formTeams/';
+import type { FilePondFile } from 'filepond';
 
 export const TeamsForm = (): ReactNode => {
   const dispatch = useAppDispatch();
