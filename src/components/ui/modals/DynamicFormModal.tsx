@@ -3,8 +3,8 @@ import { useAppSelector } from '@/lib';
 
 import { AiOutlineCar } from 'react-icons/ai';
 
-import { ModalForm } from '../../modals/ModalForm';
-import { TeamsForm } from '../../forms/TeamsForm';
+import { ModalForm } from './ModalForm';
+import { TeamsForm } from '../forms/TeamsForm';
 
 // This dynamic form modal is used to edit and to add a Team
 

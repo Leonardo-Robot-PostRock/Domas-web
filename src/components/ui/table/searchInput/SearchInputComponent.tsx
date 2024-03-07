@@ -16,6 +16,8 @@ export const SearchInputComponent = (): ReactNode => {
         <FaSearch color="4a5568" />
       </InputLeftElement>
       <Input
+        id="searchInput"
+        autoComplete="off"
         placeholder="Buscar cuadrilla"
         value={search}
         onChange={(event) => dispatch(setSearch(event.target.value))}

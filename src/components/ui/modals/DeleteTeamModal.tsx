@@ -16,10 +16,11 @@ import {
 
 import { useModalContext } from '@/hooks/tableTeams/useModalContext';
 
-import { ButtonComponent } from '@/components/buttons/ButtonComponent';
 import { toastSuccess } from '@/components/toast';
 import type { Technician } from '@/types/api/teams';
 import { deleteTeam } from '@/lib/store/teams/thunks';
+import { CancelButton } from '@/components/buttons/CancelButton';
+import { DeleteButton } from '@/components/buttons/DeleteButton';
 
 export const DeleteTeamModal = (): ReactNode => {
   const dispatch = useAppDispatch();
@@ -60,12 +61,8 @@ export const DeleteTeamModal = (): ReactNode => {
 
         <ModalFooter>
           <Flex justifyContent="center" w="full" gap={5}>
-            <ButtonComponent variant="ghost" onClick={onCloseDelete} w="150px">
-              Cancelar
-            </ButtonComponent>
-            <ButtonComponent colorScheme="red" onClick={() => handleDeleteTeam} w="150px">
-              Eliminar
-            </ButtonComponent>
+            <CancelButton title="Cancelar" onClose={onCloseDelete} />
+            <DeleteButton title="Eliminar" onDelete={() => handleDeleteTeam} />
           </Flex>
         </ModalFooter>
       </ModalContent>

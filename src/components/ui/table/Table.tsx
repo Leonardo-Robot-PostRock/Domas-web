@@ -10,12 +10,12 @@ import { useColumnsTableTeams } from '@/hooks/tableTeams/useColumnsTableTeams';
 import { useModalContext } from '@/hooks/tableTeams/useModalContext';
 import { useTableFeatures } from '@/hooks/tableTeams/useTableFeatures';
 
-import { ButtonComponent } from '@/components/buttons/ButtonComponent';
 import { DeleteTeamModal } from '../modals/DeleteTeamModal';
-import { DynamicFormModal } from './DynamicModal/DynamicFormModal';
+import { DynamicFormModal } from '../modals/DynamicFormModal';
 import { PaginationComponent } from './pagination/PaginationComponent';
 import { SearchInputComponent } from './searchInput/SearchInputComponent';
 import { tableStyle } from '@/styles/tableStyle';
+import { ChakraButton } from '@/components/buttons/ChakraButton';
 
 export const Table = (): ReactNode => {
   const dispatch = useAppDispatch();
@@ -48,7 +48,7 @@ export const Table = (): ReactNode => {
     <>
       <HStack mx={5}>
         <SearchInputComponent />
-        <ButtonComponent
+        <ChakraButton
           backgroundColor="#82AAE3"
           color="white"
           _hover={{ color: '#82AAE3', backgroundColor: 'gray.100' }}
@@ -58,7 +58,7 @@ export const Table = (): ReactNode => {
           }}
         >
           Nueva cuadrilla
-        </ButtonComponent>
+        </ChakraButton>
       </HStack>
 
       {/* Table */}
