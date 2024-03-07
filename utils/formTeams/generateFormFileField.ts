@@ -1,12 +1,11 @@
-import type { FormDataItem } from '@/types/Form/generateFormData';
-import type { FilePondFile } from 'filepond';
+import type { FormDataItem, GenerateFormDataFunction } from '@/types/Form/generateFormData';
 
-export const generateFormFileField = (
-  primaryFile: FilePondFile[],
-  setPrimaryFile: (files: FilePondFile[]) => void,
-  secondaryFile: FilePondFile[],
-  setSecondaryFile: (files: FilePondFile[]) => void
-): FormDataItem[] => {
+export const generateFormFileField = ({
+  primaryFile,
+  setPrimaryFile,
+  secondaryFile,
+  setSecondaryFile
+}: GenerateFormDataFunction): FormDataItem[] => {
   return [
     { label: 'Lider*', title: 'Foto del lider', name: 'leader', file: primaryFile, setFile: setPrimaryFile },
     {
