@@ -1,15 +1,15 @@
-import Select, { type GroupBase, type OptionsOrGroups } from 'react-select';
+import Select from 'react-select';
 import type { ReactNode } from 'react';
 import { type Control, Controller } from 'react-hook-form';
-import type { FormData, SupervisorField } from '@/types/Form/teamEdit';
-import type { AreaField } from '@/types/store/area';
+import type { FormData } from '@/types/Form/teamEdit';
+import type { FieldData } from '@/types/Form/FormFieldProps';
 
 interface SelectFieldProps {
   control: Control<FormData>;
   name: string;
-  options: OptionsOrGroups<any, GroupBase<any>> | undefined;
-  defaultValue?: SupervisorField[] | AreaField[];
-  onChange?: (e: AreaField[]) => any;
+  options: FieldData | FieldData[] | undefined;
+  defaultValue?: FieldData | FieldData[];
+  onChange?: (e: FieldData[]) => any;
   isClearable?: boolean;
   isMulti?: boolean;
   rule: boolean;
@@ -37,7 +37,7 @@ export const SelectField = ({
           isMulti={isMulti}
           isSearchable={true}
           onChange={onChange}
-          options={options}
+          options={options as any}
           placeholder={'Seleccionar...'}
         />
       )}

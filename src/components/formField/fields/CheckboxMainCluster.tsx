@@ -6,11 +6,11 @@ import { useAppDispatch, useAppSelector } from '@/lib';
 
 import { setFavouriteClousters } from '@/lib/store/cluster/clusterSlice';
 import { ErrorDisplay } from '@/components/error/ErrorDisplay';
-import { FormValidations } from '@/utils/TeamsFormUtils';
+import { FormValidations } from '@/utils/formTeams/TeamsFormUtils';
 
 import type { Props } from '@/types/Form/FormFieldProps';
 
-export const SelectFieldMainCluster = ({ control, errors }: Props): ReactNode => {
+export const CheckboxMainCluster = ({ control, errors }: Props): ReactNode => {
   const dispatch = useAppDispatch();
   const { clustersGroup, favouriteCluster } = useAppSelector((state) => state.cluster);
 
@@ -35,6 +35,7 @@ export const SelectFieldMainCluster = ({ control, errors }: Props): ReactNode =>
               clustersGroup.map((cluster, index) => {
                 return (
                   <Checkbox
+                    id={`field-${cluster.value}`}
                     key={index}
                     {...field}
                     value={cluster.value?.toString()}
