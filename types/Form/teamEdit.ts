@@ -35,7 +35,7 @@ export interface FormData extends Team, Cluster, FieldValues {
   supervisorField: FieldData;
   primary_file?: string;
   secondary_file?: string;
-  cluster_favourite: string[];
+  cluster_favourite: Array<number | null>;
   cluster_id: number[];
   area_id: number[];
   area?: string;

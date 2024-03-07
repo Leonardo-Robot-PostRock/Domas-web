@@ -42,9 +42,7 @@ export const useFormSubmit = (primaryFile: FilePondFile[], secondaryFile: FilePo
     }
 
     data.cluster_id = clustersGroup.map((item) => Number(item.value));
-    data.cluster_favourite = favouriteCluster
-      .filter((item) => item.isChecked)
-      .map((item) => item.cluster_id?.toString() ?? '');
+    data.cluster_favourite = favouriteCluster.filter((item) => item.isChecked).map((item) => item.cluster_id);
 
     data.area_id = areaGroup.map((item) => Number(item.value));
 
