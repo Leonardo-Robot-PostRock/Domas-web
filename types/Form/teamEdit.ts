@@ -28,15 +28,18 @@ export interface Params {
   mesa_username: string;
 }
 
-export interface FormData extends Team, Cluster, FieldValues {
+export interface FormData extends TeamBase, Cluster, FieldValues {
   leader?: LeaderField;
+  supervisor: { value: number; label: string } | undefined;
   assistant?: AssitantField;
   users_id: number[];
   supervisorField: FieldData;
-  primary_file?: string;
-  secondary_file?: string;
+  primary_file: string;
+  secondary_file: string;
   cluster_favourite: Array<number | null>;
   cluster_id: number[];
-  area_id: number[];
+  area_id: Array<number | []> | undefined;
   area?: string;
 }
+
+export interface TeamBase extends Omit<Team, 'supervisor' | 'areas'> {}

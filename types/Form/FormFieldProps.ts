@@ -1,15 +1,15 @@
-import type { Control, FieldError, Message, UseFormRegister, ValidationRule } from 'react-hook-form';
+import type { Control, FieldError, Message, UseFormRegister } from 'react-hook-form';
 import type { FormData } from './teamEdit';
 
 export interface FormFieldProps {
-  id: string;
+  id?: string;
   [key: string]: any;
   errors: Record<string, FieldError>;
-  label: string;
+  label?: string;
   name: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   register: UseFormRegister<FormData>;
-  validation?: Message | ValidationRule<boolean>;
+  validation?: Message | undefined;
 }
 
 export interface DynamicLabel {

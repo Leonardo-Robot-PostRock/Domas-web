@@ -6,6 +6,7 @@ export interface FormDataItem {
   title: string;
   name: string;
   setFile: (file: FilePondFile[]) => void;
+  validation: string;
 }
 
 export interface GenerateFormDataFunction {
