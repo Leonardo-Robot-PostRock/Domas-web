@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useTheme } from '@table-library/react-table-library/theme';
 import { DEFAULT_OPTIONS, getTheme } from '@table-library/react-table-library/chakra-ui';
 
 const mantineTheme = getTheme({
   ...DEFAULT_OPTIONS,
-  striped: false,
+  striped: false
 });
 
 const customTheme = {
@@ -30,8 +31,7 @@ const customTheme = {
   `,
   Header: `
     .th {
-      color: white;
-      background-color: #82AAE3;
+      color: rgb(130, 170, 227);
       text-align: center;
       font-size: 10px;
       white-space: normal;
@@ -69,7 +69,7 @@ const customTheme = {
     .td:first-of-type, div {
       padding: 0;
     }
-  `,
+  `
 };
 
 export const tableStyle = useTheme([mantineTheme, customTheme]);
