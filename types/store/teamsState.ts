@@ -1,3 +1,4 @@
+import type { TeamEdit } from '../Form/teamEdit';
 import type { Team, Technician } from '../api/teams';
 
 export interface TeamsState {
@@ -5,5 +6,5 @@ export interface TeamsState {
   error: string | null;
   loading: boolean;
   teams: Team[];
-  teamEdit?: Team | null;
+  teamEdit?: TeamEdit | null;
 }
