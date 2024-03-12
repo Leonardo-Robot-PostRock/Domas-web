@@ -1,12 +1,12 @@
 import { FormValidations } from './TeamsFormUtils';
 
-// Array para campos genéricos
+// Array for team name, google calendar and mesa username
 export const genericFormFields = [
   {
     id: 'nameField',
     label: 'Nombre*',
     name: 'name',
-    validation: FormValidations.REQUIRED
+    validation: FormValidations.NAME_REQUIRED
   },
   {
     id: 'calendarField',
@@ -18,7 +18,7 @@ export const genericFormFields = [
     id: 'usermesaField',
     label: 'Usuario de mesa*',
     name: 'mesa_username',
-    validation: FormValidations.REQUIRED
+    validation: FormValidations.MESA_USERNAME
   }
 ];
 

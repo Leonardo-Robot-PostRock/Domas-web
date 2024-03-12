@@ -12,12 +12,11 @@ export const getDefaultValues = (teamData: TeamEdit): DefaultValues<FormData> | 
     supervisor_id,
     min_tickets_to_do,
     max_tickets_to_do_only_omnichannel,
-    supervisor,
     technicians,
     starting_point
   } = teamData;
 
-  const supervisorOption = supervisor_id ? { value: supervisor_id, label: supervisor ?? '' } : undefined;
+  const supervisor = supervisor_id ? { value: supervisor_id, label: teamData.supervisor ?? '' } : undefined;
   const leaderOption = getLeaderOption({ technicians, mesa_username });
   const assistantOption = getAssistantOption({ technicians, mesa_username });
 
@@ -27,7 +26,7 @@ export const getDefaultValues = (teamData: TeamEdit): DefaultValues<FormData> | 
     google_calendar_id,
     min_tickets_to_do,
     max_tickets_to_do_only_omnichannel,
-    supervisorOption,
+    supervisor,
     leader: leaderOption,
     assistant: assistantOption,
     starting_point

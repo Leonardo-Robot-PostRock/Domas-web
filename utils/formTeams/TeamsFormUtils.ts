@@ -1,16 +1,19 @@
 import type { DynamicHelperText, DynamicLabel } from '@/types/Form/FormFieldProps';
 
 export const FormValidations = {
-  REQUIRED: 'Este campo es obligatorio.',
+  AREA_REQUIRED: 'Por favor, seleccione un area.',
+  ASSISTANT_REQUIRED: 'Por favor, seleccione un auxiliar.',
+  CLUSTER_CONF_REQUIRED: 'Por favor, seleccione al menos un grupo principal de cluster.',
+  CLUSTER_REQUIRED: 'Por favor, seleccione al menos un cluster.',
   GEOLOCATION:
     'Por favor, ingresa una geolocalización válida en el formato de ejemplo -32.88674234061537, -68.85978536314231',
   GOOGLE_CALENDAR_ID: 'Por favor, ingresa un ID válido para Google Calendar.',
-  SUPERVISOR_REQUIRED: 'Por favor, selecciona un supervisor.',
-  CLUSTER_REQUIRED: 'Por favor, selecciona al menos un cluster.',
-  CLUSTER_CONF_REQUIRED: 'Por favor, selecciona al menos un grupo principal de cluster.',
+  LIDER_REQUIRED: 'Por favor, seleccione un lider.',
+  PHOTO_ASSISTANT_REQUIRED: 'Por favor, adjunta una foto del auxiliar.',
   PHOTO_LEADER_REQUIRED: 'Por favor, adjunta una foto del líder.',
-  ASSISTANT_REQUIRED: 'Por favor, selecciona un auxiliar.',
-  PHOTO_ASSISTANT_REQUIRED: 'Por favor, adjunta una foto del auxiliar.'
+  MESA_USERNAME: 'Por favor, ingrese nombre de usuario de mesa',
+  NAME_REQUIRED: 'Por favor, ingrese nombre de la cuadrilla',
+  SUPERVISOR_REQUIRED: 'Por favor, seleccione un supervisor.'
 };
 
 export const dynamicLabel: DynamicLabel = {
