@@ -5,6 +5,8 @@ import { setTeamEdit } from '@/lib/store/teams/teamsSlice';
 
 import { Box, HStack } from '@chakra-ui/react';
 import { CompactTable } from '@table-library/react-table-library/compact';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { useColumnsTableTeams } from '@/hooks/tableTeams/useColumnsTableTeams';
 import { useModalContext } from '@/hooks/tableTeams/useModalContext';
@@ -72,9 +74,10 @@ export const Table = (): ReactNode => {
         />
       </Box>
 
-      <PaginationComponent pagination={pagination} />
-      <DynamicFormModal />
       <DeleteTeamModal />
+      <DynamicFormModal />
+      <PaginationComponent pagination={pagination} />
+      <ToastContainer />
     </>
   );
 };
