@@ -1,9 +1,15 @@
 import { useEffect, type ReactNode, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '@/lib';
-import { setAreaGroup } from '@/lib/store/area/areaSlice';
+import { useAppSelector } from '@/lib';
 import { Flex, Text } from '@chakra-ui/react';
 
-import { useDataInitialization, useFetchFormData, useFormData, useFormSubmit } from '@/hooks/form/';
+import {
+  useDataInitialization,
+  useFetchFormData,
+  useFormData,
+  useFormSubmit,
+  useFormFileField,
+  useFormFieldsSelect
+} from '@/hooks/form/';
 import { useModalContext } from '@/hooks/tableTeams/useModalContext';
 
 import { FilepondComponent } from '@/components/FilepondComponent/FilepondComponent';
@@ -18,19 +24,17 @@ import {
 } from '@/components/formField/';
 import { SubmitButton } from '@/components/buttons/SubmitButton';
 import { BackButton } from '@/components/buttons/BackButton';
-import { generateFormFileField, genericFormFields, ticketFormFields } from '@/utils/formTeams/';
+import { genericFormFields, ticketFormFields } from '@/utils/formTeams/';
 import type { FilePondFile } from 'filepond';
 
 export const TeamsForm = (): ReactNode => {
-  const dispatch = useAppDispatch();
-  const { area, areaGroup } = useAppSelector((state) => state.area);
-  const { supervisorsDataField, showSupervisorField } = useAppSelector((state) => state.supervisor);
   const { technicianDataField } = useAppSelector((state) => state.technicians);
   // useState for handle images files
   const [primaryFile, setPrimaryFile] = useState<FilePondFile[]>([]);
   const [secondaryFile, setSecondaryFile] = useState<FilePondFile[]>([]);
   // Array for files field
-  const formFileField = generateFormFileField({ primaryFile, setPrimaryFile, secondaryFile, setSecondaryFile });
+  const formFileField = useFormFileField({ primaryFile, setPrimaryFile, secondaryFile, setSecondaryFile });
+  const formFieldsSelect = useFormFieldsSelect();
   // Custom hooks to manage method onSubmit, todo fetch to the api/teams, initialize data and to handle the modal form.
   const teamEdit = useDataInitialization();
   const { fetchData } = useFetchFormData();
@@ -60,7 +64,7 @@ export const TeamsForm = (): ReactNode => {
       style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '20px', width: '100%' }}
       onKeyDown={handleKeyDown}
     >
-      {/* ---- name, google calendar and mesa username fields  ---- */}
+      {/* ---- team name, google calendar and mesa username fields  ---- */}
       {genericFormFields.map((field) => (
         <FormField
           errors={errors}
@@ -83,12 +87,25 @@ export const TeamsForm = (): ReactNode => {
           register={register}
         />
       ))}
-      {/* ---- Supervisor field ---- */}
-      {showSupervisorField && (
-        <FormFieldLayout>
-          <Text mb="10px">Supervisor*</Text>
-          <SelectField control={control} name="supervisor" options={supervisorsDataField} rule={true} />
-        </FormFieldLayout>
+      {/* ---- Supervisor and Area fields ---- */}
+      {formFieldsSelect.map(
+        (field) =>
+          field.showCondition && (
+            <FormFieldLayout errors={errors} name={field.name} key={field.id}>
+              <Text mb="10px">{field.label}</Text>
+              <SelectField
+                key={field.id}
+                control={control}
+                errors={errors}
+                name={field.name}
+                options={field.options}
+                dataInit={field.dataInit}
+                rule={true}
+                dispatchAction={field.dispatchAction}
+                validation={field.validation}
+              />
+            </FormFieldLayout>
+          )
       )}
       {/* ---- Cluster field ---- */}
       <FormFieldLayout errors={errors} name="cluster">
@@ -100,33 +117,21 @@ export const TeamsForm = (): ReactNode => {
         <Text mb="10px">Grupo principal del cluster</Text>
         <CheckboxMainCluster control={control} errors={errors} />
       </FormFieldLayout>
-      {/* ---- Area field ---- */}
-      <FormFieldLayout errors={errors} name="area">
-        <Text mb="10px">Area*</Text>
-        <SelectField
-          control={control}
-          name="area"
-          defaultValue={areaGroup}
-          options={area}
-          onChange={(e) => {
-            dispatch(setAreaGroup(e));
-          }}
-          rule={!(areaGroup.length > 0)}
-        />
-      </FormFieldLayout>
       {/* ---- Starting point field ---- */}
-      <FormFieldStartingPoint
-        id="startingPointField"
-        errors={errors}
-        label="Punto de partida*"
-        name="starting_point"
-        register={register}
-      />
+      <FormFieldStartingPoint errors={errors} name="starting_point" register={register} />
       {/* ---- Select leader, assistant fields and upload photos with FilePond ---- */}
       {formFileField.map((data) => (
-        <FormFieldLayout key={data.title} errors={errors} name={data.name}>
+        <FormFieldLayout errors={errors} name={data.name} key={data.title}>
           <Text mb="10px">{data.label}</Text>
-          <SelectField control={control} name={data.name} options={technicianDataField} rule={true} />
+          <SelectField
+            key={data.name}
+            control={control}
+            name={data.name}
+            options={technicianDataField}
+            rule={true}
+            errors={errors}
+            validation={data.validation}
+          />
           <FilepondComponent file={data.file} title={data.title} setFile={data.setFile} />
         </FormFieldLayout>
       ))}
