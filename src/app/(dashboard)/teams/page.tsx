@@ -6,21 +6,31 @@ import { fetchTeams } from '@/lib/store/teams/thunks';
 
 import { Box, Text } from '@chakra-ui/react';
 
-import { toastError } from '@/components/toast/toastError';
 import { Table } from '@/components/ui/table/Table';
 import { ModalProvider } from '@/context/ModalProvider';
+import { toast } from 'react-toastify';
+import Loading from '@/app/loading';
 
 export default function Teams(): ReactNode {
   const dispatch = useAppDispatch();
-  const teams = useAppSelector((state) => state.teams.teams);
+  const { teams, loading } = useAppSelector((state) => state.teams);
 
   useEffect(() => {
-    void dispatch(fetchTeams());
+    void (async () => {
+      await dispatch(fetchTeams());
+    })();
   }, [dispatch]);
 
-  if (!teams.length) {
-    toastError('Ocurrió un error al intentar mostrar las cuadrillas.');
-    return null;
+  useEffect(() => {
+    if (!loading) {
+      if (!(teams.length > 0)) {
+        toast.error('Ocurrió un error al intentar mostrar las cuadrillas.');
+      }
+    }
+  }, [teams, loading]);
+
+  if (loading) {
+    return <Loading />;
   }
 
   return (
