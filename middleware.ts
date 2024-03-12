@@ -1,17 +1,18 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { Role } from '@/types/api/login';
+/* eslint-disable @typescript-eslint/naming-convention */
+import { type NextRequest, NextResponse } from 'next/server';
+import { type Role } from '@/types/api/login';
 
 import fetch from 'isomorphic-unfetch';
 
-export async function middleware(request: NextRequest) {
-  const session = request.cookies.get('auth_service');
+export async function middleware(request: NextRequest): Promise<NextResponse> {
+  const token = request.cookies.get('auth_service');
 
-  if (session) {
+  if (token) {
     const auth_session_url = `${process.env.AUTH_BASE_URL}/session`;
     const auth_response = await fetch(auth_session_url, {
       headers: {
-        Cookie: `auth_service=${session.value}`,
-      },
+        Cookie: `auth_service=${token.value}`
+      }
     });
     const session_status = auth_response.status;
 
@@ -22,7 +23,7 @@ export async function middleware(request: NextRequest) {
       const { pathname } = request.nextUrl;
 
       if (!user.roles.includes('ADMINISTRADOR')) {
-        if (pathname == '/') {
+        if (pathname === '/') {
           if (user.roles.includes('TECNICO')) {
             return NextResponse.redirect(`${process.env.APP_URL}/ticket/todo`);
           } else if (user.roles.includes('SUPERVISOR') && !user.roles.includes('CALLCENTER')) {
@@ -33,44 +34,44 @@ export async function middleware(request: NextRequest) {
             return NextResponse.redirect(`${process.env.APP_URL}/callcenter/tickets-assigned`);
           }
         } else if (
-          pathname == '/orders' ||
-          pathname == '/today_orders' ||
-          pathname == '/teams' ||
-          pathname == '/roadmaps' ||
-          pathname == '/calendar' ||
-          pathname == '/dashboard' ||
-          pathname == '/activity'
+          pathname === '/orders' ||
+          pathname === '/today_orders' ||
+          pathname === '/teams' ||
+          pathname === '/roadmaps' ||
+          pathname === '/calendar' ||
+          pathname === '/dashboard' ||
+          pathname === '/activity'
         ) {
           // Rutas exclusivamente para rol SUPERVISOR
 
           if (!user.roles.includes('SUPERVISOR') || user.roles.includes('CALLCENTER')) {
             return NextResponse.redirect(`${process.env.APP_URL}/`);
           }
-        } else if (pathname == '/ticket/todo') {
+        } else if (pathname === '/ticket/todo') {
           // Rutas exclusivamente para rol TECNICO
 
           if (!user.roles.includes('TECNICO')) {
             return NextResponse.redirect(`${process.env.APP_URL}/`);
           }
-        } else if (pathname == '/coordinations' || pathname == '/coordinateTk') {
+        } else if (pathname === '/coordinations' || pathname === '/coordinateTk') {
           // Rutas exclusivamente para rol COORDINADOR
 
           if (!user.roles.includes('COORDINADOR')) {
             return NextResponse.redirect(`${process.env.APP_URL}/`);
           }
-        } else if (pathname == '/users') {
+        } else if (pathname === '/users') {
           // Rutas exclusivamente para rol ADMINISTRADOR
 
           if (!user.roles.includes('ADMINISTRADOR')) {
             return NextResponse.redirect(`${process.env.APP_URL}/`);
           }
-        } else if (pathname == '/verify' || pathname == '/callcenter/tickets-assigned') {
+        } else if (pathname === '/verify' || pathname === '/callcenter/tickets-assigned') {
           // Rutas exclusivamente para rol CALL CENTER
 
           if (!user.roles.includes('CALLCENTER')) {
             return NextResponse.redirect(`${process.env.APP_URL}/`);
           }
-        } else if (pathname == '/search-tk') {
+        } else if (pathname === '/search-tk') {
           if (user.roles.includes('TECNICO')) {
             return NextResponse.redirect(`${process.env.APP_URL}/`);
           }
@@ -101,6 +102,6 @@ export const config = {
     '/today_orders',
     '/search-tk',
     '/callcenter/tickets-assigned',
-    '/mesa/:path*',
-  ],
+    '/mesa/:path*'
+  ]
 };
