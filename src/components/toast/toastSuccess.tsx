@@ -1,16 +1,27 @@
 import type { ReactNode } from 'react';
-import type { Message } from 'react-hook-form';
-import { type ToastPosition, toast } from 'react-hot-toast';
+import { type Id, toast, type ToastOptions } from 'react-toastify';
 
-export const toastSuccess = (message: Message, position = 'top'): ReactNode =>
-  toast.success(message, {
-    id: message,
-    duration: 5000,
-    position: `${position} center` as ToastPosition,
-    style: {
-      border: '3px solid #6cc683',
-      backgroundColor: '#EBF7EE',
-      borderRadius: '15px',
-      boxShadow: '0px 2px 22px 0px rgba(56,178,88,0.20)'
-    }
-  });
+interface AlertMessageProps {
+  title: string;
+  text: string;
+}
+
+export const AlertMessage = ({ title, text }: AlertMessageProps): ReactNode => {
+  return (
+    <div className="msg-container">
+      <p className="msg-title">{title}</p>
+      <p className="msg-description">{text}</p>
+    </div>
+  );
+};
+
+interface ToasterProps {
+  title: string;
+  text: string;
+}
+
+export const toaster = (myProps: ToasterProps, toastProps: ToastOptions): Id =>
+  toast(<AlertMessage {...myProps} />, { ...toastProps });
+
+toaster.success = (myProps: ToasterProps, toastProps: ToastOptions): Id =>
+  toast.success(<AlertMessage {...myProps} />, { ...toastProps });
