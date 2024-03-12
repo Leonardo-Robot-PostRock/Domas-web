@@ -27,7 +27,7 @@ export const CheckboxMainCluster = ({ control, errors }: Props): ReactNode => {
     <>
       <Controller
         control={control}
-        name="clusterConfig"
+        name="cluster_favourite"
         rules={{ required: false }}
         render={({ field }) => (
           <Flex direction="column" wrap="wrap">
@@ -35,13 +35,14 @@ export const CheckboxMainCluster = ({ control, errors }: Props): ReactNode => {
               clustersGroup.map((cluster, index) => {
                 return (
                   <Checkbox
+                    w="max-content"
                     id={`field-${cluster.value}`}
                     key={index}
                     {...field}
                     value={cluster.value?.toString()}
                     isChecked={favouriteCluster.find((item) => item.cluster_id === cluster.value)?.isChecked ?? false}
                     onChange={(event) => {
-                      handleCheckbox(event, cluster.value);
+                      handleCheckbox(event, cluster.value as number | null);
                     }}
                   >
                     <Text>{cluster.label}</Text>
@@ -52,7 +53,7 @@ export const CheckboxMainCluster = ({ control, errors }: Props): ReactNode => {
         )}
       />
 
-      <ErrorDisplay errors={errors?.clusterConfig} message={FormValidations.REQUIRED} />
+      <ErrorDisplay errors={errors?.favouriteCluster} message={FormValidations.CLUSTER_CONF_REQUIRED} />
     </>
   );
 };

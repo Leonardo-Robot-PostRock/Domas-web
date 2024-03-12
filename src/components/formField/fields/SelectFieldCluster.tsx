@@ -49,7 +49,7 @@ export const SelectFieldCluster = ({ control, errors }: Props): ReactNode => {
           />
         )}
       />
-      <ErrorDisplay errors={errors?.cluster} message={FormValidations.REQUIRED} />
+      <ErrorDisplay errors={errors?.cluster} message={FormValidations.CLUSTER_REQUIRED} />
     </>
   );
 };

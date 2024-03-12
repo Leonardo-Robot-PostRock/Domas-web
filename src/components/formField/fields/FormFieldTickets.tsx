@@ -9,17 +9,17 @@ import { LabelTooltip } from '@/components/tooltips/LabelTooltip';
 import { Label } from '@/components/label/Label';
 import { ErrorDisplay } from '@/components/error/ErrorDisplay';
 
-export const FormFieldTickets = ({ id, label, name, register, errors }: FormFieldProps): ReactNode => {
+export const FormFieldTickets = ({ label, name, register, errors }: FormFieldProps): ReactNode => {
   return (
     <FormControl isInvalid={!!errors[name]}>
-      <Label id={id} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <Label id="tickets" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         {label}
         <LabelTooltip
           label={label === 'Mínimo de tickets a realizar' ? dynamicLabel.minTicketsTodo : dynamicLabel.maxTicketsTodo}
         />
       </Label>
       <Input
-        id={id}
+        id="tickets"
         autoComplete={name}
         type="text"
         {...register(name, { min: { value: 1, message: 'El valor mínimo es 1' } })}

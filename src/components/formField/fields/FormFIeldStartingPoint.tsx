@@ -7,12 +7,12 @@ import { Label } from '@/components/label/Label';
 import { ErrorDisplay } from '@/components/error/ErrorDisplay';
 import { FormValidations } from '@/utils/formTeams/TeamsFormUtils';
 
-export const FormFieldStartingPoint = ({ id, label, name, register, errors }: FormFieldProps): ReactNode => {
+export const FormFieldStartingPoint = ({ name, register, errors }: FormFieldProps): ReactNode => {
   return (
     <FormControl isInvalid={!!errors[name]}>
-      <Label id={id} label={label} />
+      <Label id="startingPointField" label="Punto de partida*" />
       <Input
-        id={id}
+        id="startingPointField"
         type="text"
         placeholder="Ej: -34.603722, -58.381592"
         {...register('starting_point', {
