@@ -4,31 +4,28 @@ import axios, { isAxiosError } from 'axios';
 
 import { processImage } from '@/utils/processImages';
 
-import type { ImageFile, RequestObject } from '@/types/api/request';
+import type { NextRequest } from 'next/server';
+import type { FormData } from '@/types/Form/teamEdit';
 
-export async function POST(request: RequestObject): Promise<Response | undefined> {
+export async function POST(request: NextRequest): Promise<Response | undefined> {
   const token = request.cookies.get('auth_service');
 
-  const body: ImageFile = request.body;
-  const { primary_file, secondary_file } = body;
-
-  console.log(request.body.primary_file);
-  console.log(request.body.secondary_file);
+  const body: FormData = await request.json();
 
   if (!token) return redirect(`${process.env.APP_URL}/login`);
 
-  if (request.body.primary_file) {
-    request.body.primary_file = processImage(primary_file);
+  if (body.primary_file) {
+    body.primary_file = await processImage(body.primary_file);
   }
 
-  if (request.body.secondary_file) {
-    request.body.secondary_file = await processImage(secondary_file);
+  if (body.secondary_file) {
+    body.secondary_file = await processImage(body.secondary_file);
   }
 
   const teamsUrl = `${process.env.AUTH_BASE_URL}/v1/team`;
 
   try {
-    const teamsResponse = await axios.post(teamsUrl, request.body, {
+    const teamsResponse = await axios.post(teamsUrl, body, {
       headers: {
         Cookie: `auth_service=${token.value}`
       }

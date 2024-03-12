@@ -1,13 +1,14 @@
 import { redirect } from 'next/navigation';
 import axios, { isAxiosError } from 'axios';
-import type { GetParams, RequestObject } from '@/types/api/request';
+import type { GetParams } from '@/types/api/request';
+import type { NextRequest } from 'next/server';
 
-export async function DELETE(request: RequestObject, { params }: { params: GetParams }): Promise<Response | undefined> {
+export async function DELETE(request: NextRequest, { params }: { params: GetParams }): Promise<Response | undefined> {
   const token = request.cookies.get('auth_service');
 
   if (!token) return redirect(`${process.env.APP_URL}/login`);
 
-  const id = params.id;
+  const { id } = params;
 
   const url = `${process.env.AUTH_BASE_URL}/v1/team/${id}`;
 
@@ -16,8 +17,6 @@ export async function DELETE(request: RequestObject, { params }: { params: GetPa
       Cookie: `auth_service=${token.value}`
     }
   });
-
-  console.log('TEAMS RESPONSE: ', teamsResponse.data);
 
   try {
     return new Response(JSON.stringify(teamsResponse.data), {

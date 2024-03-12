@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation';
 import axios, { isAxiosError } from 'axios';
-import type { RequestObject } from '@/types/api/request';
+import type { NextRequest } from 'next/server';
 
-export async function GET(request: RequestObject): Promise<Response | undefined> {
+export async function GET(request: NextRequest): Promise<Response | undefined> {
   const token = request.cookies.get('auth_service');
 
   if (!token) return redirect(`${process.env.APP_URL}/login`);

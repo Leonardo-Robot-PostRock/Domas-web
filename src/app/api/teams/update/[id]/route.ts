@@ -3,31 +3,33 @@ import { redirect } from 'next/navigation';
 import axios, { isAxiosError } from 'axios';
 
 import { processImage } from '@/utils/processImages';
-import type { ImageFile, GetParams, RequestObject } from '@/types/api/request';
+import type { NextResponse } from 'next/server';
+import type { FormData } from '@/types/Form/teamEdit';
 
-export async function PATCH(request: RequestObject, { params }: { params: GetParams }): Promise<Response | undefined> {
+export async function PATCH(
+  request: NextResponse,
+  { params }: { params: { id: string } }
+): Promise<Response | undefined> {
   const token = request.cookies.get('auth_service');
+
+  const { id } = params;
 
   if (!token) return redirect(`${process.env.APP_URL}/login`);
 
-  const id = params.id;
-
-  const body: ImageFile = request.body;
-
-  const { primary_file, secondary_file } = body;
+  const body: FormData = await request.json();
 
   const updateTeamUrl = `${process.env.AUTH_BASE_URL}/v1/team/${id}/update`;
 
-  if (request.body.primary_file) {
-    request.body.primary_file = processImage(primary_file);
+  if (body.primary_file) {
+    body.primary_file = await processImage(body.primary_file);
   }
 
-  if (request.body.secondary_file) {
-    request.body.secondary_file = processImage(secondary_file);
+  if (body.secondary_file) {
+    body.secondary_file = await processImage(body.secondary_file);
   }
 
   try {
-    const teamsResponse = await axios.patch(updateTeamUrl, request.body, {
+    const teamsResponse = await axios.patch(updateTeamUrl, body, {
       headers: {
         Cookie: `auth_service=${token.value}`
       }
