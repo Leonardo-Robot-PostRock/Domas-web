@@ -1,12 +1,12 @@
 import { useDisclosure } from '@chakra-ui/react';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { ModalContext } from './ModalContext';
 
 interface ModalProviderProps {
   children: ReactNode;
 }
 
-export const ModalProvider = ({ children }: ModalProviderProps) => {
+export const ModalProvider = ({ children }: ModalProviderProps): ReactNode => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isOpenDelete, onOpen: onOpenDelete, onClose: onCloseDelete } = useDisclosure();
 
@@ -16,7 +16,7 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
     onClose,
     isOpenDelete,
     onOpenDelete,
-    onCloseDelete,
+    onCloseDelete
   };
 
   return <ModalContext.Provider value={props}>{children}</ModalContext.Provider>;

@@ -15,10 +15,6 @@ export interface AssitantField {
   label: string;
 }
 
-export interface EditProps {
-  dataToEdit: TeamEdit;
-}
-
 export interface ItemTeam {
   item: Team;
 }
