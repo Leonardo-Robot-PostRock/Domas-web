@@ -4,10 +4,11 @@ import { ChakraButton } from './ChakraButton';
 export const CancelButton = ({ title, onClose }: { title: string; onClose: () => void }): ReactNode => {
   return (
     <ChakraButton
-      _hover={{ bg: '#EEEEEE' }}
-      bg={'transparent'}
-      border={'1px solid #D7D5D5'}
+      _hover={{ bg: '#EEEEEE', color: 'rgb(130, 170, 227)' }}
+      bg={'tranparent'}
+      border={'1px solid rgb(130, 170, 227)'}
       colorScheme="ghost"
+      color={'rgb(130, 170, 270)'}
       fontSize="14px"
       fontWeight="medium"
       onClick={onClose}

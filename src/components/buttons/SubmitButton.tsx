@@ -4,7 +4,7 @@ import { ChakraButton } from './ChakraButton';
 export const SubmitButton = ({ title }: { title: string }): ReactNode => {
   return (
     <ChakraButton
-      type="button"
+      type="submit"
       width="200px"
       fontWeight="medium"
       fontSize="14px"
