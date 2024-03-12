@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 import type { Team } from '@/types/api/teams';
 import type { TeamsState } from '@/types/store/teamsState';
+import type { TeamEdit } from '@/types/Form/teamEdit';
 
 const initialState: TeamsState = {
   technicianDataField: [],
@@ -28,7 +29,7 @@ const teamsSlice = createSlice({
       state.loading = action.payload;
     },
 
-    setTeamEdit(state, action: PayloadAction<Team | null>) {
+    setTeamEdit(state, action: PayloadAction<TeamEdit | null>) {
       state.teamEdit = action.payload;
     },
 
