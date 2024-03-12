@@ -15,10 +15,6 @@ const teamsSlice = createSlice({
   name: 'teams',
   initialState,
   reducers: {
-    addNewTeam(state, action: PayloadAction<Team[]>) {
-      state.teams = action.payload;
-    },
-
     setDeleteTeam(state, action) {
       const teamId = action.payload;
       state.teams = state.teams.filter((team) => team.id !== teamId);
@@ -51,7 +47,6 @@ const teamsSlice = createSlice({
   }
 });
 
-export const { addNewTeam, setDeleteTeam, setError, setLoading, setTeamEdit, setTeams, updateTeam } =
-  teamsSlice.actions;
+export const { setDeleteTeam, setError, setLoading, setTeamEdit, setTeams, updateTeam } = teamsSlice.actions;
 
 export default teamsSlice.reducer;

@@ -4,7 +4,7 @@ import type { FieldData } from '@/types/Form/FormFieldProps';
 
 const initialState: AreaData = {
   area: [],
-  areaGroup: []
+  areaGroup: [{ value: '', label: 'Seleccionar...' }]
 };
 
 const areasSlice = createSlice({

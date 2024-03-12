@@ -4,7 +4,11 @@ import type { FieldData } from '@/types/Form/FormFieldProps';
 
 const initialState: SupervisorData = {
   showSupervisorField: false,
-  supervisorsDataField: { value: '', label: 'Seleccionar...' }
+  supervisorsDataField: [],
+  supervisorInField: {
+    value: '',
+    label: 'Seleccionar...'
+  }
 };
 
 const supervisorSlice = createSlice({
@@ -15,12 +19,16 @@ const supervisorSlice = createSlice({
       state.showSupervisorField = action.payload;
     },
 
-    setSupervisorsDataField(state, action: PayloadAction<FieldData>) {
+    setSupervisorsDataField(state, action: PayloadAction<FieldData[]>) {
       state.supervisorsDataField = action.payload;
+    },
+
+    setSupervisorInField(state, action: PayloadAction<FieldData>) {
+      state.supervisorInField = action.payload;
     }
   }
 });
 
-export const { setShowSupervisorField, setSupervisorsDataField } = supervisorSlice.actions;
+export const { setShowSupervisorField, setSupervisorsDataField, setSupervisorInField } = supervisorSlice.actions;
 
 export default supervisorSlice.reducer;
