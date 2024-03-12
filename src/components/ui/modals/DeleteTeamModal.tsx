@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { MouseEventHandler, ReactNode } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib';
 import {
   Alert,
@@ -16,11 +16,12 @@ import {
 
 import { useModalContext } from '@/hooks/tableTeams/useModalContext';
 
-import { toastSuccess } from '@/components/toast';
 import type { Technician } from '@/types/api/teams';
 import { deleteTeam } from '@/lib/store/teams/thunks';
 import { CancelButton } from '@/components/buttons/CancelButton';
 import { DeleteButton } from '@/components/buttons/DeleteButton';
+
+type FuncType = () => MouseEventHandler<HTMLButtonElement>;
 
 export const DeleteTeamModal = (): ReactNode => {
   const dispatch = useAppDispatch();
@@ -30,15 +31,8 @@ export const DeleteTeamModal = (): ReactNode => {
 
   const handleDeleteTeam = async (): Promise<void> => {
     if (teamEdit) {
-      try {
-        await dispatch(deleteTeam(teamEdit.id));
-        void toastSuccess(`La cuadrilla ${teamEdit?.name} ha sido eliminada`);
-      } catch (error) {
-        // Manejar cualquier error que ocurra durante el dispatch
-        console.error('Error al eliminar el equipo:', error);
-      }
+      await dispatch(deleteTeam(teamEdit.id));
     }
-
     onCloseDelete();
   };
 
@@ -48,7 +42,7 @@ export const DeleteTeamModal = (): ReactNode => {
       <ModalContent>
         <ModalHeader textAlign="center">{`¿Eliminar cuadrilla ${teamEdit?.name}?`}</ModalHeader>
         <ModalBody textAlign="center">
-          <Text>{`¿Estás seguro que quieres eliminar a la cuadrilla ${teamEdit?.name}?`}</Text>
+          <Text>{`¿Estás seguro qué quieres eliminar la cuadrilla ${teamEdit?.name}?`}</Text>
           <Text fontWeight="bold">Esta acción no se puede deshacer.</Text>
           <Alert status="error" mt="20px" mb="10px" textAlign="start" rounded="lg">
             <AlertIcon />
@@ -62,7 +56,7 @@ export const DeleteTeamModal = (): ReactNode => {
         <ModalFooter>
           <Flex justifyContent="center" w="full" gap={5}>
             <CancelButton title="Cancelar" onClose={onCloseDelete} />
-            <DeleteButton title="Eliminar" onDelete={() => handleDeleteTeam} />
+            <DeleteButton title="Eliminar" onDelete={handleDeleteTeam as unknown as FuncType} />
           </Flex>
         </ModalFooter>
       </ModalContent>
