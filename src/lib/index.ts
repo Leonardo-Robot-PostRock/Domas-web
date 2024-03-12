@@ -4,7 +4,6 @@ import { type TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux
 // Slices
 import areaSlice from './store/area/areaSlice';
 import clusterSlice from './store/cluster/clusterSlice';
-import formSlice from './store/formData/formSlice';
 import supervisorSlice from './store/supervisor/supervisorSlice';
 import teamsSlice from './store/teams/teamsSlice';
 import teamsTableSlice from './store/teamsTable/teamsTableSlice';
@@ -14,7 +13,6 @@ export const store = configureStore({
   reducer: {
     area: areaSlice,
     cluster: clusterSlice,
-    form: formSlice,
     supervisor: supervisorSlice,
     teams: teamsSlice,
     teamsTable: teamsTableSlice,
