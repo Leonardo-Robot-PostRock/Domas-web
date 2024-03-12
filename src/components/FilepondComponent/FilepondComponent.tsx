@@ -22,20 +22,14 @@ interface FilepondComponentProps {
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginFileEncode);
 
 export const FilepondComponent = ({ file, title, setFile }: FilepondComponentProps): ReactNode => {
-  const initialFiles: FilePondInitialFile[] = file.map((file: FilePondFile) => ({
-    source: file.file.name, // file name selected
-    options: {
-      type: 'local',
-      file: file.file
-    }
-  }));
+  const files = [...file] as unknown as Array<string | Blob | FilePondInitialFile>;
 
   return (
     <FormControl>
       <Text my="10px">{title}</Text>
       <FilePond
         key={title}
-        files={initialFiles}
+        files={files}
         onupdatefiles={setFile}
         allowMultiple={false}
         maxFiles={1}
