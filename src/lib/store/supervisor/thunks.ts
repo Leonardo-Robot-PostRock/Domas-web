@@ -17,7 +17,7 @@ export const fetchSupervisors = (): AsyncThunkAction => async (dispatch) => {
     if (isAdmin) {
       const response = await axios.get('/api/supervisor/all');
       const supervisors = response.data.users;
-      const supervisorDataField: FieldData = supervisors.map((item: User) => ({
+      const supervisorDataField: FieldData[] = supervisors.map((item: User) => ({
         value: item.id,
         label: item.name
       }));
