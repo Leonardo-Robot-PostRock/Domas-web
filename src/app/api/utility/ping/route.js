@@ -12,8 +12,8 @@ export default async function POST(req, res) {
       {
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': process.env.DB_CONNECT_API_KEY,
-        },
+          'x-api-key': process.env.DB_CONNECT_API_KEY
+        }
       }
     )
     .then((response) => {

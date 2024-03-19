@@ -10,8 +10,8 @@ export default async function GET(req, res) {
   let response = await axios
     .get(`${process.env.AUTH_BASE_URL}/v1/customer/cpe-password?ip=${ip}`, {
       headers: {
-        Cookie: `auth_service=${session}`,
-      },
+        Cookie: `auth_service=${session}`
+      }
     })
     .then((response) => {
       //console.log(response.data);
