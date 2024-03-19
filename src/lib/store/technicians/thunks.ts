@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import axios from 'axios';
 
 import { setTechnicianDataField } from './techniciansSlice';
@@ -8,7 +9,7 @@ import type { Technician, User } from '@/types/api/technician';
 import type { Team } from '@/types/api/teams';
 import type { FieldData } from '@/types/Form/FormFieldProps';
 
-export const fetchTechnician = (): AsyncThunkAction => async (dispatch, getState) => {
+export const fetchTechnicianDataField = (): AsyncThunkAction => async (dispatch, getState) => {
   const dataTeams: Team[] = getState().teams.teams;
 
   try {
