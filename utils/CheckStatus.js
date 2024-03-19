@@ -8,7 +8,7 @@ export async function checkTicketStatus(ticket) {
       return {
         status: 'online',
         tech: res.data.tech,
-        verifiedAt: new Date(),
+        verifiedAt: new Date()
       };
     })
     .catch((err) => {
@@ -32,7 +32,7 @@ export async function checkTicketStatus(ticket) {
       return {
         status: statusMessage,
         tech: okam_response ? okam_response.tech : null,
-        verifiedAt: new Date(),
+        verifiedAt: new Date()
       };
     });
 }
@@ -50,7 +50,7 @@ export async function checkClosedTicketStatus(ticket) {
           translation = await axios
             .post(`/api/okam/translateMsg`, {
               msg_code: data.okam_diagnostic.msg_code,
-              msg_en: data.okam_diagnostic.diagnostic,
+              msg_en: data.okam_diagnostic.diagnostic
             })
             .then((res) => res.data)
             .catch((err) => {
@@ -69,14 +69,14 @@ export async function checkClosedTicketStatus(ticket) {
 
       return {
         error: true,
-        message: 'La respuesta de OKAM no incluye un diagnóstico. Debe verificar el ticket con Soporte.',
+        message: 'La respuesta de OKAM no incluye un diagnóstico. Debe verificar el ticket con Soporte.'
       };
     })
     .catch((err) => {
       console.log(err);
       return {
         error: true,
-        message: 'Hubo un error inesperado al realizar el diagnóstico con OKAM. Debe verificar el ticket con Soporte.',
+        message: 'Hubo un error inesperado al realizar el diagnóstico con OKAM. Debe verificar el ticket con Soporte.'
       };
     });
 }

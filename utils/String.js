@@ -11,7 +11,7 @@ export function replaceSpecialChars(str) {
     í: 'i',
     ó: 'o',
     ú: 'u',
-    ñ: 'n',
+    ñ: 'n'
     // add more special characters and their replacements here
   };
 

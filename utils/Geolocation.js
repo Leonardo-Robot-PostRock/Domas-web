@@ -65,7 +65,7 @@ export function calculateCluster(geojsonFeatures, coordinates) {
   let distances = geojsonFeatures.map((c) => {
     return {
       cluster: c.feature.properties.cluster,
-      distance: turf.pointToLineDistance(point, turf.polygonToLineString(c.feature)),
+      distance: turf.pointToLineDistance(point, turf.polygonToLineString(c.feature))
     };
   });
   let min_distance = Math.min(...distances.map((d) => d.distance));
@@ -118,7 +118,7 @@ export function convertirCoordenadas(coordenadas) {
   if (m) {
     return [
       (m[1] * 1 + m[2] / 60 + m[3] / 3600) * ('Nn'.indexOf(m[4]) >= 0 ? 1 : -1),
-      (m[5] * 1 + m[6] / 60 + m[7] / 3600) * ('Ee'.indexOf(m[8]) >= 0 ? 1 : -1),
+      (m[5] * 1 + m[6] / 60 + m[7] / 3600) * ('Ee'.indexOf(m[8]) >= 0 ? 1 : -1)
     ].join(',');
   }
   return false;
