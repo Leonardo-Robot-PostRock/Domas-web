@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode, useState } from 'react';
-import { useAppSelector } from '@/lib';
+import { useAppDispatch, useAppSelector } from '@/lib';
 import { Flex, Text } from '@chakra-ui/react';
 
 import {
@@ -26,20 +26,22 @@ import { SubmitButton } from '@/components/buttons/SubmitButton';
 import { BackButton } from '@/components/buttons/BackButton';
 import { genericFormFields, ticketFormFields } from '@/utils/formTeams/';
 import type { FilePondFile } from 'filepond';
+import { SelectFieldTech } from '@/components/formField/fields/SelectFIeldTech';
+import { setSelectedTechnician } from '@/lib/store/technicians/techniciansSlice';
 
 export const TeamsForm = (): ReactNode => {
   const { technicianDataField } = useAppSelector((state) => state.technicians);
-  // useState for handle images files
+  const dispatch = useAppDispatch();
+
   const [primaryFile, setPrimaryFile] = useState<FilePondFile[]>([]);
   const [secondaryFile, setSecondaryFile] = useState<FilePondFile[]>([]);
-  // Array for files field
+
   const formFileField = useFormFileField({ primaryFile, setPrimaryFile, secondaryFile, setSecondaryFile });
   const formFieldsSelect = useFormFieldsSelect();
-  // Custom hooks to manage method onSubmit, todo fetch to the api/teams, initialize data and to handle the modal form.
+
   const teamEdit = useDataInitialization();
   const { fetchData } = useFetchFormData();
   const { onClose } = useModalContext();
-  const onSubmit = useFormSubmit(primaryFile, secondaryFile);
 
   const {
     register,
@@ -50,7 +52,13 @@ export const TeamsForm = (): ReactNode => {
 
   useEffect(() => {
     void fetchData();
-  }, [fetchData]);
+    return () => {
+      dispatch(setSelectedTechnician({ field: 'leader', technicians: { value: '', label: '' } }));
+      dispatch(setSelectedTechnician({ field: 'assistant', technicians: { value: '', label: '' } }));
+    };
+  }, [fetchData, dispatch]);
+
+  const onSubmit = useFormSubmit(primaryFile, secondaryFile);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>): void => {
     if (event.key === 'Enter') {
@@ -64,7 +72,6 @@ export const TeamsForm = (): ReactNode => {
       style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '20px', width: '100%' }}
       onKeyDown={handleKeyDown}
     >
-      {/* ---- team name, google calendar and mesa username fields  ---- */}
       {genericFormFields.map((field) => (
         <FormField
           errors={errors}
@@ -76,7 +83,6 @@ export const TeamsForm = (): ReactNode => {
           validation={field.validation}
         />
       ))}
-      {/* ---- Tickets form fields ---- */}
       {ticketFormFields.map((field) => (
         <FormFieldTickets
           key={field.id}
@@ -87,7 +93,6 @@ export const TeamsForm = (): ReactNode => {
           register={register}
         />
       ))}
-      {/* ---- Supervisor and Area fields ---- */}
       {formFieldsSelect.map(
         (field) =>
           field.showCondition && (
@@ -107,23 +112,19 @@ export const TeamsForm = (): ReactNode => {
             </FormFieldLayout>
           )
       )}
-      {/* ---- Cluster field ---- */}
       <FormFieldLayout errors={errors} name="cluster">
         <Text mb="10px">Cluster*</Text>
         <SelectFieldCluster control={control} errors={errors} />
       </FormFieldLayout>
-      {/* ---- Main cluster checkbox ---- */}
       <FormFieldLayout>
         <Text mb="10px">Grupo principal del cluster</Text>
         <CheckboxMainCluster control={control} errors={errors} />
       </FormFieldLayout>
-      {/* ---- Starting point field ---- */}
       <FormFieldStartingPoint errors={errors} name="starting_point" register={register} />
-      {/* ---- Select leader, assistant fields and upload photos with FilePond ---- */}
       {formFileField.map((data) => (
         <FormFieldLayout errors={errors} name={data.name} key={data.title}>
           <Text mb="10px">{data.label}</Text>
-          <SelectField
+          <SelectFieldTech
             key={data.name}
             control={control}
             name={data.name}
