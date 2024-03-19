@@ -34,11 +34,11 @@ export interface TicketHistory {
 }
 
 export enum Description {
-  CreaciónDeOrdenDeTrabajo = 'Creación de orden de trabajo.',
+  CreaciónDeOrdenDeTrabajo = 'Creación de orden de trabajo.'
 }
 
 export enum TicketStatus {
-  Pendiente = 'PENDIENTE',
+  Pendiente = 'PENDIENTE'
 }
 
 export interface Customer {
@@ -70,7 +70,7 @@ export enum TicketCategory {
   PreventivoLujan = 'PREVENTIVO LUJAN',
   Redireccionar = 'REDIRECCIONAR',
   SinInternetSantaTeresita = 'SIN INTERNET - SANTA TERESITA',
-  WifiHome = 'WIFI HOME',
+  WifiHome = 'WIFI HOME'
 }
 
 export interface Worker {

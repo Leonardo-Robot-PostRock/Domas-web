@@ -18,5 +18,5 @@ export interface User {
 export type Password = string;
 
 export enum Status {
-  Active = 'active',
+  Active = 'active'
 }

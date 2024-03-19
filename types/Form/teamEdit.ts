@@ -5,16 +5,6 @@ import type { FieldData } from './FormFieldProps';
 
 export interface TeamEdit extends Team {}
 
-export interface LeaderField {
-  value: number;
-  label: string;
-}
-
-export interface AssitantField {
-  value: number;
-  label: string;
-}
-
 export interface ItemTeam {
   item: Team;
 }
@@ -25,9 +15,9 @@ export interface Params {
 }
 
 export interface FormData extends TeamBase, Cluster, FieldValues {
-  leader?: LeaderField;
+  leader?: FieldData;
   supervisor: { value: number; label: string } | undefined;
-  assistant?: AssitantField;
+  assistant?: FieldData;
   users_id: number[];
   supervisorField: FieldData;
   primary_file: string;
