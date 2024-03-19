@@ -16,17 +16,18 @@ import { FilepondComponent } from '@/components/FilepondComponent/FilepondCompon
 import {
   FormField,
   FormFieldTickets,
-  SelectField,
-  SelectFieldCluster,
   CheckboxMainCluster,
   FormFieldStartingPoint,
-  FormFieldLayout
+  FormFieldLayout,
+  SelectField,
+  SelectFieldCluster,
+  SelectFieldTech
 } from '@/components/formField/';
 import { SubmitButton } from '@/components/buttons/SubmitButton';
 import { BackButton } from '@/components/buttons/BackButton';
 import { genericFormFields, ticketFormFields } from '@/utils/formTeams/';
 import type { FilePondFile } from 'filepond';
-import { SelectFieldTech } from '@/components/formField/fields/SelectFIeldTech';
+import {} from '@/components/formField/fields/SelectFieldTech';
 import { setSelectedTechnician } from '@/lib/store/technicians/techniciansSlice';
 
 export const TeamsForm = (): ReactNode => {

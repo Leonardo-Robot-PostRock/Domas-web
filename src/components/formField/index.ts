@@ -4,4 +4,5 @@ export * from './fields/FormField';
 export * from './fields/FormFieldTickets';
 export * from './fields/SelectField';
 export * from './fields/SelectFieldCluster';
+export * from './fields/SelectFieldTech';
 export * from './FormFieldLayout';
