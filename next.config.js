@@ -8,10 +8,10 @@ const nextConfig = {
     SOLDEF_URL: process.env.SOLDEF_URL,
     APP_ENV: process.env.APP_ENV,
     MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
-    AUTH_BASE_URL: process.env.AUTH_BASE_URL,
+    AUTH_BASE_URL: process.env.AUTH_BASE_URL
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: true
   },
   images: {
     remotePatterns: [
@@ -19,9 +19,9 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'admin.nape.ar',
         port: '',
-        pathname: '/logo/*',
-      },
-    ],
+        pathname: '/logo/*'
+      }
+    ]
   },
   webpack: (config) => {
     config.module.rules.push(
@@ -31,22 +31,22 @@ const nextConfig = {
           {
             loader: 'file-loader',
             options: {
-              outputPath: 'static', // or any other path where you want to store the assets
-            },
-          },
-        ],
+              outputPath: 'static' // or any other path where you want to store the assets
+            }
+          }
+        ]
       },
       {
         test: /\.(node)$/i,
         loader: 'file-loader',
         options: {
-          outputPath: 'static', // or any other path where you want to store the assets
-        },
+          outputPath: 'static' // or any other path where you want to store the assets
+        }
       }
     );
 
     return config;
-  },
+  }
 };
 
 module.exports = nextConfig;

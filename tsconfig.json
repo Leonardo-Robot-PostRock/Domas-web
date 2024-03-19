@@ -16,8 +16,8 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next",
-      },
+        "name": "next"
+      }
     ],
     "paths": {
       "@/*": ["./src/*"],
@@ -27,9 +27,9 @@
       "@/shared/*": ["src/components/shared/*"],
       "@/utils/*": ["utils/*"],
       "@/styles/*": ["styles/*"],
-      "@/types/*": ["types/*"],
-    },
+      "@/types/*": ["types/*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "middleware.js"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }

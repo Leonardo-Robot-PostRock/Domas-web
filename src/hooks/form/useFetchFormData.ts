@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useAppDispatch } from '@/lib';
 import { fetchArea } from '@/lib/store/area/thunks';
 import { fetchCluster } from '@/lib/store/cluster/thunks';
-import { fetchTechnician } from '@/lib/store/technicians/thunks';
+import { fetchTechnicianDataField } from '@/lib/store/technicians/thunks';
 import { fetchSupervisors } from '@/lib/store/supervisor/thunks';
 import { toast } from 'react-toastify';
 
@@ -20,7 +20,7 @@ export const useFetchFormData = (): UseFetchFormData => {
       await Promise.all([
         dispatch(fetchArea()),
         dispatch(fetchCluster()),
-        dispatch(fetchTechnician()),
+        dispatch(fetchTechnicianDataField()),
         dispatch(fetchSupervisors())
       ]);
     } catch (error) {

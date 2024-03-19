@@ -3,12 +3,12 @@ import { Poppins } from 'next/font/google';
 
 const poppins = Poppins({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  subsets: ['latin'],
+  subsets: ['latin']
 });
 
 const config = {
   initialColorMode: 'light',
-  useSystemColorMode: false,
+  useSystemColorMode: false
 };
 
 const theme = extendTheme({
@@ -16,25 +16,25 @@ const theme = extendTheme({
   styles: {
     global: (props) => ({
       body: {
-        backgroundColor: props.colorMode === 'light' ? '#edf2f7' : '#282f44',
+        backgroundColor: props.colorMode === 'light' ? '#edf2f7' : '#282f44'
       },
       input: {
-        fontSize: '14px !important',
+        fontSize: '14px !important'
       },
       label: {
-        fontSize: '14px !important',
+        fontSize: '14px !important'
       },
       '.chakra-select ': {
-        fontSize: '14px !important',
+        fontSize: '14px !important'
       },
       '.chakra-radio__label ': {
-        fontSize: '14px !important',
+        fontSize: '14px !important'
       },
       '.chakra-form__helper-text': {
-        fontSize: '13px !important',
+        fontSize: '13px !important'
       },
       '.react-datepicker__input-container': {
-        height: '100%',
+        height: '100%'
       },
       '.react-datepicker__input-container input': {
         display: 'block',
@@ -44,13 +44,13 @@ const theme = extendTheme({
         borderTopRightRadius: '7px',
         borderBottomRightRadius: '7px',
         fontSize: '14px',
-        height: '100%',
-      },
-    }),
+        height: '100%'
+      }
+    })
   },
   fonts: {
     body: poppins.style.fontFamily,
-    heading: poppins.style.fontFamily,
+    heading: poppins.style.fontFamily
   },
   components: {
     Button: {
@@ -63,12 +63,12 @@ const theme = extendTheme({
           color: 'white',
           rounded: 'xl',
           _hover: {
-            bg: '#085AFF',
-          },
-        },
-      },
-    },
-  },
+            bg: '#085AFF'
+          }
+        }
+      }
+    }
+  }
 });
 
 export default theme;

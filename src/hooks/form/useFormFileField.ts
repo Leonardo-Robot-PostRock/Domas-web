@@ -1,3 +1,4 @@
+import { useAppSelector } from '@/lib';
 import type { FormDataItem, GenerateFormDataFunction } from '@/types/Form/generateFormData';
 import { FormValidations } from '@/utils/formTeams';
 
@@ -7,16 +8,20 @@ export const useFormFileField = ({
   secondaryFile,
   setSecondaryFile
 }: GenerateFormDataFunction): FormDataItem[] => {
+  const selectedTechnicians = useAppSelector((state) => state.technicians.selectedTechnicians);
+
   return [
     {
-      label: 'Lider*',
-      title: 'Foto del lider',
-      name: 'leader',
+      dataInit: selectedTechnicians.leader,
       file: primaryFile,
+      label: 'Lider*',
+      name: 'leader',
       setFile: setPrimaryFile,
+      title: 'Foto del lider',
       validation: FormValidations.LIDER_REQUIRED
     },
     {
+      dataInit: selectedTechnicians.assistant,
       label: 'Auxiliar*',
       title: 'Foto del técnico asistente',
       name: 'assistant',

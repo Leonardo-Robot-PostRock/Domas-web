@@ -1,135 +1,138 @@
 /* Clase para controlar la transición de opacidad */
 .transition-icon {
-    transition: opacity 0.3s;
+  transition: opacity 0.3s;
 }
 
 /* Clase para animar la entrada de un icono */
 .fade-in {
-    opacity: 0;
-    animation: fadeInAnimation 0.3s forwards;
+  opacity: 0;
+  animation: fadeInAnimation 0.3s forwards;
 }
 
 @keyframes fadeInAnimation {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Clase para animar la salida de un icono */
 .fade-out {
-    opacity: 1;
-    animation: fadeOutAnimation 0.3s forwards;
+  opacity: 1;
+  animation: fadeOutAnimation 0.3s forwards;
 }
 
 @keyframes fadeOutAnimation {
-    from {
-        opacity: 1;
-    }
+  from {
+    opacity: 1;
+  }
 
-    to {
-        opacity: 0;
-    }
+  to {
+    opacity: 0;
+  }
 }
 
 /* Clase para controlar la transición de la leyenda */
 .transition-label {
-    transition: opacity 0.3s, transform 0.3s;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
 }
 
 /* Clase para controlar la transición del botón */
 .transition-button {
-    transition: opacity 0.3s, background-color 0.3s;
-  }
-  
-  /* Clase para animar la entrada de la leyenda */
-  .slide-in {
+  transition:
+    opacity 0.3s,
+    background-color 0.3s;
+}
+
+/* Clase para animar la entrada de la leyenda */
+.slide-in {
+  opacity: 0;
+  transform: translateX(100%);
+  animation: slideInAnimation 0.3s forwards;
+}
+
+@keyframes slideInAnimation {
+  from {
     opacity: 0;
     transform: translateX(100%);
-    animation: slideInAnimation 0.3s forwards;
   }
-  
-  @keyframes slideInAnimation {
-    from {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0%);
-    }
-  }
-  
-  /* Clase para animar la salida de la leyenda */
-  .slide-out {
+  to {
     opacity: 1;
     transform: translateX(0%);
-    animation: slideOutAnimation 0.3s forwards;
   }
-  
-  @keyframes slideOutAnimation {
-    from {
-      opacity: 1;
-      transform: translateX(0%);
-    }
-    to {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-  }
-  
-  /* Clase para animar el desplazamiento del icono de check hacia la izquierda */
-  .move-left {
-    animation: moveLeftAnimation 0.3s forwards;
-  }
-  
-  @keyframes moveLeftAnimation {
-    from {
-      transform: translateX(0%);
-    }
-    to {
-      transform: translateX(-20%);
-    }
-  }
-  
+}
 
-  .tooltip {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: #33334d;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 4px;
-    font-size: 14px;
-    font-weight: 500;
-  
-    /* Position the tooltip */
-    position: absolute;
-    bottom: 42px;
-    left: -50px;
-    z-index: 1;
-  }
-  
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-  }
+/* Clase para animar la salida de la leyenda */
+.slide-out {
+  opacity: 1;
+  transform: translateX(0%);
+  animation: slideOutAnimation 0.3s forwards;
+}
 
-  .tooltiptext::after {
-    content: " ";
-    position: absolute;
-    top: 100%; /* At the bottom of the tooltip */
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
+@keyframes slideOutAnimation {
+  from {
+    opacity: 1;
+    transform: translateX(0%);
   }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Clase para animar el desplazamiento del icono de check hacia la izquierda */
+.move-left {
+  animation: moveLeftAnimation 0.3s forwards;
+}
+
+@keyframes moveLeftAnimation {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-20%);
+  }
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #33334d;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 4px;
+  font-size: 14px;
+  font-weight: 500;
+
+  /* Position the tooltip */
+  position: absolute;
+  bottom: 42px;
+  left: -50px;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltiptext::after {
+  content: ' ';
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}

@@ -22,11 +22,11 @@ export const useFormSubmit = (primaryFile: FilePondFile[], secondaryFile: FilePo
     data.users_id = [];
 
     if (data.leader) {
-      data.users_id.push(data.leader.value);
+      data.users_id.push(Number(data.leader.value));
     }
 
     if (data.assistant) {
-      data.users_id.push(data.assistant.value);
+      data.users_id.push(Number(data.assistant.value));
     }
 
     delete data.supervisor;
