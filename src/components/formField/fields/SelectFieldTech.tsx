@@ -21,7 +21,6 @@ export const SelectFieldTech = ({
   control,
   errors,
   isClearable,
-  isMulti,
   name,
   options,
   validation
@@ -44,10 +43,8 @@ export const SelectFieldTech = ({
           <Select
             {...field}
             isClearable={isClearable}
-            isMulti={isMulti}
             isSearchable={true}
             onChange={(selectedOption: FieldData & FieldData[]) => {
-              console.log('from Select: ', selectedOption);
               dispatch(setSelectedTechnician({ field: name, technicians: selectedOption }));
               field.onChange(selectedOption);
             }}
