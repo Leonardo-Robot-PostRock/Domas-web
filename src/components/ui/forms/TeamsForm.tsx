@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '@/lib';
+import { useAppSelector } from '@/lib';
 import { Flex, Text } from '@chakra-ui/react';
 
 import {
@@ -28,11 +28,9 @@ import { BackButton } from '@/components/buttons/BackButton';
 import { genericFormFields, ticketFormFields } from '@/utils/formTeams/';
 import type { FilePondFile } from 'filepond';
 import {} from '@/components/formField/fields/SelectFieldTech';
-import { setSelectedTechnician } from '@/lib/store/technicians/techniciansSlice';
 
 export const TeamsForm = (): ReactNode => {
   const { technicianDataField } = useAppSelector((state) => state.technicians);
-  const dispatch = useAppDispatch();
 
   const [primaryFile, setPrimaryFile] = useState<FilePondFile[]>([]);
   const [secondaryFile, setSecondaryFile] = useState<FilePondFile[]>([]);
@@ -53,11 +51,7 @@ export const TeamsForm = (): ReactNode => {
 
   useEffect(() => {
     void fetchData();
-    return () => {
-      dispatch(setSelectedTechnician({ field: 'leader', technicians: { value: '', label: '' } }));
-      dispatch(setSelectedTechnician({ field: 'assistant', technicians: { value: '', label: '' } }));
-    };
-  }, [fetchData, dispatch]);
+  }, [fetchData]);
 
   const onSubmit = useFormSubmit(primaryFile, secondaryFile);
 
@@ -130,7 +124,6 @@ export const TeamsForm = (): ReactNode => {
             control={control}
             name={data.name}
             options={technicianDataField}
-            rule={true}
             errors={errors}
             validation={data.validation}
           />
