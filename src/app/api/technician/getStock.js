@@ -39,20 +39,20 @@ export default async function handler(req, res) {
       }
     })
     .then((response) => {
-      console.log(response.data);
+      response.data;
       return response;
     })
     .catch((error) => {
       if (error.response) {
         // The request was made and the server responded with a status code that falls out of the range of 2xx
-        console.log(error.response.data);
+        error.response.data;
       } else if (error.request) {
         // The request was made but no response was received
-        console.log(error.request);
+        error.request;
         console.error(`NO SE PUDO CONECTAR CON EL SERVIDOR: ${error.request._currentUrl ?? 'URL no disponible'}`);
       } else {
         // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
+        'Error', error.message;
       }
 
       return { status: 400, error: true, message: 'Hubo un error al realizar la petición.' };
