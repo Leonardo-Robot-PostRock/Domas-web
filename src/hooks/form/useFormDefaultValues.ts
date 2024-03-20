@@ -11,8 +11,6 @@ const LeaderOption = (): FieldData | undefined => {
   const dispatch = useAppDispatch();
   const leader = technicianDataField.find((tech) => tech.label === selectedTechnicians.leader.label);
 
-  console.log('Leader: ', leader);
-
   useEffect(() => {
     if (leader) {
       dispatch(setSelectedTechnician({ field: 'leader', technicians: leader }));
@@ -26,8 +24,6 @@ const AssistantOption = (): FieldData | undefined => {
   const { technicianDataField, selectedTechnicians } = useAppSelector((state) => state.technicians);
   const dispatch = useAppDispatch();
   const assistant = technicianDataField.find((tech) => tech.label === selectedTechnicians.assistant.label);
-
-  console.log('Assistant: ', assistant);
 
   useEffect(() => {
     if (assistant) {
