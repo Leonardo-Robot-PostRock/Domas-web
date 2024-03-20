@@ -9,13 +9,11 @@ import { setSelectedTechnician } from '@/lib/store/technicians/techniciansSlice'
 
 interface SelectFieldProps {
   control: Control<FormData>;
-  dataInit?: FieldData[] | null | undefined | FieldData;
   errors: Record<string, FieldError>;
   isClearable?: boolean;
   isMulti?: boolean;
   name: string;
   options: FieldData[];
-  rule: boolean;
   validation: string | undefined;
 }
 
@@ -26,15 +24,14 @@ export const SelectFieldTech = ({
   isMulti,
   name,
   options,
-  rule,
   validation
 }: SelectFieldProps): ReactNode => {
   const dispatch = useAppDispatch();
-  const selectedTechnician = useAppSelector((state) => state.technicians.selectedTechnicians);
+  const selectedLeader = useAppSelector((state) => state.technicians.selectedTechnicians.leader);
+  const selectedAssistant = useAppSelector((state) => state.technicians.selectedTechnicians.assistant);
 
   const filteredOptions = options.filter((option: FieldData) => {
-    const isOptionSelected =
-      option.value === selectedTechnician.leader.value || option.value === selectedTechnician.assistant.value;
+    const isOptionSelected = option.value === selectedLeader.value || option.value === selectedAssistant.value;
     return !isOptionSelected;
   });
 
@@ -46,19 +43,19 @@ export const SelectFieldTech = ({
         render={({ field }) => (
           <Select
             {...field}
-            defaultValue={selectedTechnician}
             isClearable={isClearable}
             isMulti={isMulti}
             isSearchable={true}
             onChange={(selectedOption: FieldData & FieldData[]) => {
+              console.log('from Select: ', selectedOption);
               dispatch(setSelectedTechnician({ field: name, technicians: selectedOption }));
               field.onChange(selectedOption);
             }}
             placeholder="Seleccionar..."
-            options={filteredOptions as any}
+            options={filteredOptions}
           />
         )}
-        rules={{ required: rule }}
+        rules={{ required: true }}
       />
       <ErrorDisplay errors={errors[name]} message={validation} />
     </>
