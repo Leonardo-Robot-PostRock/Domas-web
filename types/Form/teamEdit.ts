@@ -11,7 +11,6 @@ export interface ItemTeam {
 
 export interface Params {
   technicians: Technician[];
-  mesa_username: string;
 }
 
 export interface FormData extends TeamBase, Cluster, FieldValues {

@@ -1,8 +1,6 @@
 import type { FilePondFile } from 'filepond';
-import type { FieldData } from './FormFieldProps';
 
 export interface FormDataItem {
-  dataInit: FieldData;
   label: string;
   file: FilePondFile[];
   title: string;
