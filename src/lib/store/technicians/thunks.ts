@@ -21,7 +21,7 @@ export const fetchTechnicianDataField = (): AsyncThunkAction => async (dispatch,
         teamItem.technicians.some((technician) => technician.id === item.id)
       );
 
-      return { value: item.id, label: `${item.name} - ${team ? item.name : 'libre'}` };
+      return { value: item.id, label: `${item.name} - ${team?.name ?? 'libre'}` };
     });
 
     dispatch(setTechnicianDataField(updateTechnicianData));
