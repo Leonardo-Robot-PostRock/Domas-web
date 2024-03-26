@@ -1,9 +1,10 @@
 import { redirect } from 'next/navigation';
 import axios, { isAxiosError } from 'axios';
 
-import type { GetParams, RequestObject } from '@/types/api/request';
+import type { GetParams } from '@/types/api/request';
+import type { NextRequest } from 'next/server';
 
-export async function GET(request: RequestObject, { params }: { params: GetParams }): Promise<Response | undefined> {
+export async function GET(request: NextRequest, { params }: { params: GetParams }): Promise<Response | undefined> {
   const token = request.cookies.get('auth_service');
 
   if (!token) return redirect(`${process.env.APP_URL}/login`);
