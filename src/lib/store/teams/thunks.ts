@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { mutate } from 'swr';
 
-import { setDeleteTeam, setLoading, setTeams } from './teamsSlice';
+import { addTeam, setDeleteTeam, setLoading, setTeams } from './teamsSlice';
 import { toaster } from '@/components/toast';
 
 import { handleAxiosError } from '@/utils/errorHandling';
@@ -42,21 +42,36 @@ export const fetchTeams = (): AsyncThunkAction => {
   };
 };
 
-export const submitTeamData = (data: FormData): AsyncThunkAction => {
-  return async (dispatch, getState) => {
-    const teamEdit = getState().teams.teamEdit;
+export const updateTeamData = (data: FormData, id: number): AsyncThunkAction => {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
     try {
-      const submitUrl = teamEdit ? `/api/teams/update/${teamEdit.id}` : `/api/teams/new`;
-      const submitMethod = teamEdit ? `patch` : 'post';
+      const submitUrl = `/api/teams/update/${id}`;
+      await axios.patch(submitUrl, data);
+      await dispatch(fetchTeams());
 
-      await axios[submitMethod](submitUrl, data);
-      await Promise.all([await mutate('/api/teams/all'), dispatch(fetchTeams())]);
-      toaster.success(
-        { title: data ? 'Cuadrilla modificada exitosamente' : 'Cuadrilla creada exitosamente', text: 'Buen trabajo' },
-        { autoClose: 8000 }
-      );
+      toaster.success({ title: 'Cuadrilla modificada exitosamente', text: 'Buen trabajo' }, { autoClose: 8000 });
     } catch (error) {
       handleAxiosError(dispatch, error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const createTeam = (data: FormData): AsyncThunkAction => {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    try {
+      const submitUrl = '/api/teams/new';
+      const response = await axios.post(submitUrl, data);
+      const createdTeam: Team = response.data;
+      dispatch(addTeam(createdTeam));
+      toaster.success({ title: 'Cuadrilla creada exitosamente', text: 'Buen trabajo' }, { autoClose: 8000 });
+    } catch (error) {
+      handleAxiosError(dispatch, error);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 };

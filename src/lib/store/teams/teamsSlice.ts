@@ -37,6 +37,10 @@ const teamsSlice = createSlice({
       state.teams = action.payload;
     },
 
+    addTeam(state, action: PayloadAction<Team>) {
+      state.teams.push(action.payload);
+    },
+
     updateTeam(state, action: PayloadAction<Team>) {
       state.teams = state.teams.map((team) => {
         if (team.id === action.payload.id) {
@@ -48,6 +52,6 @@ const teamsSlice = createSlice({
   }
 });
 
-export const { setDeleteTeam, setError, setLoading, setTeamEdit, setTeams, updateTeam } = teamsSlice.actions;
+export const { setDeleteTeam, setError, setLoading, setTeamEdit, setTeams, updateTeam, addTeam } = teamsSlice.actions;
 
 export default teamsSlice.reducer;
