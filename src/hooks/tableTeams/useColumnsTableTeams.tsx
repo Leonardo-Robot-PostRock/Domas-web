@@ -36,10 +36,17 @@ export const useColumnsTableTeams = (): TableColumn[] => {
       label: 'Áreas',
       renderCell: (item: Team) => item.areas.map((area) => area.name).join(', ')
     },
-    { label: 'Cluster', renderCell: (item: Team) => item.clusters.map((cluster) => cluster?.name).join(', ') },
+    {
+      label: 'Cluster',
+      renderCell: (item: Team) => <TooltipComponent content={item.clusters.map((cluster) => cluster)} />
+    },
     {
       label: 'Ppal Cluster',
-      renderCell: (item: Team) => item.clusters.find((cluster) => cluster.favourite_group)?.name ?? '-'
+      renderCell: (item: Team) => {
+        const ppalCluster = item.clusters.filter((cluster) => cluster.favourite_group === item.id);
+        const ppalClusterName = ppalCluster ?? '-';
+        return <TooltipComponent content={ppalClusterName} />;
+      }
     },
     { label: 'Tickets diarios mínimo', renderCell: (item: Team) => item.min_tickets_to_do },
     {

@@ -6,13 +6,14 @@ import { FormValidations } from '@/utils/formTeams';
 import type { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
 export interface FormDataItem {
-  id: string;
-  label: string;
-  name: string;
-  showCondition: boolean;
-  options: string | FieldData | FieldData[];
   dataInit: FieldData[] | FieldData | null;
   dispatchAction: ActionCreatorWithPayload<FieldData[]> | ActionCreatorWithPayload<FieldData>;
+  id: string;
+  isMulti: boolean;
+  label: string;
+  name: string;
+  options: string | FieldData | FieldData[];
+  showCondition: boolean;
   validation: string;
 }
 
@@ -22,23 +23,25 @@ export const useFormFieldsSelect = (): FormDataItem[] => {
 
   return [
     {
-      id: 'supervisorField',
-      label: 'Supervisor*',
-      name: 'supervisor',
-      showCondition: showSupervisorField,
-      options: supervisorsDataField,
       dataInit: supervisorInField,
       dispatchAction: setSupervisorInField,
+      id: 'supervisorField',
+      isMulti: false,
+      label: 'Supervisor*',
+      name: 'supervisor',
+      options: supervisorsDataField,
+      showCondition: showSupervisorField,
       validation: FormValidations.SUPERVISOR_REQUIRED
     },
     {
-      id: 'areaField',
-      label: 'Area*',
-      name: 'area',
-      showCondition: true,
-      options: area,
       dataInit: areaGroup,
       dispatchAction: setAreaGroup,
+      id: 'areaField',
+      isMulti: true,
+      label: 'Area*',
+      name: 'area',
+      options: area,
+      showCondition: true,
       validation: FormValidations.AREA_REQUIRED
     }
   ];

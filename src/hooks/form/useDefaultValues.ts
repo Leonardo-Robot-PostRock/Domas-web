@@ -5,6 +5,7 @@ import { setSelectedTechnician } from '@/lib/store/technicians/techniciansSlice'
 import type { DefaultValues } from 'react-hook-form';
 import type { FieldData } from '@/types/Form/FormFieldProps';
 import type { FormData, Params, TeamEdit } from '@/types/Form/teamEdit';
+import { ClusterOptions, FavouriteClusters, areaOption } from '@/utils/formTeams/DataInitialization';
 
 const LeaderOption = ({ technicians }: Params): FieldData | undefined => {
   const dispatch = useAppDispatch();
@@ -44,7 +45,7 @@ const AssistantOption = ({ technicians }: Params): FieldData | undefined => {
   }
 };
 
-export const useFormDefaultValues = (teamData: TeamEdit | null | undefined): DefaultValues<FormData> | undefined => {
+export const useDefaultValues = (teamData: TeamEdit | null | undefined): DefaultValues<FormData> | undefined => {
   if (!teamData) return {};
 
   const {
@@ -53,7 +54,9 @@ export const useFormDefaultValues = (teamData: TeamEdit | null | undefined): Def
     mesa_username,
     supervisor_id,
     min_tickets_to_do,
+    areas,
     technicians,
+    clusters,
     max_tickets_to_do_only_omnichannel,
     starting_point
   } = teamData;
@@ -61,6 +64,9 @@ export const useFormDefaultValues = (teamData: TeamEdit | null | undefined): Def
   const supervisor = supervisor_id ? { value: supervisor_id, label: teamData.supervisor ?? '' } : undefined;
   const leader = LeaderOption({ technicians });
   const assistant = AssistantOption({ technicians });
+  const cluster = ClusterOptions({ clusters });
+  FavouriteClusters({ clusters });
+  const area = areaOption({ areas });
 
   return {
     name,
@@ -70,6 +76,8 @@ export const useFormDefaultValues = (teamData: TeamEdit | null | undefined): Def
     max_tickets_to_do_only_omnichannel,
     supervisor,
     leader,
+    cluster,
+    area,
     assistant,
     starting_point
   };

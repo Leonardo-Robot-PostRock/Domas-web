@@ -3,11 +3,17 @@ import { useAppDispatch, useAppSelector } from '@/lib';
 import type { FormData } from '@/types/Form/teamEdit';
 import type { SubmitHandler } from 'react-hook-form';
 import type { User } from '@/types/api/login';
-import { submitTeamData } from '@/lib/store/teams/thunks';
+import { createTeam, updateTeamData } from '@/lib/store/teams/thunks';
 import type { FilePondFile } from 'filepond';
 
-export const useFormSubmit = (primaryFile: FilePondFile[], secondaryFile: FilePondFile[]): SubmitHandler<FormData> => {
+interface FormSubmit {
+  primaryFile: FilePondFile[];
+  secondaryFile: FilePondFile[];
+}
+
+export const useFormSubmit = ({ primaryFile, secondaryFile }: FormSubmit): SubmitHandler<FormData> => {
   const dispatch = useAppDispatch();
+  const teamEdit = useAppSelector((state) => state.teams.teamEdit);
 
   const clustersGroup = useAppSelector((state) => state.cluster.clustersGroup);
   const favouriteCluster = useAppSelector((state) => state.cluster.favouriteCluster);
@@ -44,12 +50,18 @@ export const useFormSubmit = (primaryFile: FilePondFile[], secondaryFile: FilePo
     data.cluster_id = clustersGroup.map((item) => Number(item.value));
     data.cluster_favourite = favouriteCluster.filter((item) => item.isChecked).map((item) => Number(item.cluster_id));
 
-    data.area_id = areaGroup?.length ? areaGroup.map((item) => Number(item.value)) : [];
+    data.area_id = areaGroup.map((item) => Number(item.value));
 
     delete data.cluster;
     delete data.area;
 
-    await dispatch(submitTeamData(data));
+    if (teamEdit?.id) {
+      await dispatch(updateTeamData(data, teamEdit.id));
+    }
+
+    if (!teamEdit?.id) {
+      await dispatch(createTeam(data));
+    }
   };
 
   return onSubmit;
