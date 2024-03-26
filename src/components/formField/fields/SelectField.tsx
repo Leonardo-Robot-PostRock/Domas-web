@@ -49,7 +49,6 @@ export const SelectField = ({
           <Select
             {...field}
             key={field.name}
-            defaultValue={dataInit}
             isClearable={isClearable}
             isMulti={isMulti}
             isSearchable={true}

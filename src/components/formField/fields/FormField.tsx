@@ -10,7 +10,7 @@ export const FormField = ({ id, label, name, register, errors, validation }: For
   return (
     <FormControl isInvalid={!!errors[name]}>
       <Label id={id ?? ''} label={label} />
-      <Input type="text" id={id} {...register(name, { required: validation })} variant="flushed" />
+      <Input type="text" autoComplete="name" id={id} {...register(name, { required: validation })} variant="flushed" />
       <ErrorDisplay errors={errors[name]} message={validation} />
     </FormControl>
   );

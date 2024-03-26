@@ -39,7 +39,7 @@ export const CheckboxMainCluster = ({ control, errors }: Props): ReactNode => {
                     id={`field-${cluster.value}`}
                     key={index}
                     {...field}
-                    value={cluster.value?.toString()}
+                    value={cluster.value as unknown as number}
                     isChecked={favouriteCluster.find((item) => item.cluster_id === cluster.value)?.isChecked ?? false}
                     onChange={(event) => {
                       handleCheckbox(event, cluster.value as number | null);

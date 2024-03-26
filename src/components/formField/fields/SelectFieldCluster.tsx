@@ -42,6 +42,7 @@ export const SelectFieldCluster = ({ control, errors }: Props): ReactNode => {
             isSearchable={true}
             onChange={(option: unknown) => {
               handleClusters(option as FieldData[]);
+              field.onChange(option);
             }}
             options={cluster}
             placeholder={'Seleccionar...'}
