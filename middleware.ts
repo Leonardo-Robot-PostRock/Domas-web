@@ -42,32 +42,22 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
           pathname === '/dashboard' ||
           pathname === '/activity'
         ) {
-          // Rutas exclusivamente para rol SUPERVISOR
-
           if (!user.roles.includes('SUPERVISOR') || user.roles.includes('CALLCENTER')) {
             return NextResponse.redirect(`${process.env.APP_URL}/`);
           }
         } else if (pathname === '/ticket/todo') {
-          // Rutas exclusivamente para rol TECNICO
-
           if (!user.roles.includes('TECNICO')) {
             return NextResponse.redirect(`${process.env.APP_URL}/`);
           }
         } else if (pathname === '/coordinations' || pathname === '/coordinateTk') {
-          // Rutas exclusivamente para rol COORDINADOR
-
           if (!user.roles.includes('COORDINADOR')) {
             return NextResponse.redirect(`${process.env.APP_URL}/`);
           }
         } else if (pathname === '/users') {
-          // Rutas exclusivamente para rol ADMINISTRADOR
-
           if (!user.roles.includes('ADMINISTRADOR')) {
             return NextResponse.redirect(`${process.env.APP_URL}/`);
           }
         } else if (pathname === '/verify' || pathname === '/callcenter/tickets-assigned') {
-          // Rutas exclusivamente para rol CALL CENTER
-
           if (!user.roles.includes('CALLCENTER')) {
             return NextResponse.redirect(`${process.env.APP_URL}/`);
           }
