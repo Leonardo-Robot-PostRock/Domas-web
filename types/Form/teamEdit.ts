@@ -13,18 +13,20 @@ export interface Params {
   technicians: Technician[];
 }
 
-export interface FormData extends TeamBase, Cluster, FieldValues {
+export interface FormData extends TeamBase, ClusterBase, FieldValues {
   leader?: FieldData;
   supervisor: { value: number; label: string } | undefined;
   assistant?: FieldData;
   users_id: number[];
   supervisorField: FieldData;
   primary_file: string;
+  cluster?: FieldData[];
   secondary_file: string;
-  cluster_favourite: Array<number | null>;
+  cluster_favourite: number[];
   cluster_id: number[];
   area_id: Array<number | []> | undefined;
-  area?: string;
+  area?: FieldData[];
 }
 
 export interface TeamBase extends Omit<Team, 'supervisor' | 'areas'> {}
+export interface ClusterBase extends Omit<Cluster, 'cluster'> {}
