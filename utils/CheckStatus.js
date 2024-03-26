@@ -4,7 +4,7 @@ export async function checkTicketStatus(ticket) {
   return await axios
     .get(`/api/okam/status/${ticket.customer.code}?ticket_id=${ticket.id}`)
     .then((res) => {
-      console.log('Ver estado de tickets', res);
+      'Ver estado de tickets', res;
       return {
         status: 'online',
         tech: res.data.tech,
@@ -12,7 +12,6 @@ export async function checkTicketStatus(ticket) {
       };
     })
     .catch((err) => {
-      //console.log(err);
       const status = err.response?.status;
       let okam_response = err.response?.data?.okam_response || null;
 
@@ -73,7 +72,7 @@ export async function checkClosedTicketStatus(ticket) {
       };
     })
     .catch((err) => {
-      console.log(err);
+      err;
       return {
         error: true,
         message: 'Hubo un error inesperado al realizar el diagnóstico con OKAM. Debe verificar el ticket con Soporte.'

@@ -57,7 +57,6 @@ export function calculateCluster(geojsonFeatures, coordinates) {
 
   // * Primer intento: punto dentro de poligono
   let cluster = geojsonFeatures.filter((c) => turf.booleanPointInPolygon(point, c.feature));
-  //console.log(cluster);
 
   if (cluster.length > 0) return cluster[0].feature.properties.cluster;
 
@@ -70,7 +69,6 @@ export function calculateCluster(geojsonFeatures, coordinates) {
   });
   let min_distance = Math.min(...distances.map((d) => d.distance));
   let closest_cluster = distances.find((d) => d.distance === min_distance);
-  //console.log(closest_cluster);
 
   return closest_cluster.cluster;
 }
