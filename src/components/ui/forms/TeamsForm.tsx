@@ -2,14 +2,7 @@ import { useEffect, type ReactNode, useState } from 'react';
 import { useAppSelector } from '@/lib';
 import { Flex, Text } from '@chakra-ui/react';
 
-import {
-  useDataInitialization,
-  useFetchFormData,
-  useFormData,
-  useFormSubmit,
-  useFormFileField,
-  useFormFieldsSelect
-} from '@/hooks/form/';
+import { useFetchFormData, useFormData, useFormSubmit, useFormFileField, useFormFieldsSelect } from '@/hooks/form/';
 import { useModalContext } from '@/hooks/tableTeams/useModalContext';
 
 import { FilepondComponent } from '@/components/FilepondComponent/FilepondComponent';
@@ -31,6 +24,7 @@ import {} from '@/components/formField/fields/SelectFieldTech';
 
 export const TeamsForm = (): ReactNode => {
   const { technicianDataField } = useAppSelector((state) => state.technicians);
+  const teamEdit = useAppSelector((state) => state.teams.teamEdit);
 
   const [primaryFile, setPrimaryFile] = useState<FilePondFile[]>([]);
   const [secondaryFile, setSecondaryFile] = useState<FilePondFile[]>([]);
@@ -38,7 +32,6 @@ export const TeamsForm = (): ReactNode => {
   const formFileField = useFormFileField({ primaryFile, setPrimaryFile, secondaryFile, setSecondaryFile });
   const formFieldsSelect = useFormFieldsSelect();
 
-  const teamEdit = useDataInitialization();
   const { fetchData } = useFetchFormData();
   const { onClose } = useModalContext();
 
@@ -53,7 +46,7 @@ export const TeamsForm = (): ReactNode => {
     void fetchData();
   }, [fetchData]);
 
-  const onSubmit = useFormSubmit(primaryFile, secondaryFile);
+  const onSubmit = useFormSubmit({ primaryFile, secondaryFile });
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>): void => {
     if (event.key === 'Enter') {
@@ -95,6 +88,7 @@ export const TeamsForm = (): ReactNode => {
               <Text mb="10px">{field.label}</Text>
               <SelectField
                 key={field.id}
+                isMulti={field.isMulti}
                 control={control}
                 errors={errors}
                 name={field.name}
